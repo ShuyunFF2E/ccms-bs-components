@@ -1,16 +1,14 @@
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
-import ngResource from 'angular-resource';
 import ccmsComponents from 'ccms-components';
 import detailSelector from './components/detail-selector';
+import conditionSelector from './components/condition-selector';
 
 const version = process.env.version;
 
-const bsComponents = angular.module('bs.components', [
-	uiRouter,
-	ngResource,
+const bsComponents = angular.module('ccms.bs.components', [
 	ccmsComponents,
-	detailSelector
+	detailSelector,
+	conditionSelector
 ]);
 
 bsComponents.version = version;

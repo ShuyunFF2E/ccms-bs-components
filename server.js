@@ -22,6 +22,7 @@ app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(path.resolve('./demos')));
 app.use('/src', express.static(path.resolve('./src')));
+app.use('/node_modules',express.static(path.resolve('./node_modules')));
 
 const port = 8080;
 const host = '0.0.0.0';

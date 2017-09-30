@@ -1,6 +1,6 @@
 (function(angular) {
 	angular
-		.module('app', ['bs.components'])
+		.module('app', ['ccms.bs.components'])
 		.controller('ctrl', function($scope, $bsDetailSelector) {
 
 			$scope.open = function() {

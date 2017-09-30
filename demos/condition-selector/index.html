@@ -5,8 +5,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+	<title>条件选择器</title>
+
 	<script src="/bundle.js"></script>
+
+	<!-- [angular-resource] & [angular-ui-router] 为 [ccms-components] 的依赖 -->
+	<script src="/node_modules/angular-resource/angular-resource.js"></script>
+	<script src="/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+
 	<script src="./index.js"></script>
 	<style>
 		main {
@@ -18,7 +24,7 @@
 <body>
 	<main ng-app="app" ng-controller="ctrl">
 
-		<button ng-click="open()">open modal</button>
+		<button ng-click="open()">选择商品条件</button>
 
 	</main>
 </body>
