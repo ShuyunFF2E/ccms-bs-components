@@ -1,0 +1,35 @@
+<div class="ccms-detail-selector-setter">
+	<div class="field">
+		<h4 class="field-title">配置条件</h4>
+		<div class="field-content">
+			<div class="sub-field">
+				<h5 class="sub-field-title">常用条件</h5>
+				<div class="sub-field-content">
+					<div class="checkbox-holder" ng-repeat="condition in $ctrl.conditions">
+						<cc-checkbox ng-model="condition.selected">{{condition.name}}</cc-checkbox>
+					</div>
+				</div>
+			</div>
+			<div class="sub-field">
+				<h5 class="sub-field-title">可用搜索条件</h5>
+				<div class="sub-field-content">
+					<div class="checkbox-holder" ng-repeat="condition in $ctrl.extendConditions">
+						<cc-checkbox ng-model="condition.selected">{{condition.name}}</cc-checkbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="field">
+		<h4 class="field-title">列表显示字段</h4>
+		<div class="field-content">
+			<div class="sub-field">
+				<div class="sub-field-content">
+					<div class="checkbox-holder" ng-repeat="column in $ctrl.columns">
+						<cc-checkbox ng-model="column.selected">{{column.name}}</cc-checkbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

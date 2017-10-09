@@ -69,7 +69,9 @@
 			"angular/typecheck-function": "off",
 			"angular/typecheck-string": "off",
 			"angular/typecheck-number": "off",
-			"angular/no-service-method": "off"
+			"angular/no-service-method": "off",
+			"angular/window-service": "off",
+			"angular/json-functions": "off"
 		}
 	}
 }

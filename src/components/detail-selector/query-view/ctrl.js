@@ -1,0 +1,76 @@
+import { Inject } from 'angular-es-utils';
+
+@Inject('$scope')
+export default class DetailSelectorQueryViewCtrl {
+
+	constructor() {}
+
+	$onInit() {
+		this.refreshConditions();
+		this.refreshGridColumns();
+	}
+
+	$onChanges(changes) {
+		if (changes.config) {
+
+			const { currentValue, previousValue } = changes.config;
+
+			/**
+			 * 第一次渲染组件的时候也会触发$onChanges事件
+			 * 但此时 changes.config.previousValue 为一个特殊的空值
+			 * 在执行下面代码时会报错，所以使用 try catch 语句包裹一下
+			 */
+			try {
+				// 如果需要显示的列数据修改了则重新重新渲染Grid组件
+				if (hasArrayChanged(currentValue.columns, previousValue.columns)) {
+					this.refreshGridColumns();
+				}
+				// 如果条件配置修改了则重新计算需要显示的条件值
+				if (currentValue.conditions, previousValue.conditions ||
+					currentValue.extendConditions, previousValue.extendConditions) {
+					this.refreshConditions();
+				}
+			} catch (err) {}
+		}
+	}
+
+	// 当前显示的搜索条件集合
+	refreshConditions() {
+		// 常用条件在`配置商品选择器`中选中（selected=true）就显示
+		const conditions = this.config.conditions.filter(item => item.selected).map(getPureItem);
+
+		// 可用搜索条件必须在更多里面选中（selected=true && active=true）才显示
+		const extendConditions = this.config.extendConditions.filter(item => item.selected && item.active).map(item => ({ ...item, isExtend: true /** 可选条件标记 **/ }));
+
+		this.conditions = conditions.concat(extendConditions);
+	}
+
+	// 删除指定的可选条件
+	removeExtendCondition(condition) {
+		this.config.extendConditions.find(item => item.code === condition.code).active = false;
+		this.refreshConditions();
+	}
+
+	// 当前需要显示的数据项
+	refreshGridColumns() {
+		this.gridColumns = this.config.columns.filter(item => item.selected);
+	}
+}
+
+
+// 返回干净的条件/字段数据
+function getPureItem(item) {
+	return {
+		code: item.code,
+		name: item.name,
+		selected: !!item.selected
+	};
+}
+
+// 判断配置项是否改变[columns,conditions,extendConditions]
+function hasArrayChanged(current, previous) {
+	const currentStr = current.filter(item => item.selected).map(item => item.code).join(',');
+	const previousStr = previous.filter(item => item.selected).map(item => item.code).join(',');
+
+	return currentStr !== previousStr;
+}

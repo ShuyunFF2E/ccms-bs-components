@@ -1,1 +1,11 @@
-<div class="ccms-bs-detail-selector">selector</div>
+<div class="ccms-bs-detail-selector">
+	<div class="loading-wrap" ng-show="$ctrl.isFetchingConfig">
+		<cc-loading type="grid"></cc-loading>
+	</div>
+
+	<bs-query-view config="$ctrl.config" ng-if="$ctrl.model==='QUERY'&&!this.isFetchingConfig"></bs-query-view>
+</div>
+
+<div class="setting-wrap" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-left" ng-style="{left:$ctrl.settingIconOffsetLeft}">
+	<span class="iconfont icon-set-up"></span>
+</div>

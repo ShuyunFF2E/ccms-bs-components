@@ -1,0 +1,37 @@
+.ccms-detail-selector-setter {
+	.field {
+		margin-bottom: 20px;
+	}
+	.field-title {
+		margin: 0 0 10px 0;
+		font-weight: normal;
+		color: #444;
+	}
+	.field-content {
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		background-color: #fff;
+		overflow: hidden;
+	}
+	.sub-field {
+		padding: 15px;
+		&:hover {
+			background-color: #f2f7ff;
+		}
+	}
+	.sub-field-title {
+		color: #666;
+		font-weight: normal;
+		margin: 0 0 10px 0;
+	}
+	.checkbox-holder {
+		display: inline-block;
+		width: 150px;
+		margin: 6px 0;
+		position: relative;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}

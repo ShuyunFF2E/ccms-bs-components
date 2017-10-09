@@ -1,3 +1,49 @@
-.ccms-bs-detail-selector{
-	background-color: red;
+.ccms-modal[data-uid*=CCMS_BS_DETAIL_SELECTOR] {
+	.container.modal {
+		.modal-body {
+			overflow: unset;
+		}
+	}
+	.setting-wrap {
+		position: absolute;
+		top: -29px;
+		color: #666;
+		cursor: pointer;
+		&:hover {
+			color: #555;
+		}
+	}
+}
+
+.ccms-bs-detail-selector {
+	height: 100%;
+	display: block;
+	.loading-wrap {
+		position: absolute;
+		z-index: 999;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background-color: rgba(255, 255, 255, 0.6);
+		cc-loading {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -25px;
+			margin-left: -20px;
+		}
+	}
+
+	.btn-text {
+		border: none;
+		min-width: unset;
+		background-color: transparent;
+		&:hover {
+			background-color: transparent;
+		}
+	}
+	.btn-link {
+		color: #60b8d5;
+	}
 }
