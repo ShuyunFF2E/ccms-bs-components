@@ -4,14 +4,17 @@ import angular from 'angular';
 import controller from './ctrl';
 import template from './index.html';
 
-import detailSelectorSelectGrid from './../select-grid';
+import detailSelectorSelectGrid from './../grid';
 
 const DDO = {
 	template,
 	controller,
 	transclude: true,
 	bindings: {
-		config: '<'
+		config: '<',
+		params: '<',
+		advanceSearch: '<',
+		selectType: '<'
 	}
 };
 

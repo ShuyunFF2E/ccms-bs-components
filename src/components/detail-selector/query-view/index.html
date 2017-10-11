@@ -1,10 +1,7 @@
 <div class="query-container">
 	<div class="search-box">
 		<div class="oops">
-			<div class="search-input">
-				<input type="text" placeholder="关键词" />
-				<span class="iconfont icon-search"></span>
-			</div>
+			<bs-search-input ng-model="$ctrl.params.keyword" search="$ctrl.search()" placeholder="'关键字'"></bs-search-input>
 
 			<cc-dropdown class="extend-condition-setter">
 				<button cc-dropdown-toggle cc-tooltip="'添加更多条件'" tooltip-placement="top">
@@ -14,11 +11,13 @@
 				<div cc-dropdown-panel>
 					<div class="extend-condition-text">更多条件</div>
 					<div class="extend-condition-item" ng-repeat="condition in $ctrl.config.extendConditions track by $index" ng-if="condition.selected">
-						<cc-checkbox ng-model="condition.active" ng-change="$ctrl.refreshConditions()">{{condition.name}}</cc-checkbox>
+						<cc-checkbox ng-model="condition.active" ng-change="$ctrl.refreshConditions()">
+							<span title="{{condition.name}}" ng-bind="condition.name"></span>
+						</cc-checkbox>
 					</div>
 				</div>
 			</cc-dropdown>
-			<button class="btn-text btn-link">高级查找</button>
+			<button class="btn-text btn-link" ng-if="$ctrl.advanceSearch">高级查找</button>
 			<button class="btn-text btn-resert">重置</button>
 		</div>
 
@@ -31,6 +30,6 @@
 	</div>
 
 	<div class="result-holder">
-		<bs-select-grid columns="$ctrl.gridColumns"></bs-select-grid>
+		<bs-selector-grid columns="$ctrl.gridColumns" type="$ctrl.selectType"></bs-selector-grid>
 	</div>
 </div>

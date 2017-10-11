@@ -55,6 +55,10 @@ export default class DetailSelectorQueryViewCtrl {
 	refreshGridColumns() {
 		this.gridColumns = this.config.columns.filter(item => item.selected);
 	}
+
+	search() {
+		console.log(this.params.keyword);
+	}
 }
 
 

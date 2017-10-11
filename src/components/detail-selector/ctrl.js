@@ -26,6 +26,10 @@ export default class DetailSelectorCtrl {
 			columns: []
 		};
 
+		this.params = {
+			keyword: ''
+		};
+
 		// 当前需要显示的搜索条件集合
 		// this.conditions;
 		// 当前列表需要显示的数据项
@@ -79,10 +83,10 @@ export default class DetailSelectorCtrl {
 		this._$ccModal.modal({
 			scope,
 			bindings: scope,
-			title: this.settingModalTitle,
-			controller: setterCtrl,
 			__body: setterTemp,
-			style: { width: '680px' }
+			controller: setterCtrl,
+			title: this.setter.title,
+			style: this.setter.style
 		}).open().result.then(({ columns, conditions, extendConditions }) => {
 
 			this.config = {
@@ -91,24 +95,31 @@ export default class DetailSelectorCtrl {
 				extendConditions: extendConditions.map(getPureItem)
 			};
 
+			setConfigToSessionStorage(this.cacheKey, this.config);
 		});
 	}
 }
 
 
-// 从缓存中获取历史配置
+/**
+ * 从缓存中获取历史配置
+ */
 function getConfigFromSessionStorage(key) {
 	const configStr = window.sessionStorage.getItem(key);
 
 	return configStr ? JSON.parse(configStr) : configStr;
 }
 
-// 将配置存储只本地缓存
+/**
+ * 将配置存储只本地缓存
+ */
 function setConfigToSessionStorage(key, config) {
 	window.sessionStorage.setItem(key, JSON.stringify(config));
 }
 
-// 返回干净的条件/字段数据
+/**
+ * 返回干净的条件/字段数据
+ */
 function getPureItem(item) {
 	return {
 		code: item.code,

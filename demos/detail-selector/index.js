@@ -7,8 +7,19 @@
 				$bsDetailSelector.open({
 					uid: 'zdyx2',
 					title: '🙂 我就要叫商品选择器怎么了',
-					settingModalTitle: '我想叫什么就叫什么',
-					settingIconOffsetLeft: '210px'
+					setter: {
+						title: '我想叫什么就叫什么',
+						offsetLeft: '210px'
+					}
+				});
+			};
+
+			$scope.open2 = function() {
+				$bsDetailSelector.open({
+					uid: 'zdyx3',
+					title: '🙂 我就要叫商品选择器怎么了',
+					setter: false,
+					advanceSearch: false
 				});
 			};
 

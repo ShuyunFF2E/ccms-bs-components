@@ -18,6 +18,7 @@ module.exports = {
 	},
 
 	externals: {
+		'jquery': 'jquery',
 		'angular': 'angular',
 		'ccms-components': '\'ccms.components\'',
 		// 'angular-resource': '\'angular-resource\'',

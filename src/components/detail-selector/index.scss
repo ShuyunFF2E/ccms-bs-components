@@ -44,6 +44,9 @@
 		}
 	}
 	.btn-link {
-		color: #60b8d5;
+		color: #0083ba;
+		&:hover {
+			color: #41b5e6;
+		}
 	}
 }

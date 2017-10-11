@@ -5,16 +5,22 @@
 			<div class="sub-field">
 				<h5 class="sub-field-title">常用条件</h5>
 				<div class="sub-field-content">
-					<div class="checkbox-holder" ng-repeat="condition in $ctrl.conditions">
-						<cc-checkbox ng-model="condition.selected">{{condition.name}}</cc-checkbox>
+					<div class="checkbox-holder condition" ng-repeat="condition in $ctrl.conditions">
+						<cc-checkbox ng-model="condition.selected">
+							<span title="{{condition.name}}" ng-bind="condition.name"></span>
+						</cc-checkbox>
+						<button class="btn-setting" ng-click="$ctrl.setToExtendCondition(condition)">设为可用</button>
 					</div>
 				</div>
 			</div>
 			<div class="sub-field">
 				<h5 class="sub-field-title">可用搜索条件</h5>
 				<div class="sub-field-content">
-					<div class="checkbox-holder" ng-repeat="condition in $ctrl.extendConditions">
-						<cc-checkbox ng-model="condition.selected">{{condition.name}}</cc-checkbox>
+					<div class="checkbox-holder condition" ng-repeat="condition in $ctrl.extendConditions">
+						<cc-checkbox ng-model="condition.selected">
+							<span title="{{condition.name}}" ng-bind="condition.name"></span>
+						</cc-checkbox>
+						<button class="btn-setting" ng-click="$ctrl.setToCondition(condition)">设为常用</button>
 					</div>
 				</div>
 			</div>
@@ -26,7 +32,9 @@
 			<div class="sub-field">
 				<div class="sub-field-content">
 					<div class="checkbox-holder" ng-repeat="column in $ctrl.columns">
-						<cc-checkbox ng-model="column.selected">{{column.name}}</cc-checkbox>
+						<cc-checkbox ng-model="column.selected">
+							<span title="{{column.name}}" ng-bind="column.name"></span>
+						</cc-checkbox>
 					</div>
 				</div>
 			</div>

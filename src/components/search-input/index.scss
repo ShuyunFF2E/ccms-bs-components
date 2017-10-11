@@ -1,0 +1,28 @@
+.ccms-bs-search-input {
+	display: inline-block;
+	width: 150px;
+	position: relative;
+	&.disabled {
+		cursor: not-allowed;
+	}
+	.keyword-input {
+		padding-right: 25px;
+	}
+	.btn-search {
+		border: 0;
+		background-color: transparent !important;
+		padding: 0;
+		margin: 0;
+		min-width: unset;
+		min-height: unset;
+		position: absolute;
+		top: 3px;
+		right: 7px;
+		font-size: 14px;
+		color: #ddd !important;
+		&:hover {
+			background-color: transparent !important;
+			color: #888 !important;
+		}
+	}
+}

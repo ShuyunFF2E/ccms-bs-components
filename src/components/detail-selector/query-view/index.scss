@@ -9,7 +9,7 @@
 				display: inline-block;
 				margin: 0 10px 10px 0;
 				> input {
-					width: 120px;
+					width: 140px;
 				}
 				.btn-remove {
 					vertical-align: middle;
@@ -28,34 +28,15 @@
 				}
 				&.extend {
 					> input {
-						width: 95px;
+						width: 115px;
 					}
 				}
 			}
 			.oops {
 				float: right;
-				.search-input {
-					display: inline-block;
-					width: 150px;
-					position: relative;
-					> input {
-						padding-right: 25px;
-					}
-					.iconfont {
-						position: absolute;
-						top: 7px;
-						right: 7px;
-						color: #ddd;
-						font-size: 14px;
-						cursor: pointer;
-						&:hover {
-							color: #888;
-						}
-					}
-				}
 				.extend-condition-setter {
 					position: relative;
-					width: 88px;
+					width: 90px;
 					overflow: visible;
 					display: inline-block;
 					[cc-dropdown-toggle] {
@@ -87,6 +68,11 @@
 								background-color: #e7f7f8;
 							}
 						}
+					}
+					.cc-checkbox-label{
+						width: 100px;
+						overflow: hidden;
+						text-overflow: ellipsis;
 					}
 				}
 			}

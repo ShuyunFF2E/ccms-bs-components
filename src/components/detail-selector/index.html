@@ -3,9 +3,14 @@
 		<cc-loading type="grid"></cc-loading>
 	</div>
 
-	<bs-query-view config="$ctrl.config" ng-if="$ctrl.model==='QUERY'&&!this.isFetchingConfig"></bs-query-view>
+	<bs-query-view
+		config="$ctrl.config"
+		params="$ctrl.params"
+		advance-search="$ctrl.advanceSearch"
+		select-type="$ctrl.selectType"
+		ng-if="$ctrl.model==='QUERY'&&!this.isFetchingConfig"></bs-query-view>
 </div>
 
-<div class="setting-wrap" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-left" ng-style="{left:$ctrl.settingIconOffsetLeft}">
+<div class="setting-wrap" ng-if="$ctrl.setter" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-left" ng-style="{left:$ctrl.setter.offsetLeft}">
 	<span class="iconfont icon-set-up"></span>
 </div>
