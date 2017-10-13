@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>搜索下拉框</title>
+
+	<script src="/bundle.js"></script>
+
+	<!-- [angular-resource] & [angular-ui-router] 为 [ccms-components] 的依赖 -->
+	<script src="/node_modules/angular-resource/angular-resource.js"></script>
+	<script src="/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+
+	<script src="./index.js"></script>
+	<style>
+		main {
+			padding: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<main ng-app="app" ng-controller="ctrl">
+		<bs-dropdown-search
+			datalist="dropdown1.datalist"
+			search="dropdown1.search(keyword)"
+			loading="dropdown1.loading"
+			placeholder="'搜索店铺名称'"></bs-dropdown-search>
+	</main>
+</body>
+
+</html>

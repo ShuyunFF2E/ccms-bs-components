@@ -1,0 +1,39 @@
+.ccms-bs-dropdown-search {
+	position: relative;
+	width: 180px;
+	display: inline-block;
+	[cc-dropdown-toggle] {
+		position: relative;
+		cc-loading {
+			position: absolute;
+			top: 1px;
+			right: 4px;
+			section .loader {
+				width: 20px;
+			}
+		}
+	}
+
+	[cc-dropdown-panel]{
+		position: absolute;
+		z-index: 10;
+		top: 32px;
+		left: 0;
+		width: 100%;
+		padding: 0;
+		border-radius: 2px;
+		box-shadow: 0px 0px 2px #aaa;
+		background-color: #fff;
+		.empty-message {
+			padding: 8px 10px;
+			color: #888;
+		}
+		.select-option {
+			padding: 8px 10px;
+			cursor: pointer;
+			&:hover {
+				background-color: #e7f7f8;
+			}
+		}
+	}
+}

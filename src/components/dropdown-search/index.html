@@ -1,0 +1,20 @@
+<div class="ccms-bs-dropdown-search">
+	<cc-dropdown
+		auto-close="true"
+		is-open="$ctrl.isOpen">
+		<div cc-dropdown-toggle>
+			<input type="text"
+				ng-model="$ctrl.keyword"
+				placeholder="{{$ctrl.placeholder}}"
+				ng-focus="$ctrl.focus()"
+				ng-change="$ctrl.search({keyword:$ctrl.keyword})" />
+			<cc-loading ng-show="$ctrl.loading"></cc-loading>
+		</div>
+		<div cc-dropdown-panel>
+			<div class="empty-message" ng-bind="$ctrl.emptyMsg" ng-show="$ctrl.options.length===0"></div>
+			<div class="select-option" ng-click="$ctrl.select(option)" ng-repeat="option in $ctrl.options track by $index">
+				<span ng-bind="option.name"></span>
+			</div>
+		</div>
+	</cc-dropdown>
+</div>

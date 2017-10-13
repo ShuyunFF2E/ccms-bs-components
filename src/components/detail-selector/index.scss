@@ -10,7 +10,7 @@
 		color: #666;
 		cursor: pointer;
 		&:hover {
-			color: #555;
+			color: #444;
 		}
 	}
 }
@@ -34,7 +34,6 @@
 			margin-left: -20px;
 		}
 	}
-
 	.btn-text {
 		border: none;
 		min-width: unset;
@@ -49,15 +48,18 @@
 			color: #41b5e6;
 		}
 	}
-
-	.result-footer{
-		line-height: 50px;
+	.result-footer {
 		margin-right: 250px;
 		color: #666;
-
-		.selected-count{
+		.selected-count {
 			font-size: 16px;
 			color: #0083ba;
 		}
+	}
+	.btn-switch {
+		margin: 12px;
+		padding-top: 6px;
+		padding-bottom: 6px;
+		height: unset;
 	}
 }

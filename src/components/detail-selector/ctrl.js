@@ -15,13 +15,8 @@ export default class DetailSelectorCtrl {
 
 		this.body = this._$element[0].querySelector('.modal-body');
 
-		// 当前选择器的模式 [QUERY:查询模式, VIEW:查看模式]
+		// 当前选择器的模式 [QUERY:查询模式, CHECK:查看模式]
 		this.model = 'QUERY';
-
-		this.opts = {
-			statistic: { selected: 0, total: 0 },
-			params: { keyword: '' }
-		};
 
 		this.config = {
 			// 常用条件
@@ -43,8 +38,12 @@ export default class DetailSelectorCtrl {
 	}
 
 	$onInit() {
-		this.opts.selectType = this.selectType;
-		this.opts.advanceSearch = this.advanceSearch;
+		this.opts = {
+			statistic: { selected: 0, total: 0 },
+			params: { keyword: '' },
+			selectType: this.selectType,
+			advanceSearch: this.advanceSearch
+		};
 	}
 
 
@@ -104,6 +103,20 @@ export default class DetailSelectorCtrl {
 
 			setConfigToSessionStorage(this.cacheKey, this.config);
 		});
+	}
+
+	/**
+	 * 切换至查看视图
+	 */
+	switchToCheckView = () => {
+		this.model = 'CHECK';
+	}
+
+	/**
+	 * 切换至查询视图
+	 */
+	switchToQueryView = () => {
+		this.model = 'QUERY';
 	}
 }
 

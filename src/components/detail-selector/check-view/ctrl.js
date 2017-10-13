@@ -1,15 +1,14 @@
 import { Inject } from 'angular-es-utils';
 
 @Inject('$scope')
-export default class DetailSelectorQueryViewCtrl {
-
+export default class DetailSelectorCheckViewCtrl {
 	constructor() {
-
 		this.gridExternalData = [];
 	}
 
 	$onInit() {
-		this.refreshConditions();
+		// 查看模式不支持选择
+		this.opts = { ...this.opts, selectType: false };
 		this.refreshGridColumns();
 
 		this.fetchResourceData(false);
@@ -30,67 +29,39 @@ export default class DetailSelectorQueryViewCtrl {
 				if (hasArrayChanged(currentValue.columns, previousValue.columns)) {
 					this.refreshGridColumns();
 				}
-				// 如果条件配置修改了则重新计算需要显示的条件值
-				if (currentValue.conditions, previousValue.conditions ||
-					currentValue.extendConditions, previousValue.extendConditions) {
-					this.refreshConditions();
-				}
 			} catch (err) {}
 		}
 	}
 
-	// 当前显示的搜索条件集合
-	refreshConditions() {
-		// 常用条件在`配置商品选择器`中选中（selected=true）就显示
-		const conditions = this.config.conditions.filter(item => item.selected).map(getPureItem);
-
-		// 可用搜索条件必须在更多里面选中（selected=true && active=true）才显示
-		const extendConditions = this.config.extendConditions.filter(item => item.selected && item.active).map(item => ({ ...item, isExtend: true /** 可选条件标记 **/ }));
-
-		this.conditions = conditions.concat(extendConditions);
-	}
-
-	// 删除指定的可选条件
-	removeExtendCondition(condition) {
-		this.config.extendConditions.find(item => item.code === condition.code).active = false;
-		this.refreshConditions();
-	}
-
-	// 当前需要显示的数据项
+	/**
+	 * 计算当前需要显示的数据项
+	 */
 	refreshGridColumns() {
 		this.gridColumns = this.config.columns.filter(item => item.selected);
 	}
 
-	search() {
-		console.log(this.opts.params.keyword);
-	}
-
-	fetchResourceData = selected => {
-		const extendData = generateResourceData(this.gridExternalData.length, selected);
+	/**
+	 * 请求数据
+	 */
+	fetchResourceData = () => {
+		const extendData = generateResourceData(this.gridExternalData.length, false);
 		this.gridExternalData = this.gridExternalData.concat(extendData);
 
 		this.opts.statistic.total = 1000;
 	}
 }
 
-
-// 返回干净的条件/字段数据
-function getPureItem(item) {
-	return {
-		code: item.code,
-		name: item.name,
-		selected: !!item.selected
-	};
-}
-
-// 判断配置项是否改变[columns,conditions,extendConditions]
+/**
+ * 判断配置项是否改变[columns,conditions,extendConditions]
+ * @param {array} current
+ * @param {array} previous
+ */
 function hasArrayChanged(current, previous) {
 	const currentStr = current.filter(item => item.selected).map(item => item.code).join(',');
 	const previousStr = previous.filter(item => item.selected).map(item => item.code).join(',');
 
 	return currentStr !== previousStr;
 }
-
 
 function generateResourceData(skip = 0, selected = false) {
 	return Array(20).fill().map((v, i) => {

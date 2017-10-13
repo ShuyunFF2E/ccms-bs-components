@@ -1,0 +1,16 @@
+<section class="check-container">
+	<div class="toolbar">
+		<button class="btn-switch" ng-click="$ctrl.switchToQueryView()">
+			<span>编辑已选</span>
+			<span class="selected-count">({{$ctrl.opts.statistic.selected}})</span>
+		</button>
+	</div>
+	<div class="result-holder">
+		<bs-selector-grid
+			opts="$ctrl.opts"
+			columns="$ctrl.gridColumns"
+			external-data="$ctrl.gridExternalData"
+			lazyload="$ctrl.fetchResourceData">
+		</bs-selector-grid>
+	</div>
+</section>

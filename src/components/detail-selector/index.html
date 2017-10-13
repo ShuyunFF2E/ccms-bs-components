@@ -8,13 +8,23 @@
 		config="$ctrl.config"
 		ng-if="$ctrl.model==='QUERY'&&!this.isFetchingConfig"></bs-query-view>
 
+	<bs-check-view
+		opts="$ctrl.opts"
+		config="$ctrl.config"
+		switch-to-query-view="$ctrl.switchToQueryView"
+		ng-if="$ctrl.model==='CHECK'&&!this.isFetchingConfig"></bs-check-view>
+
 	<footer class="result-footer" ng-if="$ctrl.model==='QUERY'&&$ctrl.selectType==='multiple'">
 		<span>已选 / 总计：</span>
 		<span class="selected-count" ng-bind="$ctrl.opts.statistic.selected"></span> /
 		<span class="total-count" ng-bind="$ctrl.opts.statistic.total"></span>
+
+		<button class="btn-switch"
+			ng-click="$ctrl.switchToCheckView()"
+			ng-disabled="$ctrl.opts.statistic.selected===0">查看已选</button>
 	</footer>
 </div>
 
 <div class="setting-wrap" ng-if="$ctrl.setter" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-left" ng-style="{left:$ctrl.setter.offsetLeft}">
-	<span class="iconfont icon-set-up"></span>
+	<span class="bs-iconfont icon-peizhi"></span>
 </div>

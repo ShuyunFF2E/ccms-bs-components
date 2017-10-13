@@ -12,13 +12,14 @@ const DDO = {
 	transclude: true,
 	bindings: {
 		opts: '<',
-		config: '<'
+		config: '<',
+		switchToQueryView: '<'
 	}
 };
 
 export default angular
-	.module('bs.components.detailSelectorQueryView', [
+	.module('bs.components.detailSelectorCheckView', [
 		Grid
 	])
-	.component('bsQueryView', DDO)
+	.component('bsCheckView', DDO)
 	.name;

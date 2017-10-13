@@ -1,0 +1,21 @@
+.check-container{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	.toolbars{
+		position: relative;
+	}
+	.btn-switch{
+		margin-right: 0;
+		margin-top: 0;
+		float: right;
+	}
+
+	.result-holder{
+		flex: 1;
+	}
+
+	.selected-count{
+		color: #0083ba;
+	}
+}
