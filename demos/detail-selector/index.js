@@ -28,7 +28,7 @@
 				});
 			};
 
-			$scope.open1 = function() {
+			$scope.open4 = function() {
 				$bsDetailSelector.open({
 					uid: 'zdyx1',
 					selectType: 'single'
