@@ -2,8 +2,13 @@
 	angular
 		.module('app', ['ccms.bs.components'])
 		.controller('ctrl', function($scope, $bsDetailSelector) {
+			$scope.open1 = function() {
+				$bsDetailSelector.open({
+					uid: 'zdyx1'
+				});
+			};
 
-			$scope.open = function() {
+			$scope.open2 = function() {
 				$bsDetailSelector.open({
 					uid: 'zdyx2',
 					title: '🙂 我就要叫商品选择器怎么了',
@@ -14,7 +19,7 @@
 				});
 			};
 
-			$scope.open2 = function() {
+			$scope.open3 = function() {
 				$bsDetailSelector.open({
 					uid: 'zdyx3',
 					title: '🙂 我就要叫商品选择器怎么了',
@@ -23,10 +28,15 @@
 				});
 			};
 
-			setTimeout(function() {
+			$scope.open1 = function() {
 				$bsDetailSelector.open({
-					uid: 'zdyx1'
+					uid: 'zdyx1',
+					selectType: 'single'
 				});
+			};
+
+			setTimeout(function() {
+				$scope.open1();
 			}, 200);
 		});
 })(window.angular);

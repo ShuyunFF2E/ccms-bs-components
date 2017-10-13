@@ -11,10 +11,8 @@ const DDO = {
 	controller,
 	transclude: true,
 	bindings: {
-		config: '<',
-		params: '<',
-		advanceSearch: '<',
-		selectType: '<'
+		opts: '<',
+		config: '<'
 	}
 };
 

@@ -5,6 +5,7 @@ import setterTemp from './setting-modal/index.html';
 
 const CONFIG_KEY_PREFIX = 'CCMS_BS_DETAIL_SELECTOR_CONFIG';
 
+
 @Inject('$rootScope', '$scope', '$ccModal', '$ccTips', '$element', '$timeout', '$q', 'modalInstance', 'resources')
 export default class DetailSelectorCtrl {
 
@@ -14,8 +15,13 @@ export default class DetailSelectorCtrl {
 
 		this.body = this._$element[0].querySelector('.modal-body');
 
-		// 当前选择器的模式 [QUERY:查询模式, SHOW:查看模式]
+		// 当前选择器的模式 [QUERY:查询模式, VIEW:查看模式]
 		this.model = 'QUERY';
+
+		this.opts = {
+			statistic: { selected: 0, total: 0 },
+			params: { keyword: '' }
+		};
 
 		this.config = {
 			// 常用条件
@@ -26,10 +32,6 @@ export default class DetailSelectorCtrl {
 			columns: []
 		};
 
-		this.params = {
-			keyword: ''
-		};
-
 		// 当前需要显示的搜索条件集合
 		// this.conditions;
 		// 当前列表需要显示的数据项
@@ -38,6 +40,11 @@ export default class DetailSelectorCtrl {
 		this.isFetchingConfig = true;
 
 		this.fetchSelectorConfig().then();
+	}
+
+	$onInit() {
+		this.opts.selectType = this.selectType;
+		this.opts.advanceSearch = this.advanceSearch;
 	}
 
 

@@ -41,7 +41,6 @@ export default class DetailSelectorGridCtrl {
 		this.initGridOpts();
 
 		this.initLazyLoad();
-
 	}
 
 	$onChanges(changes) {
@@ -50,10 +49,15 @@ export default class DetailSelectorGridCtrl {
 
 			this.rerenderGrid();
 		}
+
+		if(changes.externalData){
+			this.gridOpts.externalData = this.externalData;
+			this._$ccGrid.refresh(this.gridOpts);
+		}
 	}
 
 	initGridOpts() {
-		this.gridOpts.externalData = mockExternalData;
+		this.gridOpts.externalData = this.externalData;
 
 		this.generateGridColumns();
 
@@ -69,9 +73,9 @@ export default class DetailSelectorGridCtrl {
 
 	// 计算表格的列（因为列是可配的）
 	generateGridColumns() {
-		if (this.type === 'multiple') {
+		if (this.opts.selectType === 'multiple') {
 			this.generateCheckboxGridColumns();
-		} else if (this.type === 'single') {
+		} else if (this.opts.selectType === 'single') {
 			this.generateRadioGridColumns();
 		} else {
 			this.generatePlainGridColumns();
@@ -114,13 +118,13 @@ export default class DetailSelectorGridCtrl {
 	generateCheckboxGridColumns() {
 		const headerTpl = `<tr>
 			<th style="width:30px;">
-				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.toggleAllSelect()" cc-tooltip="'选中当前条件下所有的数据'"></cc-checkbox>
+				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'"></cc-checkbox>
 			</th>
 			${this.columns.map(item => `<th>${item.name}</th>`).join('')}
 		</tr>`;
 
 		const columnsDef = [{
-			cellTemplate: `<cc-checkbox ng-model="entity.selected"></cc-checkbox>`,
+			cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect()"></cc-checkbox>`,
 			width: '30px'
 		}].concat(this.columns.map(item => {
 			return { cellTemplate: `<span ng-bind="entity.${item.code}"></span>` };
@@ -130,11 +134,34 @@ export default class DetailSelectorGridCtrl {
 		this.gridOpts.columnsDef = columnsDef;
 	}
 
-	// 切换全选
-	toggleAllSelect() {
-		if (this.isAllSelected) {
-			this.gridOpts.externalData.forEach(v => v.selected = true);
+	/**
+	 * 切换全选
+	 */
+	switchAllSelect() {
+		this.gridOpts.externalData.forEach(v => v.selected = this.isAllSelected);
+
+		this.calculateSelectedCount();
+	}
+
+	/**
+	 * 切换选择
+	 */
+	switchSelect() {
+		this.calculateSelectedCount();
+	}
+
+	/**
+	 * 计算已选中的数量
+	 */
+	calculateSelectedCount() {
+		// 如果未全选，则选中几条算几条
+		if (!this.isAllSelected) {
+			return this.opts.statistic.selected = this.gridOpts.externalData.filter(item => !!item.selected).length;
 		}
+
+		// 如果全选，则为全部数量减去未选中的数量
+		const unselected = this.gridOpts.externalData.filter(item => !item.selected);
+		this.opts.statistic.selected = this.opts.statistic.total - unselected.length;
 	}
 
 	/**
@@ -161,8 +188,8 @@ export default class DetailSelectorGridCtrl {
 
 					this._$timeout(() => {
 						this.isLazyLoading = false;
-						this.gridOpts.externalData = this.gridOpts.externalData.concat(generateResourceData(this.gridOpts.externalData.length));
-						this._$ccGrid.refresh(this.gridOpts);
+						this.lazyload(this.isAllSelected);
+						this.calculateSelectedCount();
 					}, 500);
 
 				});
@@ -174,18 +201,4 @@ export default class DetailSelectorGridCtrl {
 }
 
 
-const mockExternalData = generateResourceData(0);
 
-function generateResourceData(skip) {
-	return Array(20).fill().map((v, i) => {
-		const ii = skip + i + 1;
-		return {
-			id: 'ID' + ii,
-			goodsName: 'A ' + ii,
-			shopName: '小叮当之家',
-			price: 100.00 + ii,
-			size: ii + ' inch',
-			color: ii % 2 ? '原谅绿' : '自然黑'
-		};
-	});
-}

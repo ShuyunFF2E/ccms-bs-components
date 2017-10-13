@@ -3,11 +3,16 @@ import { Inject } from 'angular-es-utils';
 @Inject('$scope')
 export default class DetailSelectorQueryViewCtrl {
 
-	constructor() {}
+	constructor() {
+
+		this.gridExternalData = [];
+	}
 
 	$onInit() {
 		this.refreshConditions();
 		this.refreshGridColumns();
+
+		this.fetchResourceData(false);
 	}
 
 	$onChanges(changes) {
@@ -57,7 +62,14 @@ export default class DetailSelectorQueryViewCtrl {
 	}
 
 	search() {
-		console.log(this.params.keyword);
+		console.log(this.opts.params.keyword);
+	}
+
+	fetchResourceData = selected => {
+		const extendData = generateResourceData(this.gridExternalData.length, selected);
+		this.gridExternalData = this.gridExternalData.concat(extendData);
+
+		this.opts.statistic.total = 1000;
 	}
 }
 
@@ -77,4 +89,22 @@ function hasArrayChanged(current, previous) {
 	const previousStr = previous.filter(item => item.selected).map(item => item.code).join(',');
 
 	return currentStr !== previousStr;
+}
+
+
+const mockExternalData = generateResourceData(0);
+
+function generateResourceData(skip = 0, selected = false) {
+	return Array(20).fill().map((v, i) => {
+		const ii = skip + i + 1;
+		return {
+			id: 'ID' + ii,
+			goodsName: 'A ' + ii,
+			shopName: '小叮当之家',
+			price: 100.00 + ii,
+			size: ii + ' inch',
+			color: ii % 2 ? '原谅绿' : '自然黑',
+			selected
+		};
+	});
 }

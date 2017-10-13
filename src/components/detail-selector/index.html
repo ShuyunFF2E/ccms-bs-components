@@ -4,11 +4,15 @@
 	</div>
 
 	<bs-query-view
+		opts="$ctrl.opts"
 		config="$ctrl.config"
-		params="$ctrl.params"
-		advance-search="$ctrl.advanceSearch"
-		select-type="$ctrl.selectType"
 		ng-if="$ctrl.model==='QUERY'&&!this.isFetchingConfig"></bs-query-view>
+
+	<footer class="result-footer" ng-if="$ctrl.model==='QUERY'&&$ctrl.selectType==='multiple'">
+		<span>已选 / 总计：</span>
+		<span class="selected-count" ng-bind="$ctrl.opts.statistic.selected"></span> /
+		<span class="total-count" ng-bind="$ctrl.opts.statistic.total"></span>
+	</footer>
 </div>
 
 <div class="setting-wrap" ng-if="$ctrl.setter" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-left" ng-style="{left:$ctrl.setter.offsetLeft}">

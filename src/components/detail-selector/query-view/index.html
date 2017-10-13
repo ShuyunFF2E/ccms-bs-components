@@ -1,7 +1,7 @@
 <div class="query-container">
 	<div class="search-box">
 		<div class="oops">
-			<bs-search-input ng-model="$ctrl.params.keyword" search="$ctrl.search()" placeholder="'关键字'"></bs-search-input>
+			<bs-search-input ng-model="$ctrl.opts.params.keyword" search="$ctrl.search()" placeholder="'关键字'"></bs-search-input>
 
 			<cc-dropdown class="extend-condition-setter">
 				<button cc-dropdown-toggle cc-tooltip="'添加更多条件'" tooltip-placement="top">
@@ -17,8 +17,9 @@
 					</div>
 				</div>
 			</cc-dropdown>
-			<button class="btn-text btn-link" ng-if="$ctrl.advanceSearch">高级查找</button>
+
 			<button class="btn-text btn-resert">重置</button>
+			<button class="btn-text btn-link" ng-if="$ctrl.opts.advanceSearch">高级查找</button>
 		</div>
 
 		<div class="condition-item" ng-repeat="condition in $ctrl.conditions" ng-class="{extend:condition.isExtend}">
@@ -30,6 +31,10 @@
 	</div>
 
 	<div class="result-holder">
-		<bs-selector-grid columns="$ctrl.gridColumns" type="$ctrl.selectType"></bs-selector-grid>
+		<bs-selector-grid
+			columns="$ctrl.gridColumns"
+			opts="$ctrl.opts"
+			external-data="$ctrl.gridExternalData"
+			lazyload="$ctrl.fetchResourceData"></bs-selector-grid>
 	</div>
 </div>

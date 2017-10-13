@@ -31,7 +31,7 @@ export default class DetailSelectorService {
 		style = {},
 		setter = {},
 		advanceSearch = true,
-		selectType = '',
+		selectType = 'multiple',
 		resources = {},
 		onClose = noop
 	} = {}) {

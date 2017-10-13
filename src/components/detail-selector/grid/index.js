@@ -10,9 +10,9 @@ const DDO = {
 	transclude: true,
 	bindings: {
 		columns: '<',
-		type: '<?',
-		// 最多可选数量（仅type为multiple时有效）
-		max: '<?'
+		opts: '<',
+		externalData: '<',
+		lazyload: '<'
 	}
 };
 
