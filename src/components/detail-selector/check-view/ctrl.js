@@ -29,7 +29,9 @@ export default class DetailSelectorCheckViewCtrl {
 				if (hasArrayChanged(currentValue.columns, previousValue.columns)) {
 					this.refreshGridColumns();
 				}
-			} catch (err) {}
+			} catch (err) {
+				// ignore error
+			}
 		}
 	}
 

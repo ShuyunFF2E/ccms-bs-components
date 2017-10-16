@@ -1,4 +1,3 @@
-import angular from 'angular';
 import { Inject } from 'angular-es-utils';
 import body from './index.html';
 import controller from './ctrl';

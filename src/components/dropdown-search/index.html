@@ -1,20 +1,30 @@
-<div class="ccms-bs-dropdown-search">
+<div class="ccms-bs-dropdown-search" ng-class="{disabled:$ctrl.ngDisabled}" ng-style="{width:$ctrl.width}">
+	<div class="unlucky" ng-if="$ctrl.ngDisabled"></div>
 	<cc-dropdown
 		auto-close="true"
-		is-open="$ctrl.isOpen">
+		is-open="$ctrl.isOpen"
+		on-dropdown-open="$ctrl.dropdownOpen()"
+		on-dropdown-close="$ctrl.dropdownClose()">
 		<div cc-dropdown-toggle>
 			<input type="text"
+				class="keyword"
 				ng-model="$ctrl.keyword"
+				ng-disabled="$ctrl.ngDisabled"
 				placeholder="{{$ctrl.placeholder}}"
-				ng-focus="$ctrl.focus()"
 				ng-change="$ctrl.search({keyword:$ctrl.keyword})" />
 			<cc-loading ng-show="$ctrl.loading"></cc-loading>
+			<div class="indicator">
+				<span class="iconfont icon-arrow"></span>
+			</div>
 		</div>
 		<div cc-dropdown-panel>
 			<div class="empty-message" ng-bind="$ctrl.emptyMsg" ng-show="$ctrl.options.length===0"></div>
-			<div class="select-option" ng-click="$ctrl.select(option)" ng-repeat="option in $ctrl.options track by $index">
-				<span ng-bind="option.name"></span>
+			<div class="select-option" ng-click="$ctrl.select(option)" ng-class="{active:option.value===$ctrl.ngModel}" ng-repeat="option in $ctrl.options track by $index">
+				<span cc-bind-html="option.name" title="{{$ctrl.HTML2Text(option.name)}}"></span>
 			</div>
 		</div>
 	</cc-dropdown>
+	<div class="btn-clear" ng-click="$ctrl.clear($event)" ng-show="$ctrl.ngModel" ng-if="$ctrl.clearable">
+		<span class="iconfont icon-clear"></span>
+	</div>
 </div>

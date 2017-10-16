@@ -35,7 +35,9 @@ export default class DetailSelectorQueryViewCtrl {
 					currentValue.extendConditions, previousValue.extendConditions) {
 					this.refreshConditions();
 				}
-			} catch (err) {}
+			} catch (err) {
+				// ignore error
+			}
 		}
 	}
 

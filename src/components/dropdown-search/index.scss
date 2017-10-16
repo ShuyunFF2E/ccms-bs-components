@@ -2,19 +2,41 @@
 	position: relative;
 	width: 180px;
 	display: inline-block;
+	&.disabled {
+		cursor: not-allowed;
+		[cc-dropdown-toggle] {
+			.indicator,
+			.btn-clear {
+				background-color: #eee;
+				color: #bbb;
+			}
+		}
+	}
+	.unlucky {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 10;
+	}
 	[cc-dropdown-toggle] {
 		position: relative;
 		cc-loading {
 			position: absolute;
-			top: 1px;
-			right: 4px;
+			top: 0px;
+			right: 3px;
+			z-index: 9;
 			section .loader {
 				width: 20px;
 			}
 		}
+		.keyword{
+			width: 100%;
+			padding-right: 30px;
+		}
 	}
-
-	[cc-dropdown-panel]{
+	[cc-dropdown-panel] {
 		position: absolute;
 		z-index: 10;
 		top: 32px;
@@ -24,6 +46,8 @@
 		border-radius: 2px;
 		box-shadow: 0px 0px 2px #aaa;
 		background-color: #fff;
+		max-height: 250px;
+		overflow-y: auto;
 		.empty-message {
 			padding: 8px 10px;
 			color: #888;
@@ -31,8 +55,40 @@
 		.select-option {
 			padding: 8px 10px;
 			cursor: pointer;
-			&:hover {
+			&:hover,
+			&.active {
 				background-color: #e7f7f8;
+			}
+		}
+	}
+	.indicator,
+	.btn-clear {
+		position: absolute;
+		top: 1px;
+		bottom: 1px;
+		right: 1px;
+		width: 24px;
+		line-height: 28px;
+		color: #aaa;
+		text-align: center;
+		background-color: #fff;
+	}
+	.indicator {
+		z-index: 7;
+		.iconfont {
+			font-size: 12px;
+		}
+	}
+	.btn-clear {
+		display: none;
+		z-index: 8;
+		cursor: pointer;
+	}
+	&:hover {
+		.btn-clear {
+			display: block;
+			&:hover {
+				color: #888;
 			}
 		}
 	}

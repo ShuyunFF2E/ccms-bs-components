@@ -18,16 +18,49 @@
 		main {
 			padding: 30px;
 		}
+		.item{
+			margin: 20px;
+		}
 	</style>
 </head>
 
 <body>
 	<main ng-app="app" ng-controller="ctrl">
-		<bs-dropdown-search
-			datalist="dropdown1.datalist"
-			search="dropdown1.search(keyword)"
-			loading="dropdown1.loading"
-			placeholder="'搜索店铺名称'"></bs-dropdown-search>
+		<div class="item">
+			<bs-dropdown-search
+				ng-model="dropdown1.value"
+				datalist="dropdown1.datalist"
+				search="dropdown1.search(keyword)"
+				loading="dropdown1.loading"
+				clearable="dropdown1.clearable"
+				placeholder="'搜索店铺名称'">
+			</bs-dropdown-search>
+			<span ng-bind="dropdown1.value"></span>
+		</div>
+
+		<div class="item">
+			<bs-dropdown-search
+				ng-model="dropdown2.value"
+				datalist="dropdown2.datalist"
+				search="dropdown2.search(keyword)"
+				ng-change="dropdown2.change()"
+				on-dropdown-open="dropdown2.onDropdownOpen()"
+				loading="dropdown2.loading"
+				placeholder="'搜索店铺名称'"
+				empty-msg="'暂无匹配数据'">
+			</bs-dropdown-search>
+			<span ng-bind="dropdown2.value"></span>
+		</div>
+
+		<div class="item">
+			<bs-dropdown-search
+				ng-model="dropdown3.value"
+				ng-disabled="dropdown3.disabled"
+				datalist="dropdown3.datalist"
+				placeholder="'Disabled DropdownSearch'">
+			</bs-dropdown-search>
+			<span ng-bind="dropdown3.value"></span>
+		</div>
 	</main>
 </body>
 

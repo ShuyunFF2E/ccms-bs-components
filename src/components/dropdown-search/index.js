@@ -11,13 +11,16 @@ const DDO = {
 	bindings: {
 		ngModel: '<',
 		datalist: '<',
-		loading: '=',
+		loading: '<?',
+		clearable: '<?',
 		ngDisabled: '<?',
 		placeholder: '<?',
 		mapping: '<?',
 		emptyMsg: '<?',
+		width: '<?',
 		search: '&?',
-		change: '<?'
+		onDropdownOpen: '&?',
+		onDropdownClose: '&?'
 	},
 	require: {
 		ngModelController: '?ngModel'
