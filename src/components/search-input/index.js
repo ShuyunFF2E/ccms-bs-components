@@ -12,6 +12,7 @@ const DDO = {
 		ngModel: '<?',
 		ngDisabled: '<?',
 		placeholder: '<?',
+		width: '<?',
 		search: '&?'
 	},
 	require: {

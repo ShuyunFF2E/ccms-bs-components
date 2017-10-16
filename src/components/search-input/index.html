@@ -1,4 +1,4 @@
-<div class="ccms-bs-search-input" ng-class="{disabled:$ctrl.ngDisabled}">
+<div class="ccms-bs-search-input" ng-class="{disabled:$ctrl.ngDisabled}" ng-style="{width:$ctrl.width}">
 	<input class="keyword-input" type="text" ng-model="$ctrl.ngModel" ng-change="$ctrl.updateNgModel()" ng-keypress="$ctrl.enterToSearch($event)" ng-disabled="$ctrl.ngDisabled" placeholder="{{$ctrl.placeholder}}" />
 	<button class="btn-search" ng-disabled="$ctrl.ngDisabled" ng-click="$ctrl.search({value: $ctrl.ngModel})">
 		<span class="iconfont icon-search"></span>

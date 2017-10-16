@@ -4,9 +4,10 @@ export default class SearchInputCtrl {
 
 	$onInit() {
 		!this.search && (this.search = noop);
+		!this.width && (this.width = '150px');
 
-		if (typeof this.ngModel === 'undefined') {
-			console.warn('bs-search-input have to used with ng-model');
+		if (!this.ngModelController) {
+			console.error('bs-search-input 组件需要指定 ng-model 属性');
 		}
 	}
 
