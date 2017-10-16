@@ -3,6 +3,8 @@ import { Inject } from 'angular-es-utils';
 import setterCtrl from './setting-modal/ctrl';
 import setterTemp from './setting-modal/index.html';
 
+import { getPureCondition } from './utils';
+
 const CONFIG_KEY_PREFIX = 'CCMS_BS_DETAIL_SELECTOR_CONFIG';
 
 
@@ -39,6 +41,10 @@ export default class DetailSelectorCtrl {
 
 	$onInit() {
 		this.opts = {
+			/**
+			 * 条件模式[BASE:简单查找,ADVANCE:高级查找]
+			 */
+			conditionModel: 'ADVANCE',
 			statistic: { selected: 0, total: 0 },
 			params: { keyword: '' },
 			selectType: this.selectType,
@@ -82,9 +88,9 @@ export default class DetailSelectorCtrl {
 	// 设置选择器搜索条件以及显示的列表字段
 	openSelectorSetter() {
 		const scope = this._$rootScope.$new();
-		scope.conditions = this.config.conditions.map(getPureItem);
-		scope.extendConditions = this.config.extendConditions.map(getPureItem);
-		scope.columns = this.config.columns.map(getPureItem);
+		scope.conditions = this.config.conditions.map(getPureCondition);
+		scope.extendConditions = this.config.extendConditions.map(getPureCondition);
+		scope.columns = this.config.columns.map(getPureCondition);
 
 		this._$ccModal.modal({
 			scope,
@@ -96,9 +102,9 @@ export default class DetailSelectorCtrl {
 		}).open().result.then(({ columns, conditions, extendConditions }) => {
 
 			this.config = {
-				columns: columns.map(getPureItem),
-				conditions: conditions.map(getPureItem),
-				extendConditions: extendConditions.map(getPureItem)
+				columns: columns.map(getPureCondition),
+				conditions: conditions.map(getPureCondition),
+				extendConditions: extendConditions.map(getPureCondition)
 			};
 
 			setConfigToSessionStorage(this.cacheKey, this.config);
@@ -135,17 +141,6 @@ function getConfigFromSessionStorage(key) {
  */
 function setConfigToSessionStorage(key, config) {
 	window.sessionStorage.setItem(key, JSON.stringify(config));
-}
-
-/**
- * 返回干净的条件/字段数据
- */
-function getPureItem(item) {
-	return {
-		code: item.code,
-		name: item.name,
-		selected: !!item.selected
-	};
 }
 
 const conditions = [{

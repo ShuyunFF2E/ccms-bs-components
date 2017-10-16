@@ -1,0 +1,14 @@
+<div class="advance-condition-box">
+	<bs-search-input
+		ng-model="$ctrl.advanceConditionStr"
+		search="$ctrl.opts.advanceSearch()"
+		width="'695px'">
+	</bs-search-input>
+
+	<button class="btn-text" ng-click="console.log(123)">
+		<i class="iconfont icon-question-mark"></i>
+		设置条件
+	</button>
+
+	<button class="btn-base-model btn-text btn-link" ng-click="$ctrl.opts.conditionModel='BASE'">简单查找</button>
+</div>

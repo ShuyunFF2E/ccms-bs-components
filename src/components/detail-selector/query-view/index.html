@@ -1,34 +1,19 @@
 <div class="query-container">
-	<div class="search-box">
-		<div class="oops">
-			<bs-search-input ng-model="$ctrl.opts.params.keyword" search="$ctrl.search()" placeholder="'关键字'"></bs-search-input>
 
-			<cc-dropdown class="extend-condition-setter">
-				<button cc-dropdown-toggle cc-tooltip="'添加更多条件'" tooltip-placement="top">
-					<span>更多</span>
-					<span class="iconfont icon-arrow"></span>
-				</button>
-				<div cc-dropdown-panel>
-					<div class="extend-condition-text">更多条件</div>
-					<div class="extend-condition-item" ng-repeat="condition in $ctrl.config.extendConditions track by $index" ng-if="condition.selected">
-						<cc-checkbox ng-model="condition.active" ng-change="$ctrl.refreshConditions()">
-							<span title="{{condition.name}}" ng-bind="condition.name"></span>
-						</cc-checkbox>
-					</div>
-				</div>
-			</cc-dropdown>
+	<!-- 简单查找 -->
+	<bs-base-condition-box
+		opts="$ctrl.opts"
+		config="$ctrl.config"
+		conditions="$ctrl.conditions"
+		refresh-conditions="$ctrl.refreshConditions"
+		ng-if="$ctrl.opts.conditionModel==='BASE'">
+	</bs-base-condition-box>
 
-			<button class="btn-text btn-resert">重置</button>
-			<button class="btn-text btn-link" ng-if="$ctrl.opts.advanceSearch">高级查找</button>
-		</div>
-
-		<div class="condition-item" ng-repeat="condition in $ctrl.conditions" ng-class="{extend:condition.isExtend}">
-			<input type="text" ng-model="condition.name">
-			<button class="btn-remove" ng-if="condition.isExtend" ng-click="$ctrl.removeExtendCondition(condition)" cc-tooltip="'删除条件'" tooltip-placement="bottom">
-				<span class="iconfont icon-dele"></span>
-			</button>
-		</div>
-	</div>
+	<!-- 高级查找 -->
+	<bs-advance-condition-box
+		opts="$ctrl.opts"
+		ng-if="$ctrl.opts.conditionModel==='ADVANCE'">
+	</bs-advance-condition-box>
 
 	<div class="result-holder">
 		<bs-selector-grid

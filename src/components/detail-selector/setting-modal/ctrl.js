@@ -1,6 +1,7 @@
 import './index.scss';
 
 import { Inject } from 'angular-es-utils';
+import { getPureCondition } from '../utils';
 
 @Inject('$ccTips', '$element', 'modalInstance')
 export default class DetailSelectorSetterCtrl {
@@ -17,9 +18,9 @@ export default class DetailSelectorSetterCtrl {
 		}
 
 		this._modalInstance.ok({
-			columns: this.columns.map(getPureItem),
-			conditions: this.conditions.map(getPureItem),
-			extendConditions: this.extendConditions.map(getPureItem)
+			columns: this.columns.map(getPureCondition),
+			conditions: this.conditions.map(getPureCondition),
+			extendConditions: this.extendConditions.map(getPureCondition)
 		});
 	}
 
@@ -40,13 +41,4 @@ export default class DetailSelectorSetterCtrl {
 		this.extendConditions.splice(index, 1);
 		this.conditions.push(condition);
 	}
-}
-
-// 返回干净的条件/字段数据
-function getPureItem(item) {
-	return {
-		code: item.code,
-		name: item.name,
-		selected: !!item.selected
-	};
 }

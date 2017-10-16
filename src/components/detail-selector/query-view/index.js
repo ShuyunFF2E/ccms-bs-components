@@ -5,6 +5,8 @@ import controller from './ctrl';
 import template from './index.html';
 
 import Grid from './../grid';
+import baseConditionBox from './base-model-condition';
+import adnavceConditionBox from './advance-model-condition';
 
 const DDO = {
 	template,
@@ -18,7 +20,7 @@ const DDO = {
 
 export default angular
 	.module('bs.components.detailSelectorQueryView', [
-		Grid
+		Grid, baseConditionBox, adnavceConditionBox
 	])
 	.component('bsQueryView', DDO)
 	.name;
