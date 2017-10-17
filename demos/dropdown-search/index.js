@@ -2,7 +2,7 @@
 	angular
 		.module('app', ['ccms.bs.components'])
 		.controller('ctrl', function($scope, $timeout, $interval) {
-			const datalist = ['ABC', 'BCDBCDBCDBCDBCDBCDBCDBCDBCDBCDBCDBCD', 'CDE', 'DEF'];
+			const datalist = ['ABC', 'BCD', 'CDE', 'DEF'];
 
 			$scope.dropdown1 = {
 				value: 'ABC',
