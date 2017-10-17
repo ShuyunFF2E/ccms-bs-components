@@ -1,15 +1,29 @@
 .advance-condition-box {
 	position: relative;
-	margin-top: 1px;
-	margin-bottom: 9px;
+	margin-top: 0;
+	margin-bottom: 10px;
 
-	.icon-question-mark {
-		color: #ff0000;
+	.search-box{
+		margin-right: 160px;
+	}
+
+	.toobar-box{
+		position: absolute;
+		right: 0;
+		top: 4px;
+	}
+
+	.btn-text{
+		.bs-iconfont,.text{
+			vertical-align: middle;
+		}
+		.bs-iconfont{
+			color: green;
+			font-weight: 400;
+		}
 	}
 
 	.btn-base-model{
-		position: absolute;
-		right: 0;
-		top: 3px;
+		vertical-align: middle;
 	}
 }
