@@ -20,9 +20,7 @@ export default class DropdownSearch {
 			console.error('bs-dropdown-search 组件必须指定 ng-model 属性');
 		}
 		this.generateOptions();
-		const activeOption = this.options.filter(option => {
-			return option.value === this.ngModel;
-		})[0];
+		const activeOption = this.getActiveOption();
 
 		if (activeOption) {
 			this.keyword = activeOption.name;
@@ -43,6 +41,12 @@ export default class DropdownSearch {
 		} catch (error) {
 			// ignore error
 		}
+	}
+
+	getActiveOption() {
+		return this.options.filter(option => {
+			return option.value === this.ngModel;
+		})[0];
 	}
 
 	generateOptions() {
@@ -69,9 +73,11 @@ export default class DropdownSearch {
 	dropdownOpen() {
 		this.isOpen = true;
 
-		if (this.keyword) {
-			this.placeholder = this.keyword;
-			this.__keyword = this.keyword;
+		if (this.ngModel) {
+			const activeOption = this.getActiveOption();
+			const keyword = activeOption ? activeOption.name : '';
+			this.placeholder = keyword || this.__placeholder;
+			this.__keyword = keyword;
 			this.keyword = '';
 		}
 
@@ -81,7 +87,7 @@ export default class DropdownSearch {
 	dropdownClose() {
 		this.placeholder = this.__placeholder;
 		if (this.isOpen) {
-			this.keyword = this.__keyword;
+			this.keyword = this.ngModel ? this.__keyword : '';
 		}
 
 		this.onDropdownClose && this.onDropdownClose();
@@ -97,6 +103,7 @@ export default class DropdownSearch {
 		event.preventDefault();
 		this.setModelValue(null);
 		this.keyword = '';
+		this.__keyword = '';
 		this.isOpen = false;
 	}
 
