@@ -11,6 +11,7 @@
 				ng-model="$ctrl.keyword"
 				ng-disabled="$ctrl.ngDisabled"
 				placeholder="{{$ctrl.placeholder}}"
+				ng-keydown="$ctrl.keydown($event)"
 				ng-change="$ctrl.search({keyword:$ctrl.keyword})" />
 			<cc-loading ng-show="$ctrl.loading"></cc-loading>
 			<div class="indicator">

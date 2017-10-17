@@ -75,7 +75,7 @@ export default class DropdownSearch {
 
 		if (this.ngModel) {
 			const activeOption = this.getActiveOption();
-			const keyword = activeOption ? activeOption.name : '';
+			const keyword = activeOption ? activeOption.name : this.keyword || '';
 			this.placeholder = keyword || this.__placeholder;
 			this.__keyword = keyword;
 			this.keyword = '';
@@ -91,6 +91,12 @@ export default class DropdownSearch {
 		}
 
 		this.onDropdownClose && this.onDropdownClose();
+	}
+
+	keydown(event) {
+		if (!this.isOpen) {
+			event.preventDefault();
+		}
 	}
 
 	select(option) {
