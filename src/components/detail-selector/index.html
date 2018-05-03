@@ -1,30 +1,30 @@
-<div class="ccms-bs-detail-selector">
-	<div class="loading-wrap" ng-show="$ctrl.isFetchingConfig">
+<div class="{{$ctrl.styles.selector}}">
+	<div class="{{$ctrl.styles.loadingWrap}}" ng-show="false">
 		<cc-loading type="grid"></cc-loading>
 	</div>
 
 	<bs-query-view
 		opts="$ctrl.opts"
 		config="$ctrl.config"
-		ng-if="$ctrl.model==='QUERY'&&!this.isFetchingConfig"></bs-query-view>
+		ng-if="$ctrl.model==='QUERY'"></bs-query-view>
 
 	<bs-check-view
 		opts="$ctrl.opts"
 		config="$ctrl.config"
 		switch-to-query-view="$ctrl.switchToQueryView"
-		ng-if="$ctrl.model==='CHECK'&&!this.isFetchingConfig"></bs-check-view>
+		ng-if="$ctrl.model==='CHECK'"></bs-check-view>
 
-	<footer class="result-footer" ng-if="$ctrl.model==='QUERY'&&$ctrl.selectType==='multiple'">
+	<footer class="{{$ctrl.styles.resultFooter}}" ng-if="$ctrl.model==='QUERY'&&$ctrl.selectType==='multiple'">
 		<span>已选 / 总计：</span>
-		<span class="selected-count" ng-bind="$ctrl.opts.statistic.selected"></span> /
-		<span class="total-count" ng-bind="$ctrl.opts.statistic.total"></span>
+		<span class="{{$ctrl.styles.selectedCount}}" ng-bind="$ctrl.opts.statistic.selected"></span> /
+		<span class="{{$ctrl.styles.totalCount}}" ng-bind="$ctrl.opts.statistic.total"></span>
 
-		<button class="btn-switch"
+		<button class="{{$ctrl.styles.btnSwitch}}"
 			ng-click="$ctrl.switchToCheckView()"
 			ng-disabled="$ctrl.opts.statistic.selected===0">查看已选</button>
 	</footer>
 </div>
 
-<div class="setting-wrap" ng-if="$ctrl.setter" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-left" ng-style="{left:$ctrl.setter.offsetLeft}">
+<div class="{{$ctrl.styles.settingWrap}}" ng-if="$ctrl.setter" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-center">
 	<span class="bs-iconfont icon-peizhi"></span>
 </div>

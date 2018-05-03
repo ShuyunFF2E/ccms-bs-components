@@ -1,0 +1,39 @@
+bs-condition-item {
+	float: left;
+	width: 25%;
+	margin-bottom: 10px;
+	word-spacing: -6px;
+}
+
+.condition-item {
+	word-spacing: 0;
+	input[type=text] {
+		width: 200px;
+	}
+}
+
+.name {
+	color: #666;
+	margin-bottom: 5px;
+}
+
+.content {
+	position: relative;
+	.btn-remove {
+		position: absolute;
+		right: 5px;
+		top: 4px;
+		cursor: pointer;
+		min-width: unset;
+		border: none;
+		padding: 0 5px 0 0;
+		color: #ddd;
+		&:hover {
+			background-color: transparent;
+			color: #aaa;
+		}
+		:global(.iconfont) {
+			font-size: 16px;
+		}
+	}
+}

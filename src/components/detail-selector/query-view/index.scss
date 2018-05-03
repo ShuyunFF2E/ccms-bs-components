@@ -1,13 +1,10 @@
-.ccms-bs-detail-selector {
-	.query-container {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-
-		.result-holder {
-			flex: 1;
-			margin-top: 10px;
-			overflow: auto;
-		}
+.container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	.result-holder {
+		flex: 1;
+		margin-top: 10px;
+		overflow: auto;
 	}
 }

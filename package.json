@@ -13,7 +13,8 @@
 		"angular-es-utils": "^2.1.5",
 		"angular-resource": "=1.5.8",
 		"angular-ui-router": "~0.2.18",
-		"ccms-components": "^2.22.4"
+		"ccms-ep-components": "^1.1.0",
+		"common-javascript-utils": "0.0.1"
 	},
 	"devDependencies": {
 		"autoprefixer": "^7.1.4",

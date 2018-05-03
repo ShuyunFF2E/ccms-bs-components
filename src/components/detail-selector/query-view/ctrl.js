@@ -1,8 +1,10 @@
+import styles from './index.scss';
 import { Inject } from 'angular-es-utils';
 import { getPureCondition, hasArrayChanged } from './../utils';
 
 @Inject('$scope')
 export default class DetailSelectorQueryViewCtrl {
+	styles = styles;
 
 	constructor() {
 		this.gridExternalData = [];
@@ -80,12 +82,14 @@ function generateResourceData(skip = 0, selected = false) {
 	return Array(20).fill().map((v, i) => {
 		const ii = skip + i + 1;
 		return {
-			id: 'ID' + ii,
-			goodsName: 'A ' + ii,
-			shopName: '小叮当之家',
-			price: 100.00 + ii,
-			size: ii + ' inch',
-			color: ii % 2 ? '原谅绿' : '自然黑',
+			user_id: 'ID' + ii,
+			tenant_id: 'A ' + ii,
+			source: (i % 2 + 1).toString(),
+			is_initial_pwd: i % 2 > 0,
+			creator: ii + ' inch',
+			created: new Date(),
+			update_time: new Date(),
+			reset_time: new Date(),
 			selected
 		};
 	});

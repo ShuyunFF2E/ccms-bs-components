@@ -1,10 +1,9 @@
-<div class="query-container">
+<div class="{{$ctrl.styles.container}}">
 
 	<!-- 简单查找 -->
 	<bs-base-condition-box
 		opts="$ctrl.opts"
 		config="$ctrl.config"
-		conditions="$ctrl.conditions"
 		refresh-conditions="$ctrl.refreshConditions"
 		ng-if="$ctrl.opts.conditionModel==='BASE'">
 	</bs-base-condition-box>
@@ -15,9 +14,9 @@
 		ng-if="$ctrl.opts.conditionModel==='ADVANCE'">
 	</bs-advance-condition-box>
 
-	<div class="result-holder">
+	<div class="{{$ctrl.styles.resultHolder}}">
 		<bs-selector-grid
-			columns="$ctrl.gridColumns"
+			columns="$ctrl.config.columns"
 			opts="$ctrl.opts"
 			external-data="$ctrl.gridExternalData"
 			lazyload="$ctrl.fetchResourceData"></bs-selector-grid>

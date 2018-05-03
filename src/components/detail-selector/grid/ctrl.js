@@ -1,11 +1,17 @@
 import jQuery from 'jquery';
 
+import styles from './index.scss';
+import { isBoolean } from '@/utils';
 import throttle from '@/utils/throttle';
+import dateFormat from 'common-javascript-utils/src/date';
 
 import { Inject } from 'angular-es-utils';
 
 @Inject('$scope', '$ccGrid', '$timeout', '$element')
 export default class DetailSelectorGridCtrl {
+	styles = styles;
+
+	fieldParser = {};
 
 	constructor() {
 		/**
@@ -33,7 +39,7 @@ export default class DetailSelectorGridCtrl {
 
 		this.gridOpts = {
 			showPagination: false,
-			emptyTipTpl: `<div class="grid-empty-message">当前条件未查询到任何数据</div>`
+			emptyTipTpl: `<div class="${styles.gridEmptyMessage}">当前条件未查询到任何数据</div>`
 		};
 	}
 
@@ -50,7 +56,7 @@ export default class DetailSelectorGridCtrl {
 			this.rerenderGrid();
 		}
 
-		if(changes.externalData){
+		if (changes.externalData) {
 			this.gridOpts.externalData = this.externalData;
 			this._$ccGrid.refresh(this.gridOpts);
 		}
@@ -74,9 +80,11 @@ export default class DetailSelectorGridCtrl {
 	// 计算表格的列（因为列是可配的）
 	generateGridColumns() {
 		if (this.opts.selectType === 'multiple') {
-			this.generateCheckboxGridColumns();
+			// this.generateCheckboxGridColumns();
+			this.generatePlainGridColumns();
 		} else if (this.opts.selectType === 'single') {
-			this.generateRadioGridColumns();
+			// this.generateRadioGridColumns();
+			this.generatePlainGridColumns();
 		} else {
 			this.generatePlainGridColumns();
 		}
@@ -84,15 +92,23 @@ export default class DetailSelectorGridCtrl {
 
 	// 无选择框
 	generatePlainGridColumns() {
-		const headerTpl = `<tr>
-			${this.columns.map(item => `<th>${item.name}</th>`).join('')}
-		</tr>`;
+		// const headerTpl = `<tr>
+		// 	${this.columns.map(item => `<th>${item.name}</th>`).join('')}
+		// </tr>`;
 
 		const columnsDef = this.columns.map(item => {
-			return { cellTemplate: `<span ng-bind="entity.${item.code}"></span>` };
+
+			this.fieldParser[item.code] = this.genFieldParser(item);
+
+			return {
+				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
+				field: item.code,
+				displayName: item.name,
+				tooltip: item.tooltip
+			};
 		});
 
-		this.gridOpts.headerTpl = headerTpl;
+		// this.gridOpts.headerTpl = headerTpl;
 		this.gridOpts.columnsDef = columnsDef;
 	}
 
@@ -107,7 +123,12 @@ export default class DetailSelectorGridCtrl {
 			cellTemplate: `<cc-radio ng-model="$ctrl.singleSelectedValue" ng-value="entity.id"></cc-radio>`,
 			width: '30px'
 		}].concat(this.columns.map(item => {
-			return { cellTemplate: `<span ng-bind="entity.${item.code}"></span>` };
+			return {
+				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
+				field: item.code,
+				displayName: item.name,
+				tooltip: item.tooltip
+			};
 		}));
 
 		this.gridOpts.headerTpl = headerTpl;
@@ -127,7 +148,12 @@ export default class DetailSelectorGridCtrl {
 			cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect()"></cc-checkbox>`,
 			width: '30px'
 		}].concat(this.columns.map(item => {
-			return { cellTemplate: `<span ng-bind="entity.${item.code}"></span>` };
+			return {
+				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
+				field: item.code,
+				displayName: item.name,
+				tooltip: item.tooltip
+			};
 		}));
 
 		this.gridOpts.headerTpl = headerTpl;
@@ -198,7 +224,33 @@ export default class DetailSelectorGridCtrl {
 
 		$element.on('mousewheel', '.datalist', throttle(mousewheel, 50, this));
 	}
+
+	genFieldParser(field) {
+		return value => {
+
+			if (field.dataType === 'boolean') {
+				if (!isBoolean(value)) return '';
+				return field.dynamicConfigs.find(v => v.descVal === value.toString()).destVal;
+			}
+
+			if (field.dataType === 'enum') {
+				if (!value) return '';
+				return (field.dynamicConfigs.find(v => v.descVal === value) || {}).destVal || '';
+			}
+
+			if (field.dataType === 'date') {
+				if (!value) return '';
+
+				const format = {
+					'YMD': 'yyyy-MM-dd',
+					'YMDhms': 'yyyy-MM-dd hh:mm:ss',
+					'YMDhm': 'yyyy-MM-dd hh:mm',
+				}[field.styleType] || 'yyyy-MM-dd hh:mm:ss';
+				return dateFormat(new Date(value), format);
+			}
+
+			return value;
+		}
+
+	}
 }
-
-
-

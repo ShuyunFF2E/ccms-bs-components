@@ -1,30 +1,31 @@
-<div class="base-condition-box">
-	<div class="oops">
-		<bs-search-input ng-model="$ctrl.opts.params.keyword" search="$ctrl.opts.search()" placeholder="'关键字'"></bs-search-input>
+<div class="{{$ctrl.styles.baseConditionBox}}">
 
-		<cc-dropdown class="extend-condition-setter">
-			<button cc-dropdown-toggle cc-tooltip="'添加更多条件'" tooltip-placement="top">
+	<div class="{{$ctrl.styles.conditionZone+ ' clearfix'}}" ng-show="$ctrl.isOpen">
+		<bs-condition-item ng-repeat="condition in $ctrl.config.conditions" condition="condition"></bs-condition-item>
+		<bs-condition-item ng-repeat="condition in $ctrl.config.extendConditions" condition="condition" extend="true" ng-if="condition.selected"></bs-condition-item>
+	</div>
+
+	<div class="{{$ctrl.styles.toolbarZone}}">
+		<!-- <bs-search-input ng-model="$ctrl.opts.params.keyword" search="$ctrl.opts.search()" placeholder="'关键字'"></bs-search-input> -->
+
+		<cc-dropdown class="{{$ctrl.styles.extendConditionSetter + ' dropdown-closed'}}">
+			<button cc-dropdown-toggle>
 				<span>更多</span>
 				<span class="iconfont icon-arrow"></span>
 			</button>
 			<div cc-dropdown-panel>
-				<div class="extend-condition-text">更多条件</div>
-				<div class="extend-condition-item" ng-repeat="condition in $ctrl.config.extendConditions track by $index" ng-if="condition.selected">
-					<cc-checkbox ng-model="condition.active" ng-change="$ctrl.refreshConditions()">
+				<div class="{{$ctrl.styles.extendConditionText}}">更多条件</div>
+				<div class="{{$ctrl.styles.extendConditionItem}}" ng-repeat="condition in $ctrl.config.extendConditions track by $index">
+					<cc-checkbox ng-model="condition.selected" ng-change="$ctrl.refreshConditions()">
 						<span title="{{condition.name}}" ng-bind="condition.name"></span>
 					</cc-checkbox>
 				</div>
 			</div>
 		</cc-dropdown>
 
-		<button class="btn-text btn-resert">重置</button>
-		<button class="btn-text btn-link" ng-click="$ctrl.opts.conditionModel='ADVANCE'" ng-if="$ctrl.opts.advanceSearch">高级查找</button>
-	</div>
-
-	<div class="condition-item" ng-repeat="condition in $ctrl.conditions" ng-class="{extend:condition.isExtend}">
-		<input type="text" ng-model="condition.name">
-		<button class="btn-remove" ng-if="condition.isExtend" ng-click="$ctrl.removeExtendCondition(condition)" cc-tooltip="'删除条件'" tooltip-placement="bottom">
-			<span class="iconfont icon-dele"></span>
-		</button>
+		<button class="{{'btn btn-ok '+ $ctrl.styles.btnSearch}}">搜索</button>
+		<button class="{{$ctrl.styles.btnText +' '+ $ctrl.styles.btnResert}}">重置</button>
+		<button class="{{$ctrl.styles.btnText +' '+ $ctrl.styles.btnResert}}" ng-click="$ctrl.isOpen=!$ctrl.isOpen">{{$ctrl.isOpen?'收起':'展开'}}</button>
+		<!-- <button class="btn-text btn-link" ng-click="$ctrl.opts.conditionModel='ADVANCE'" ng-if="$ctrl.opts.advanceSearch">高级查找</button> -->
 	</div>
 </div>

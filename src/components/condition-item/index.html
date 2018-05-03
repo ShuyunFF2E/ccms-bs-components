@@ -1,0 +1,9 @@
+<div class="{{$ctrl.styles.conditionItem}}">
+	<div class="{{$ctrl.styles.name}}">{{$ctrl.condition.name}}</div>
+	<div class="{{$ctrl.styles.content}}">
+		<input type="text" ng-model="$ctrl.condition.value">
+		<button class="{{$ctrl.styles.btnRemove}}" ng-if="$ctrl.extend" ng-click="$ctrl.condition.selected=false">
+			<span class="iconfont icon-dele"></span>
+		</button>
+	</div>
+</div>

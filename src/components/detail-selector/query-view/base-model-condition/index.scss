@@ -1,78 +1,80 @@
-.ccms-bs-detail-selector {
-	.query-container {
-		.base-condition-box {
-			position: relative;
-			.condition-item {
-				display: inline-block;
-				margin: 0 10px 10px 0;
-				> input {
-					width: 140px;
-				}
-				.btn-remove {
-					vertical-align: middle;
-					cursor: pointer;
-					min-width: unset;
-					border: none;
-					padding: 0 3px;
-					color: #ddd;
-					&:hover {
-						background-color: transparent;
-						color: #aaa;
-					}
-					.iconfont {
-						font-size: 16px;
-					}
-				}
-				&.extend {
-					> input {
-						width: 114.25px;
-					}
-				}
-			}
-			.oops {
-				float: right;
-				.extend-condition-setter {
-					position: relative;
-					width: 90px;
-					overflow: visible;
-					display: inline-block;
-					[cc-dropdown-toggle] {
-						padding-top: 8px;
-						padding-bottom: 7px;
-						height: unset;
-						width: 70px;
-					}
-					.icon-arrow {
-						font-size: 12px;
-					}
-					.dropdown-panel {
-						position: absolute;
-						z-index: 10;
-						top: 32px;
-						left: 1px;
-						width: 150px;
-						padding: 5px 0;
-						border-radius: 2px;
-						box-shadow: 0px 0px 2px #aaa;
-						background-color: #fff;
-						.extend-condition-text {
-							padding: 8px 10px;
-							color: #888;
-						}
-						.extend-condition-item {
-							padding: 5px 10px;
-							&:hover {
-								background-color: #e7f7f8;
-							}
-						}
-					}
-					.cc-checkbox-label {
-						width: 100px;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
-				}
-			}
+.base-condition-box {
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.condition-zone {
+	margin: 0 -20px;
+	padding: 10px 20px 8px;
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.toolbar-zone {
+	margin: 0 -20px;
+	padding: 8px 20px;
+	text-align: right;
+	border-bottom: 1px solid #e8e8e8;
+	.extend-condition-setter {
+		text-align: left;
+		position: relative;
+		width: 75px;
+		overflow: visible;
+		display: inline-block;
+		:global([cc-dropdown-toggle]) {
+			padding-top: 7px;
+			padding-bottom: 6px;
+			height: unset;
+			width: 70px;
 		}
+		.icon-arrow {
+			font-size: 12px;
+		}
+		:global(.dropdown-panel) {
+			position: absolute;
+			z-index: 10;
+			top: 32px;
+			left: 1px;
+			width: 150px;
+			padding: 5px 0;
+			border-radius: 2px;
+			box-shadow: 0px 0px 2px #aaa;
+			background-color: #fff;
+		}
+		.cc-checkbox-label {
+			width: 100px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		:global(.iconfont) {
+			font-size: 12px;
+		}
+	}
+	.btn-search {
+		min-width: 65px;
+		height: 28px;
+		margin: 0 0.5em;
+	}
+}
+
+.extend-condition-text {
+	padding: 8px 10px;
+	color: #888;
+}
+
+.extend-condition-item {
+	padding: 5px 10px;
+	&:hover {
+		background-color: #e7f7f8;
+	}
+}
+
+.btn-text {
+	border: none;
+	min-width: unset;
+	background-color: transparent;
+	padding: 0;
+	margin: 0 0.5em;
+	&:hover {
+		background-color: transparent;
 	}
 }

@@ -1,42 +1,29 @@
-<div class="ccms-detail-selector-setter">
-	<div class="field">
-		<h4 class="field-title">配置条件</h4>
-		<div class="field-content">
-			<div class="sub-field">
-				<h5 class="sub-field-title">常用条件</h5>
-				<div class="sub-field-content">
-					<div class="checkbox-holder condition" ng-repeat="condition in $ctrl.conditions">
-						<cc-checkbox ng-model="condition.selected">
-							<span title="{{condition.name}}" ng-bind="condition.name"></span>
-						</cc-checkbox>
-						<button class="btn-setting" ng-click="$ctrl.setToExtendCondition(condition)">设为可用</button>
-					</div>
-				</div>
-			</div>
-			<div class="sub-field">
-				<h5 class="sub-field-title">可用搜索条件</h5>
-				<div class="sub-field-content">
-					<div class="checkbox-holder condition" ng-repeat="condition in $ctrl.extendConditions">
-						<cc-checkbox ng-model="condition.selected">
-							<span title="{{condition.name}}" ng-bind="condition.name"></span>
-						</cc-checkbox>
-						<button class="btn-setting" ng-click="$ctrl.setToCondition(condition)">设为常用</button>
-					</div>
-				</div>
+<div class="{{$ctrl.styles.container}}">
+	<div class="{{$ctrl.styles.conditionBox}}">
+		<div class="{{$ctrl.styles.head}}">常显条件
+			<span class="{{$ctrl.styles.tips}}">（最多设置8个）</span>
+		</div>
+		<div class="{{$ctrl.styles.content}}">
+			<div class="{{$ctrl.styles.conditionItem}}" ng-repeat="condition in $ctrl.conditions track by $index">
+				<cc-checkbox>{{condition.name}}</cc-checkbox>
+				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>
 		</div>
 	</div>
-	<div class="field">
-		<h4 class="field-title">列表显示字段</h4>
-		<div class="field-content">
-			<div class="sub-field">
-				<div class="sub-field-content">
-					<div class="checkbox-holder" ng-repeat="column in $ctrl.columns">
-						<cc-checkbox ng-model="column.selected">
-							<span title="{{column.name}}" ng-bind="column.name"></span>
-						</cc-checkbox>
-					</div>
-				</div>
+	<div class="{{$ctrl.styles.oopsBox}}">
+		<button class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnAdd}}">
+			<span class="iconfont icon-rightarrow"></span>
+		</button>
+		<button class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnRemove}}">
+			<span class="iconfont icon-rightarrow"></span>
+		</button>
+	</div>
+	<div class="{{$ctrl.styles.conditionBox}}">
+		<div class="{{$ctrl.styles.head}}">更多条件</div>
+		<div class="{{$ctrl.styles.content}}">
+			<div class="{{$ctrl.styles.conditionItem}}" ng-repeat="condition in $ctrl.extendConditions track by $index">
+				<cc-checkbox>{{condition.name}}</cc-checkbox>
+				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>
 		</div>
 	</div>

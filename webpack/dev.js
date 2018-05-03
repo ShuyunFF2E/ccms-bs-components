@@ -26,14 +26,32 @@ module.exports = {
 	],
 	resolve: commonConfig.resolve,
 	module: {
-		rules: commonConfig.module.rules.concat({
+		rules: commonConfig.module.rules.concat([{
 			test: /\.(sc|c)ss$/,
+			exclude: /node_modules|src\/assets/,
+			use: [
+				{ loader: 'style-loader', options: { sourceMap: true } },
+				{
+					loader: 'css-loader',
+					options: {
+						sourceMap: true,
+						modules: true,
+						camelCase: true,
+						localIdentName: '[local]--[hash:base64:8]'
+					}
+				},
+				{ loader: 'postcss-loader', options: { sourceMap: true } },
+				{ loader: 'sass-loader', options: { sourceMap: true } }
+			]
+		}, {
+			test: /\.(sc|c)ss$/,
+			include: /node_modules|src\/assets/,
 			use: [
 				{ loader: 'style-loader', options: { sourceMap: true } },
 				{ loader: 'css-loader', options: { sourceMap: true } },
 				{ loader: 'postcss-loader', options: { sourceMap: true } },
 				{ loader: 'sass-loader', options: { sourceMap: true } }
 			]
-		})
+		}])
 	}
 };

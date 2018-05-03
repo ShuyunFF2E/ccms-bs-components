@@ -1,21 +1,18 @@
-.ccms-modal[data-uid*=CCMS_BS_DETAIL_SELECTOR] {
-	.container.modal {
-		.modal-body {
-			overflow: unset;
-		}
+.setting-wrap {
+	position: absolute;
+	top: -32px;
+	right: 50px;
+	color: #666;
+	cursor: pointer;
+	&:hover {
+		color: #444;
 	}
-	.setting-wrap {
-		position: absolute;
-		top: -29px;
-		color: #666;
-		cursor: pointer;
-		&:hover {
-			color: #444;
-		}
+	:global(.bs-iconfont) {
+		font-size: 18px;
 	}
 }
 
-.ccms-bs-detail-selector {
+.selector {
 	height: 100%;
 	display: block;
 	.loading-wrap {
@@ -38,6 +35,8 @@
 		border: none;
 		min-width: unset;
 		background-color: transparent;
+		padding: 0;
+		margin: 0 0.5em;
 		&:hover {
 			background-color: transparent;
 		}

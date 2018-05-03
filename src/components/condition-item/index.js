@@ -5,17 +5,17 @@ import controller from './ctrl';
 import template from './index.html';
 
 const DDO = {
-	template,
 	controller,
+	template,
 	transclude: true,
 	bindings: {
-		opts: '<',
-		config: '<',
-		refreshConditions: '<'
+		condition: '<',
+		extend: '<',
+		removeExtendCondition: '<'
 	}
 };
 
 export default angular
-	.module('bs.components.baseModelConditionBox', [])
-	.component('bsBaseConditionBox', DDO)
+	.module('bs.components.conditionItem', [])
+	.component('bsConditionItem', DDO)
 	.name;

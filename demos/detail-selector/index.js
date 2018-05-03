@@ -1,10 +1,206 @@
+const config = {
+	"name": "商品选择器",
+	"displayName": "商品选择器",
+	"maxNum": 1000,
+	"helpText": "商品选择器",
+	"retColumn": "user_id,source,tenant_id",
+	"commonConditionConfig": [{
+			"columnName": "source",
+			"styleType": "",
+			"typeName": "enum",
+			"displayName": "数据来源",
+			"dicType": null,
+			"dynamicConfigs": [{
+					"descVal": "1",
+					"destVal": "上海"
+				},
+				{
+					"descVal": "2",
+					"destVal": "北京"
+				}
+			],
+			"helpText": "数据来源指的是数据的数据源"
+		},
+		{
+			"columnName": "tenant_id",
+			"styleType": "",
+			"typeName": "text",
+			"displayName": "租户ID",
+			"dicType": null,
+			"dynamicConfigs": null,
+			"helpText": ""
+		},
+		{
+			"columnName": "is_initial_pwd",
+			"styleType": "",
+			"typeName": "boolean",
+			"displayName": "是否初始化密码",
+			"dicType": null,
+			"dynamicConfigs": [{
+					"descVal": "true",
+					"destVal": "是"
+				},
+				{
+					"descVal": "false",
+					"destVal": "否"
+				}
+			],
+			"helpText": ""
+		}
+	],
+	"moreConditionConfig": [{
+			"columnName": "user_id",
+			"styleType": "",
+			"typeName": "text",
+			"displayName": "用户ID",
+			"dicType": null,
+			"dynamicConfigs": null,
+			"helpText": ""
+		},
+		{
+			"columnName": "creator",
+			"styleType": "",
+			"typeName": "text",
+			"displayName": "创建人",
+			"dicType": null,
+			"dynamicConfigs": null,
+			"helpText": ""
+		},
+		{
+			"columnName": "created",
+			"styleType": "YMDhms",
+			"typeName": "date",
+			"displayName": "创建时间",
+			"dicType": null,
+			"dynamicConfigs": null,
+			"helpText": ""
+		},
+		{
+			"columnName": "reset_time",
+			"styleType": "YMD",
+			"typeName": "date",
+			"displayName": "重置时间",
+			"dicType": null,
+			"dynamicConfigs": null,
+			"helpText": ""
+		},
+		{
+			"columnName": "update_time",
+			"styleType": "YMDhm",
+			"typeName": "date",
+			"displayName": "更新时间",
+			"dicType": null,
+			"dynamicConfigs": null,
+			"helpText": "多对多"
+		}
+	],
+	"disableConditionConfig": [{
+		"columnName": "password",
+		"styleType": "",
+		"typeName": "text",
+		"displayName": "用户密码",
+		"dicType": null,
+		"dynamicConfigs": null,
+		"helpText": ""
+	}],
+	"isAdvancedConfig": false,
+	"sortField": "created",
+	"sort": "DESC",
+	"displayColumnConfig": [{
+			"columnName": "user_id",
+			"displayName": null,
+			"isFull": false,
+			"helpText": "用户ID"
+		},
+		{
+			"columnName": "tenant_id",
+			"displayName": null,
+			"isFull": false,
+			"helpText": ""
+		},
+		{
+			"columnName": "source",
+			"displayName": null,
+			"isFull": false,
+			"helpText": "数据来源"
+		},
+		{
+			"columnName": "is_initial_pwd",
+			"displayName": null,
+			"isFull": false,
+			"helpText": ""
+		},
+		{
+			"columnName": "creator",
+			"displayName": null,
+			"isFull": false,
+			"helpText": ""
+		},
+		{
+			"columnName": "created",
+			"displayName": null,
+			"isFull": false,
+			"helpText": ""
+		},
+		{
+			"columnName": "update_time",
+			"displayName": null,
+			"isFull": false,
+			"helpText": ""
+		},
+		{
+			"columnName": "reset_time",
+			"displayName": null,
+			"isFull": false,
+			"helpText": ""
+		}
+	],
+	"undisplayColumnConfig": [{
+		"columnName": "password",
+		"displayName": null,
+		"isFull": false,
+		"helpText": "商品选择器"
+	}]
+};
+
+function genCondition(c, ) {
+	return {
+		...c,
+		name: c.displayName,
+		code: c.columnName
+	};
+}
+
+function genColumns(c, fields = []) {
+	const field = fields.find(f => f.columnName === c.columnName);
+	return {
+		...field,
+		...c,
+		name: field.displayName,
+		code: c.columnName,
+		tooltip: c.helpText,
+		dataType: field.typeName
+	};
+}
+
+
 (function(angular) {
 	angular
 		.module('app', ['ccms.bs.components'])
 		.controller('ctrl', function($scope, $bsDetailSelector) {
+			const fields = [
+				...config.commonConditionConfig,
+				...config.moreConditionConfig,
+				...config.disableConditionConfig
+			];
+
 			$scope.open1 = function() {
 				$bsDetailSelector.open({
-					uid: 'zdyx1'
+					uid: 'zdyx1',
+					title: config.displayName,
+					conditions: config.commonConditionConfig.map(genCondition),
+					extendConditions: config.moreConditionConfig.map(genCondition),
+					columns: config.displayColumnConfig.map((c) => genColumns(c, fields))
 				});
 			};
 
