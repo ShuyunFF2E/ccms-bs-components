@@ -1,3 +1,7 @@
+.ccms-modal[data-uid*=CCMS_BS_DETAIL_SELECTOR] .container.modal {
+	min-width: 960px;
+}
+
 .ccms-modal[data-uid*=CCMS_BS_DETAIL_SELECTOR] .container.modal .modal-body {
 	overflow: unset;
 	padding-top: 0;

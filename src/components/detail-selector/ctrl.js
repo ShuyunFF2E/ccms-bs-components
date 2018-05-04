@@ -79,13 +79,10 @@ export default class DetailSelectorCtrl {
 			style: this.setter.style,
 			uid: 'CCMS_BS_DETAIL_SETTING'
 		}).open().result.then(({ conditions, extendConditions }) => {
+			const conditionSet = [...this.config.conditions, ...this.config.extendConditions];
 
-			this.config = {
-				conditions: conditions.map(getPureCondition),
-				extendConditions: extendConditions.map(getPureCondition)
-			};
-
-			// setConfigToSessionStorage(this.cacheKey, this.config);
+			this.config.conditions = conditions.map(c => conditionSet.find(v => v.code === c.code));
+			this.config.extendConditions = extendConditions.map(c => conditionSet.find(v => v.code === c.code));
 		});
 	}
 

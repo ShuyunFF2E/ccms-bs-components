@@ -5,7 +5,7 @@ import controller from './ctrl';
 const noop = () => {};
 
 // 默认选择器样式
-const defaultStyle = { width: '960px', maxWidth: '960px', height: (window.screen.height - 400) + 'px' };
+const defaultStyle = { width: '960px', maxWidth: '960px', minWidth: '960px', height: (window.screen.height - 400) + 'px' };
 // 默认配置选择器样式
 const setterConfig = { title: '配置选择器', offsetLeft: '95px', style: { width: '600px', maxWidth: '600px', height: '455px' } };
 

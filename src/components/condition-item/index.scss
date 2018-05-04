@@ -2,19 +2,28 @@ bs-condition-item {
 	float: left;
 	width: 25%;
 	margin-bottom: 10px;
-	word-spacing: -6px;
 }
 
 .condition-item {
-	word-spacing: 0;
 	input[type=text] {
-		width: 200px;
+		width: calc(100% - 30px);
 	}
 }
 
 .name {
 	color: #666;
-	margin-bottom: 5px;
+	margin-bottom: 3px;
+	height: 20px;
+	> span {
+		vertical-align: middle;
+	}
+	.name-text {
+		max-width: calc(100% - 50px);
+		display: inline-block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 }
 
 .content {

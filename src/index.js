@@ -1,8 +1,9 @@
 import './assets/styles/bs-iconfont.css';
 import './assets/styles/index.css';
-
+import 'angularjs-dragula/dist/dragula.css';
 import angular from 'angular';
 import ccmsComponents from 'ccms-ep-components';
+import angularDragula from 'angularjs-dragula';
 import detailSelector from './components/detail-selector';
 import conditionSelector from './components/condition-selector';
 import searchInput from './components/search-input';
@@ -17,7 +18,8 @@ const bsComponents = angular.module('ccms.bs.components', [
 	conditionSelector,
 	searchInput,
 	dropdownSearch,
-	conditionItem
+	conditionItem,
+	angularDragula(angular)
 ]);
 
 bsComponents.version = version;

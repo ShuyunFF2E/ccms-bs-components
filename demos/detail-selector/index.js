@@ -34,15 +34,15 @@ const config = {
 			"columnName": "is_initial_pwd",
 			"styleType": "",
 			"typeName": "boolean",
-			"displayName": "是否初始化密码",
+			"displayName": "初始化密码",
 			"dicType": null,
 			"dynamicConfigs": [{
 					"descVal": "true",
-					"destVal": "是"
+					"destVal": "已初始化"
 				},
 				{
 					"descVal": "false",
-					"destVal": "否"
+					"destVal": "未初始化"
 				}
 			],
 			"helpText": ""
@@ -163,11 +163,13 @@ const config = {
 	}]
 };
 
-function genCondition(c, ) {
+function genCondition(c) {
 	return {
 		...c,
 		name: c.displayName,
-		code: c.columnName
+		code: c.columnName,
+		tooltip: c.helpText,
+		dataType: c.typeName
 	};
 }
 

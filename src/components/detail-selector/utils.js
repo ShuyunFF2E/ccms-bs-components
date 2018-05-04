@@ -5,18 +5,7 @@
 export function getPureCondition(item) {
 	return {
 		code: item.code,
-		name: item.name,
-
-		/**
-		 * 是否在配置选择器组件中勾选
-		 */
-		selected: !!item.selected,
-
-		/**
-		 * 是否在“更多”条件中勾选
-		 * 仅对可用搜索条件有效
-		 */
-		active: !!item.active
+		name: item.name
 	};
 }
 
@@ -30,4 +19,12 @@ export function hasArrayChanged(current, previous) {
 	const previousStr = previous.filter(item => item.selected).map(item => item.code).join(',');
 
 	return currentStr !== previousStr;
+}
+
+
+export function removeItemFromArray(item, array) {
+	const index = array.indexOf(item);
+	if (~index) {
+		array.splice(index, 1);
+	}
 }

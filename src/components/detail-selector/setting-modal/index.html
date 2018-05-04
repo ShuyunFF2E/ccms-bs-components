@@ -3,26 +3,26 @@
 		<div class="{{$ctrl.styles.head}}">常显条件
 			<span class="{{$ctrl.styles.tips}}">（最多设置8个）</span>
 		</div>
-		<div class="{{$ctrl.styles.content}}">
-			<div class="{{$ctrl.styles.conditionItem}}" ng-repeat="condition in $ctrl.conditions track by $index">
-				<cc-checkbox>{{condition.name}}</cc-checkbox>
+		<div class="{{$ctrl.styles.content}}" dragula="'bag-condition'" dragula-model="$ctrl.conditions" data-owner="conditions">
+			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.conditions track by $index">
+				<cc-checkbox ng-model="condition.checked">{{condition.name}}</cc-checkbox>
 				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>
 		</div>
 	</div>
 	<div class="{{$ctrl.styles.oopsBox}}">
-		<button class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnAdd}}">
+		<button ng-click="$ctrl.moveToExtendCondition()" class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnAdd}}" ng-disabled="$ctrl.getSelectedConditions($ctrl.conditions).length===0">
 			<span class="iconfont icon-rightarrow"></span>
 		</button>
-		<button class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnRemove}}">
+		<button ng-click="$ctrl.moveToCondition()" class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnRemove}}" ng-disabled="$ctrl.conditions.length>=8||$ctrl.getSelectedConditions($ctrl.extendConditions).length===0">
 			<span class="iconfont icon-rightarrow"></span>
 		</button>
 	</div>
 	<div class="{{$ctrl.styles.conditionBox}}">
 		<div class="{{$ctrl.styles.head}}">更多条件</div>
-		<div class="{{$ctrl.styles.content}}">
-			<div class="{{$ctrl.styles.conditionItem}}" ng-repeat="condition in $ctrl.extendConditions track by $index">
-				<cc-checkbox>{{condition.name}}</cc-checkbox>
+		<div class="{{$ctrl.styles.content}}" dragula="'bag-condition'" dragula-model="$ctrl.extendConditions">
+			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.extendConditions track by $index">
+				<cc-checkbox ng-model="condition.checked">{{condition.name}}</cc-checkbox>
 				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>
 		</div>
