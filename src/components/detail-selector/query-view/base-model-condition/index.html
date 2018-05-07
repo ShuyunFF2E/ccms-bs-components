@@ -1,6 +1,6 @@
 <div class="{{$ctrl.styles.baseConditionBox}}">
 
-	<div class="{{$ctrl.styles.conditionZone+ ' clearfix'}}" ng-class="{[$ctrl.styles.show]:$ctrl.isOpen}">
+	<div class="{{$ctrl.styles.conditionZone+ ' bs-clearfix'}}" ng-class="{[$ctrl.styles.show]:$ctrl.isOpen}">
 		<bs-condition-item ng-repeat="condition in $ctrl.config.conditions" condition="condition"></bs-condition-item>
 		<bs-condition-item ng-repeat="condition in $ctrl.config.extendConditions" condition="condition" extend="true" ng-if="condition.selected"></bs-condition-item>
 	</div>
@@ -26,6 +26,6 @@
 		<button class="{{'btn btn-ok '+ $ctrl.styles.btnSearch}}">搜索</button>
 		<button class="{{$ctrl.styles.btnText +' '+ $ctrl.styles.btnResert}}">重置</button>
 		<button class="{{$ctrl.styles.btnText +' '+ $ctrl.styles.btnResert}}" ng-click="$ctrl.isOpen=!$ctrl.isOpen">{{$ctrl.isOpen?'收起':'展开'}}</button>
-		<!-- <button class="btn-text btn-link" ng-click="$ctrl.opts.conditionModel='ADVANCE'" ng-if="$ctrl.opts.advanceSearch">高级查找</button> -->
+		<!-- <button class="btn-text btn-link" ng-click="$ctrl.opts.conditionModel='ADVANCE'" ng-if="$ctrl.opts.advanceSearchAble">高级查找</button> -->
 	</div>
 </div>

@@ -6,11 +6,15 @@
 	<div class="{{$ctrl.styles.content}}">
 		<div ng-class="$ctrl.styles.conditionInput" ng-switch="$ctrl.condition.dataType">
 			<!-- 布尔型 -->
-			<cc-dropdown-select ng-switch-when="boolean" model="$ctrl.condition.value" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-select>
+			<cc-dropdown-select ng-switch-when="boolean" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.value" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-select>
 			<!-- 枚举型 -->
-			<cc-dropdown-select ng-switch-when="enum" model="$ctrl.condition.value" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-select>
+			<cc-dropdown-multiselect ng-switch-when="enum" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-multiselect>
+			<!-- 字典型 -->
+			<cc-dropdown-multiselect ng-switch-when="dict" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-multiselect>
+			<!-- 数值型 -->
+			<bs-number-range ng-switch-when="number" ng-class="$ctrl.styles.valueField" min-value="$ctrl.condition.minValue" max-value="$ctrl.condition.maxValue"></bs-number-range>
 			<!-- default text -->
-			<input ng-switch-default type="text" ng-model="$ctrl.condition.value" />
+			<input ng-switch-default ng-class="$ctrl.styles.valueField" type="text" ng-model="$ctrl.condition.value" />
 		</div>
 		<button class="{{$ctrl.styles.btnRemove}}" ng-if="$ctrl.extend" ng-click="$ctrl.condition.selected=false">
 			<span class="iconfont icon-dele"></span>

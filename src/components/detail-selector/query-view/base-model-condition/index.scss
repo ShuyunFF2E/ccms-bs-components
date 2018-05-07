@@ -1,6 +1,5 @@
 .base-condition-box {
 	position: relative;
-	margin-bottom: 10px;
 }
 
 .condition-zone {
@@ -14,7 +13,7 @@
 		max-height: 300px;
 		padding-top: 10px;
 		padding-bottom: 8px;
-		overflow: auto;
+		overflow: initial;
 	}
 }
 

@@ -1,0 +1,14 @@
+.number-range {
+	display: flex;
+	flex-direction: row;
+	width: calc(100% - 30px);
+	.input {
+		display: block;
+		width: calc(50% - 7px);
+	}
+	.separate {
+		display: block;
+		margin: 0 5px;
+		line-height: 30px;
+	}
+}

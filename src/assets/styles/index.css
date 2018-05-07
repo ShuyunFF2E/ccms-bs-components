@@ -7,9 +7,16 @@
 	padding-top: 0;
 }
 
-.clearfix {
-	overflow: auto;
+.bs-clearfix {
 	zoom: 1;
+}
+
+.bs-clearfix:after {
+	display: block;
+	clear: both;
+	content: "";
+	visibility: hidden;
+	height: 0;
 }
 
 .ccms-modal[data-uid*=CCMS_BS_DETAIL_SETTING] .container.modal {

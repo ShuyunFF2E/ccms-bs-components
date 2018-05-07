@@ -24,7 +24,7 @@ const config = {
 		{
 			"columnName": "tenant_id",
 			"styleType": "",
-			"typeName": "text",
+			"typeName": "number",
 			"displayName": "租户ID",
 			"dicType": null,
 			"dynamicConfigs": null,

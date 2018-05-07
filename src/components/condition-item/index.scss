@@ -5,7 +5,7 @@ bs-condition-item {
 }
 
 .condition-item {
-	input[type=text] {
+	.value-field {
 		width: calc(100% - 30px);
 	}
 }

@@ -36,15 +36,15 @@ export default class DetailSelectorCtrl {
 		// this.conditions;
 		// 当前列表需要显示的数据项
 		// this.gridColumns;
-
 	}
 
 	$onInit() {
+		const conditionConfig = this.matchLocalConfig();
 		this.config = {
 			// 常用条件
-			conditions: this.conditions,
+			conditions: conditionConfig.conditions,
 			// 可用搜索条件
-			extendConditions: this.extendConditions,
+			extendConditions: conditionConfig.extendConditions,
 			// 列表显示字段
 			columns: this.columns
 		};
@@ -58,7 +58,32 @@ export default class DetailSelectorCtrl {
 			// 单选/多选
 			selectType: this.selectType,
 			// 是否开启高级搜索
-			advanceSearch: this.advanceSearch
+			advanceSearchAble: this.advanceSearchAble
+		};
+	}
+
+	matchLocalConfig() {
+		// 如果本地缓存中没有配置过则返回原配置
+		const localConditionSet = JSON.parse(window.localStorage.getItem(this.cacheKey));
+		if (!localConditionSet) {
+			return {
+				conditions: this.conditions,
+				extendConditions: this.extendConditions
+			};
+		}
+
+		// 如果本地缓存中的配置项与传入组件的配置不匹配，则返回传入的配置
+		const conditionSet = [...this.conditions, ...this.extendConditions];
+		if (conditionSet.map(v => v.code).sort().join(',') !== [...localConditionSet.conditions, ...localConditionSet.extendConditions].sort().join(',')) {
+			return {
+				conditions: this.conditions,
+				extendConditions: this.extendConditions
+			};
+		}
+
+		return {
+			conditions: localConditionSet.conditions.map(code => conditionSet.find(item => item.code === code)),
+			extendConditions: localConditionSet.extendConditions.map(code => conditionSet.find(item => item.code === code))
 		};
 	}
 
@@ -68,7 +93,6 @@ export default class DetailSelectorCtrl {
 		const scope = this._$rootScope.$new();
 		scope.conditions = this.config.conditions.map(getPureCondition);
 		scope.extendConditions = this.config.extendConditions.map(getPureCondition);
-		// scope.columns = this.config.columns.map(getPureCondition);
 
 		this._$ccModal.modal({
 			scope,
@@ -76,13 +100,19 @@ export default class DetailSelectorCtrl {
 			__body: setterTemp,
 			controller: setterCtrl,
 			title: '搜索条件偏好设置',
-			style: this.setter.style,
+			style: { width: '600px', maxWidth: '600px', height: '455px' },
 			uid: 'CCMS_BS_DETAIL_SETTING'
 		}).open().result.then(({ conditions, extendConditions }) => {
 			const conditionSet = [...this.config.conditions, ...this.config.extendConditions];
 
 			this.config.conditions = conditions.map(c => conditionSet.find(v => v.code === c.code));
 			this.config.extendConditions = extendConditions.map(c => conditionSet.find(v => v.code === c.code));
+
+			// 将偏好设置保存在本地
+			window.localStorage.setItem(this.cacheKey, JSON.stringify({
+				conditions: conditions.map(v => v.code),
+				extendConditions: extendConditions.map(v => v.code)
+			}));
 		});
 	}
 
