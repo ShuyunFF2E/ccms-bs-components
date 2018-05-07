@@ -14,11 +14,11 @@ module.exports = {
 			test: /\.js$/,
 			loader: 'eslint-loader',
 			enforce: 'pre',
-			exclude: /node_modules/
+			// exclude: /(node_modules|bower_components)/,
 		}, {
 			test: /\.js$/,
 			loaders: ['babel-loader'],
-			exclude: /(node_modules|bower_components)/
+			// exclude: /(node_modules|bower_components)/,
 		}, {
 			test: /\.html$/,
 			loader: 'html-loader',
