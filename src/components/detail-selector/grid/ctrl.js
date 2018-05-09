@@ -46,7 +46,7 @@ export default class DetailSelectorGridCtrl {
 	$onInit() {
 		this.initGridOpts();
 
-		this.initLazyLoad();
+		// this.initLazyLoad();
 	}
 
 	$onChanges(changes) {

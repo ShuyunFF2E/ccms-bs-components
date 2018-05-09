@@ -2,7 +2,7 @@ const config = {
 	"name": "商品选择器",
 	"displayName": "商品选择器",
 	"maxNum": 1000,
-	"helpText": "商品选择器",
+	"helpText": "商品选择器商品选择器商品选择器商品选择器商品选择器商品选择器商品选择器商品选择器商品选择器",
 	"retColumn": "user_id,source,tenant_id",
 	"commonConditionConfig": [{
 			"columnName": "source",
@@ -200,6 +200,7 @@ function genColumns(c, fields = []) {
 				$bsDetailSelector.open({
 					uid: 'zdyx1',
 					title: config.displayName,
+					description: config.helpText,
 					conditions: config.commonConditionConfig.map(genCondition),
 					extendConditions: config.moreConditionConfig.map(genCondition),
 					columns: config.displayColumnConfig.map((c) => genColumns(c, fields))

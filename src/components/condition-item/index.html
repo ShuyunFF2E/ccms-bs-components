@@ -1,16 +1,16 @@
 <div ng-class="$ctrl.styles.conditionItem">
-	<div class="{{$ctrl.styles.name}}">
+	<div ng-class="$ctrl.styles.name">
 		<span ng-class="$ctrl.styles.nameText" ng-bind="$ctrl.condition.name" title="{{$ctrl.condition.name}}"></span>
 		<span class="iconfont icon-bangzhu" cc-tooltip="$ctrl.condition.tooltip" tooltip-placement="top-center" ng-if="$ctrl.condition.tooltip"></span>
 	</div>
-	<div class="{{$ctrl.styles.content}}">
+	<div ng-class="$ctrl.styles.content">
 		<div ng-class="$ctrl.styles.conditionInput" ng-switch="$ctrl.condition.dataType">
 			<!-- 布尔型 -->
 			<cc-dropdown-select ng-switch-when="boolean" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.value" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-select>
 			<!-- 枚举型 -->
-			<cc-dropdown-multiselect ng-switch-when="enum" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-multiselect>
+			<cc-dropdown-multiselect ng-switch-when="enum" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}" native="false"></cc-dropdown-multiselect>
 			<!-- 字典型 -->
-			<cc-dropdown-multiselect ng-switch-when="dict" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-multiselect>
+			<cc-dropdown-multiselect ng-switch-when="dict" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}" native="false"></cc-dropdown-multiselect>
 			<!-- 数值型 -->
 			<bs-number-range ng-switch-when="number" ng-class="$ctrl.styles.valueField" min-value="$ctrl.condition.minValue" max-value="$ctrl.condition.maxValue"></bs-number-range>
 			<!-- default text -->

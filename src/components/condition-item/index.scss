@@ -4,9 +4,13 @@ bs-condition-item {
 	margin-bottom: 10px;
 }
 
+.condition-input {
+	padding-right: 30px;
+}
+
 .condition-item {
 	.value-field {
-		width: calc(100% - 30px);
+		width: 100%;
 	}
 }
 

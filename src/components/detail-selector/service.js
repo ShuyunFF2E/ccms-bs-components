@@ -27,6 +27,7 @@ export default class DetailSelectorService {
 	 */
 	open({
 		title = '明细选择器',
+		description = '',
 		uid,
 		style = {},
 		preferenceAble = true,
@@ -39,7 +40,7 @@ export default class DetailSelectorService {
 		onClose = noop
 	} = {}) {
 		if (isUndefined(uid)) {
-			throw new Error('bsDetailSelector 服务必须配置 uid');
+			throw new Error('`uid` is required for `bsDetailSelector`');
 		}
 
 		const scope = this._$rootScope.$new();
@@ -52,6 +53,10 @@ export default class DetailSelectorService {
 		scope.columns = columns;
 
 		const locals = { resources };
+
+		title = `<span>${title}</span>
+			${description?`<icon class="iconfont icon-bangzhu" cc-tooltip="'${description}'"></icon>`:''}
+		`;
 
 		return this._$ccModal.modal({
 			bindings: scope,
