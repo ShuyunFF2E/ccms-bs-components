@@ -21,8 +21,8 @@ function genColumns(c, fields = []) {
 }
 
 const HOSTS = {
-	dcartoon: 'http://ual.dcartoon.saasproj.fenxibao.com',
-	qfish: 'http://ual.qfish.saasproj.fenxibao.com'
+	dcartoon: 'http://ual.dcartoon.saasproj.fenxibao.com/common-component/v1',
+	qfish: 'http://ual.qfish.saasproj.fenxibao.com/common-component/v1'
 };
 
 (function(angular) {
@@ -31,8 +31,8 @@ const HOSTS = {
 		.controller('ctrl', function($scope, $bsDetailSelector, $ccTips) {
 			const params = window.Qs.parse(window.location.search.replace('?', ''));
 
-			$scope.ID = params.ID;
-			$scope.host = HOSTS[params.env];
+			$scope.ID = params.ID || '';
+			$scope.host = params.host || HOSTS.dcartoon;
 			$scope.token = params.token ? decodeURIComponent(params.token) : '';
 
 			$scope.open = function() {
@@ -41,7 +41,7 @@ const HOSTS = {
 					return $ccTips.error('请填写实例ID');
 				}
 				if (!$scope.host) {
-					return $ccTips.error('请填写接口域名');
+					return $ccTips.error('请填写接口域名和服务');
 				}
 				if (!$scope.token) {
 					return $ccTips.error('请填写接口Token');
@@ -78,7 +78,7 @@ const HOSTS = {
 
 			function getInstanceConfig() {
 				$scope.isLoading = true;
-				return fetch($scope.host + '/common-component/v1/detailSelector/config/' + $scope.ID, {
+				return fetch($scope.host + '/detailSelector/config/' + $scope.ID, {
 					headers: {
 						Authorization: $scope.token
 					}
