@@ -14,7 +14,7 @@
 			<!-- 数值型 -->
 			<bs-number-range ng-switch-when="number" ng-class="$ctrl.styles.valueField" min-value="$ctrl.condition.minValue" max-value="$ctrl.condition.maxValue"></bs-number-range>
 			<!-- 日期型 -->
-			<bs-date-range ng-switch-when="text" ng-class="$ctrl.styles.valueField" min-date="$ctrl.condition.minDate" max-date="$ctrl.condition.maxDate"></bs-date-range>
+			<bs-date-range ng-switch-when="date" ng-class="$ctrl.styles.valueField" start="$ctrl.condition.start" end="$ctrl.condition.end" format="$ctrl.condition.styleType"></bs-date-range>
 			<!-- default text -->
 			<input ng-switch-default ng-class="$ctrl.styles.valueField" type="text" ng-model="$ctrl.condition.value" />
 		</div>

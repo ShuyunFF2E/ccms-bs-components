@@ -9,17 +9,15 @@ const DDO = {
 	template,
 	// transclude: true,
 	bindings: {
-		start: '=?',
-		end: '=?',
-		// minDate: '<?',
-		// maxDate: '<?',
-		format: '<?',
+		month: '=?',
+		date: '=?',
 		disabled: '<?',
-		placeholder: '<?'
+		monthPlaceholder: '<?',
+		datePlaceholder: '<?'
 	}
 };
 
 export default angular
-	.module('bs.components.dateRange', [])
-	.component('bsDateRange', DDO)
+	.module('bs.components.monthDate', [])
+	.component('bsMonthDate', DDO)
 	.name;

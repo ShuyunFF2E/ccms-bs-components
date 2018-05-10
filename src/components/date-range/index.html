@@ -1,3 +1,32 @@
-<div ng-class="$ctrl.styles.dateRange">
-	<input ng-class="$ctrl.styles.input" class="input" ng-value="$ctrl.value" readonly placeholder="{{$ctrl.placeholder}}" />
+<div cc-dropdown is-open="$ctrl.open" ng-class="$ctrl.styles.dateRange">
+
+	<div cc-dropdown-toggle ng-class="$ctrl.styles.dateRangeInputWrap">
+		<input ng-class="$ctrl.styles.input" ng-value="$ctrl.dateRange" ng-disabled="$ctrl.disabled" readonly placeholder="{{$ctrl.placeholder}}" />
+		<span class="iconfont icon-arrow"></span>
+	</div>
+
+	<div cc-dropdown-panel ng-class="$ctrl.styles.dateRangeContentWrap" ng-switch="$ctrl.format">
+		<div ng-switch-when="YMD">
+			<span ng-class="$ctrl.styles.text">介于</span>
+			<cc-date-picker ng-model="$ctrl.startDate" min-date="$ctrl.startMinDate" max-date="$ctrl.startMaxDate" date-only="true"></cc-date-picker>
+			<span ng-class="$ctrl.styles.text">至</span>
+			<cc-date-picker ng-model="$ctrl.endDate" min-date="$ctrl.endMinDate" max-date="$ctrl.endMaxDate" date-only="true"></cc-date-picker>
+		</div>
+		<div ng-switch-when="YMDhms">
+			<span ng-class="$ctrl.styles.text">介于</span>
+			<cc-date-picker ng-model="$ctrl.startDate" date-only="false"></cc-date-picker>
+			<span ng-class="$ctrl.styles.text">至</span>
+			<cc-date-picker ng-model="$ctrl.endDate" date-only="false"></cc-date-picker>
+		</div>
+		<div ng-switch-when="MD">
+			<span ng-class="$ctrl.styles.text">介于</span>
+			<bs-month-date></bs-month-date>
+			<span ng-class="$ctrl.styles.text">至</span>
+			<bs-month-date></bs-month-date>
+		</div>
+		<div ng-class="$ctrl.styles.footer">
+			<button class="btn-ok" ng-click="$ctrl.ok()">确定</button>
+			<button class="btn-cancel" ng-click="$ctrl.cancel()">取消</button>
+		</div>
+	</div>
 </div>

@@ -86,7 +86,7 @@ const config = {
 		},
 		{
 			"columnName": "update_time",
-			"styleType": "YMDhm",
+			"styleType": "MD",
 			"typeName": "date",
 			"displayName": "更新时间",
 			"dicType": null,

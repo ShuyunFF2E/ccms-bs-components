@@ -9,6 +9,8 @@ import conditionSelector from './components/condition-selector';
 import searchInput from './components/search-input';
 import dropdownSearch from './components/dropdown-search';
 import numberRange from './components/number-range';
+import dateRange from './components/date-range';
+import MonthDate from './components/month-date';
 
 const version = process.env.version;
 
@@ -19,6 +21,8 @@ const bsComponents = angular.module('ccms.bs.components', [
 	searchInput,
 	dropdownSearch,
 	numberRange,
+	dateRange,
+	MonthDate,
 	angularDragula(angular)
 ]);
 

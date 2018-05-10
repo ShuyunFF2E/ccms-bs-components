@@ -1,0 +1,11 @@
+.month-date {
+	width: 204px;
+	cc-dropdown-select {
+		display: block;
+		width: 100px;
+		float: left;
+		&:first-child {
+			margin-right: 4px;
+		}
+	}
+}

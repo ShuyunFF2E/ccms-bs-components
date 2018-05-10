@@ -1,13 +1,50 @@
-.number-range {
-	display: flex;
-	flex-direction: row;
+.date-range {
+	position: relative;
+}
+
+.date-range-input-wrap {
+	position: relative;
 	.input {
 		display: block;
-		width: calc(50% - 7px) !important;
+		padding-right: 30px;
 	}
-	.separate {
-		display: block;
-		margin: 0 5px;
+	:global(.iconfont) {
+		position: absolute;
+		right: 0;
+		top: 0;
+		color: #c9c9c9;
 		line-height: 30px;
+		display: inline-block;
+		padding: 0 8px;
+		cursor: pointer;
+		font-size: 12px;
+		&:hover {
+			color: #aacbe1;
+		}
+	}
+}
+
+.date-range-content-wrap {
+	position: absolute;
+	left: 0;
+	top: 30px;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	background: #fff;
+	width: 230px;
+	z-index: 10;
+	padding: 10px;
+	.text {
+		color: #999;
+		line-height: 30px;
+	}
+	.footer {
+		margin-top: 10px;
+		text-align: right;
+		:global(.btn-ok),
+		:global(.btn-cancel) {
+			min-width: initial;
+			height: 28px;
+		}
 	}
 }
