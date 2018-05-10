@@ -3,14 +3,16 @@
 		<div class="{{$ctrl.styles.head}}">常显条件
 			<span class="{{$ctrl.styles.tips}}">（最多设置8个）</span>
 		</div>
-		<div class="{{$ctrl.styles.content}}" dragula="'bag-condition'" dragula-model="$ctrl.conditions" data-owner="conditions">
+		<div ng-class="$ctrl.styles.content" dragula="'bag-condition'" dragula-model="$ctrl.conditions" data-owner="conditions">
 			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.conditions track by $index">
-				<cc-checkbox ng-model="condition.checked">{{condition.name}}</cc-checkbox>
+				<cc-checkbox ng-model="condition.checked">
+					<span ng-bind="condition.name||condition.code" cc-tooltip="condition.name||condition.code"></span>
+				</cc-checkbox>
 				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>
 		</div>
 	</div>
-	<div class="{{$ctrl.styles.oopsBox}}">
+	<div ng-class="$ctrl.styles.oopsBox">
 		<button ng-click="$ctrl.moveToExtendCondition()" class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnAdd}}" ng-disabled="$ctrl.getSelectedConditions($ctrl.conditions).length===0">
 			<span class="iconfont icon-rightarrow"></span>
 		</button>
@@ -20,9 +22,11 @@
 	</div>
 	<div class="{{$ctrl.styles.conditionBox}}">
 		<div class="{{$ctrl.styles.head}}">更多条件</div>
-		<div class="{{$ctrl.styles.content}}" dragula="'bag-condition'" dragula-model="$ctrl.extendConditions">
+		<div ng-class="$ctrl.styles.content" dragula="'bag-condition'" dragula-model="$ctrl.extendConditions">
 			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.extendConditions track by $index">
-				<cc-checkbox ng-model="condition.checked">{{condition.name}}</cc-checkbox>
+				<cc-checkbox ng-model="condition.checked">
+					<span ng-bind="condition.name||condition.code" cc-tooltip="condition.name||condition.code"></span>
+				</cc-checkbox>
 				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>
 		</div>

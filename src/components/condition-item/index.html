@@ -1,6 +1,6 @@
 <div ng-class="$ctrl.styles.conditionItem">
 	<div ng-class="$ctrl.styles.name">
-		<span ng-class="$ctrl.styles.nameText" ng-bind="$ctrl.condition.name" title="{{$ctrl.condition.name}}"></span>
+		<span ng-class="$ctrl.styles.nameText" ng-bind="$ctrl.condition.name||$ctrl.condition.code" title="{{$ctrl.condition.name||$ctrl.condition.code}}"></span>
 		<span class="iconfont icon-bangzhu" cc-tooltip="$ctrl.condition.tooltip" tooltip-placement="top-center" ng-if="$ctrl.condition.tooltip"></span>
 	</div>
 	<div ng-class="$ctrl.styles.content">

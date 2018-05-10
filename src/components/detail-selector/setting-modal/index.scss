@@ -6,7 +6,7 @@
 }
 
 .condition-box {
-	flex: 1;
+	width: 252px;
 	height: 100%;
 	.tips {
 		color: #999;
@@ -20,6 +20,7 @@
 		border: 1px solid #d9d9d9;
 		height: 400px;
 		user-select: none;
+		overflow: auto;
 	}
 }
 

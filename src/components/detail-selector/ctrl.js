@@ -48,6 +48,7 @@ export default class DetailSelectorCtrl {
 			// 列表显示字段
 			columns: this.columns
 		};
+
 		this.opts = {
 			/**
 			 * 条件模式[BASE:简单查找,ADVANCE:高级查找]

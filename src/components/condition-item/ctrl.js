@@ -7,8 +7,6 @@ export default class ConditionItemCtrl {
 	$onInit() {
 		const condition = this.condition;
 
-		condition.name = condition.name || condition.code;
-
 		if (condition.dataType === 'number') {
 			condition.minValue = condition.minValue || undefined;
 			condition.maxValue = condition.maxValue || undefined;

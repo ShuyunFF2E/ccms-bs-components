@@ -80,11 +80,11 @@ export default class DetailSelectorGridCtrl {
 	// 计算表格的列（因为列是可配的）
 	generateGridColumns() {
 		if (this.opts.selectType === 'multiple') {
-			// this.generateCheckboxGridColumns();
-			this.generatePlainGridColumns();
+			this.generateCheckboxGridColumns();
+			// this.generatePlainGridColumns();
 		} else if (this.opts.selectType === 'single') {
-			// this.generateRadioGridColumns();
-			this.generatePlainGridColumns();
+			this.generateRadioGridColumns();
+			// this.generatePlainGridColumns();
 		} else {
 			this.generatePlainGridColumns();
 		}
@@ -93,7 +93,7 @@ export default class DetailSelectorGridCtrl {
 	// 无选择框
 	generatePlainGridColumns() {
 		// const headerTpl = `<tr>
-		// 	${this.columns.map(item => `<th>${item.name}</th>`).join('')}
+		// 	${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		// </tr>`;
 
 		const columnsDef = this.columns.map(item => {
@@ -103,7 +103,7 @@ export default class DetailSelectorGridCtrl {
 			return {
 				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
 				field: item.code,
-				displayName: item.name,
+				displayName: item.name || item.code,
 				tooltip: item.tooltip
 			};
 		});
@@ -116,7 +116,7 @@ export default class DetailSelectorGridCtrl {
 	generateRadioGridColumns() {
 		const headerTpl = `<tr>
 			<th style="width:30px;"></th>
-			${this.columns.map(item => `<th>${item.name}</th>`).join('')}
+			${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		</tr>`;
 
 		const columnsDef = [{
@@ -126,7 +126,7 @@ export default class DetailSelectorGridCtrl {
 			return {
 				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
 				field: item.code,
-				displayName: item.name,
+				displayName: item.name || item.code,
 				tooltip: item.tooltip
 			};
 		}));
@@ -141,7 +141,7 @@ export default class DetailSelectorGridCtrl {
 			<th style="width:30px;">
 				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'"></cc-checkbox>
 			</th>
-			${this.columns.map(item => `<th>${item.name}</th>`).join('')}
+			${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		</tr>`;
 
 		const columnsDef = [{
@@ -151,7 +151,7 @@ export default class DetailSelectorGridCtrl {
 			return {
 				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
 				field: item.code,
-				displayName: item.name,
+				displayName: item.name || item.code,
 				tooltip: item.tooltip
 			};
 		}));

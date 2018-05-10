@@ -19,6 +19,12 @@
 	height: 0;
 }
 
+.bs-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .ccms-modal[data-uid*=CCMS_BS_DETAIL_SETTING] .container.modal {
 	min-width: 500px;
 }
