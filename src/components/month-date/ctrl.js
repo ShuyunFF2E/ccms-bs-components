@@ -5,6 +5,8 @@ export default class MonthDateCtrl {
 	styles = styles;
 
 	constructor() {
+		this.monthPlaceholder = '月';
+		this.datePlaceholder = '日';
 		this.monthList = genMonthList();
 		this.dateList = genDateList(this.month);
 	}
