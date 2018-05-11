@@ -1,3 +1,5 @@
+import './index.scss';
+
 import angular from 'angular';
 import controller from './ctrl';
 import template from './index.html';
@@ -8,10 +10,7 @@ const DDO = {
 	transclude: true,
 	bindings: {
 		ngModel: '<?',
-		ngDisabled: '<?',
-		placeholder: '<?',
-		width: '<?',
-		search: '&?'
+		ngDisabled: '<?'
 	},
 	require: {
 		ngModelController: '?ngModel'
@@ -19,6 +18,6 @@ const DDO = {
 };
 
 export default angular
-	.module('bs.components.searchInput', [])
-	.component('bsSearchInput', DDO)
+	.module('bs.components.keywordInput', [])
+	.component('bsKeywordInput', DDO)
 	.name;

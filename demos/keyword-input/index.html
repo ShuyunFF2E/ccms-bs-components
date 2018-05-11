@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>关键字输入框</title>
+
+	<script src="/bundle.js"></script>
+
+	<!-- [angular-resource] & [angular-ui-router] 为 [ccms-components] 的依赖 -->
+	<script src="/node_modules/angular-resource/angular-resource.js"></script>
+	<script src="/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+
+	<script src="./index.js"></script>
+	<style>
+		main {
+			padding: 30px;
+		}
+		.item{
+			margin: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<main ng-app="app" ng-controller="ctrl">
+		<div class="item">
+			<div>
+				<span>关键字：</span>
+				<span ng-bind="keywords.join(',')"></span>
+			</div>
+
+			<bs-keyword-input
+				ng-model="keywords"
+			>
+			</bs-keyword-input>
+		</div>
+	</main>
+</body>
+
+</html>

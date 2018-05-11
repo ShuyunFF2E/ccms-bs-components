@@ -1,6 +1,8 @@
+import classes from './index.scss';
 const noop = () => {};
 
 export default class SearchInputCtrl {
+	classes = classes;
 
 	$onInit() {
 		!this.search && (this.search = noop);

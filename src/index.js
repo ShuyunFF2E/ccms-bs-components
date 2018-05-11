@@ -7,6 +7,7 @@ import angularDragula from 'angularjs-dragula';
 import detailSelector from './components/detail-selector';
 import conditionSelector from './components/condition-selector';
 import searchInput from './components/search-input';
+import keywordInput from './components/keyword-input';
 import dropdownSearch from './components/dropdown-search';
 import numberRange from './components/number-range';
 import dateRange from './components/date-range';
@@ -19,6 +20,7 @@ const bsComponents = angular.module('ccms.bs.components', [
 	detailSelector,
 	conditionSelector,
 	searchInput,
+	keywordInput,
 	dropdownSearch,
 	numberRange,
 	dateRange,
