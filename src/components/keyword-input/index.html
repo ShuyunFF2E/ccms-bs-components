@@ -6,8 +6,8 @@
 				ng-class="$ctrl.classes.input"
 				ng-style="{width:$ctrl.inputWidth+'px'}"
 				ng-model="$ctrl.keyword"
-				ng-keyup="$ctrl.enter($event)"
-				ng-blur="$ctrl.pushKeyword()"
+				ng-keydown="$ctrl.enter($event)"
+				ng-blur="$ctrl.onBlur()"
 			/>
 		</div>
 	</div>

@@ -7,7 +7,7 @@ import template from './index.html';
 const DDO = {
 	controller,
 	template,
-	transclude: true,
+	// transclude: true,
 	bindings: {
 		ngModel: '<?',
 		ngDisabled: '<?'

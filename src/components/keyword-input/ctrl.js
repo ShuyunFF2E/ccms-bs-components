@@ -24,6 +24,10 @@ export default class KeywordInputCtrl {
 		setTimeout(() => {
 			this.containerWidth = this.$container.getBoundingClientRect().width;
 			this.calculateWidth();
+
+			this.$input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
+			this.$input.addEventListener('compositionend', this.onCompositionEnd.bind(this), true);
+
 		}, 200);
 	}
 
@@ -32,16 +36,35 @@ export default class KeywordInputCtrl {
 	}
 
 	enter(event) {
+		if (this.lock) return;
+
 		if (event.code === 'Enter' || event.keyCode === 13) {
 			event.preventDefault();
 			this.pushKeyword();
-		} else if (event.code === 'Backspace' && !this.keyword) {
+		} else if (event.code === 'Backspace' && !event.target.value) {
 			this.ngModel.pop();
 			this.updateNgModel();
 		}
 	}
 
+	onBlur() {
+		this.pushKeyword();
+		this.$container.scrollLeft = 0;
+	}
+
+	// 中文输入法开始
+	onCompositionStart() {
+		this.lock = true;
+	}
+
+	// 中文输入法结束
+	onCompositionEnd() {
+		this.lock = false;
+	}
+
 	pushKeyword() {
+		if (this.lock) return;
+
 		const keyword = this.keyword.trim();
 		if (!keyword || this.ngModel.includes(keyword)) return;
 
@@ -51,7 +74,9 @@ export default class KeywordInputCtrl {
 
 		this.calculateWidth();
 		setTimeout(() => {
-			this.$container.scrollLeft = this.wrapWidth;
+			if (this.wrapWidth > this.containerWidth * 1.5) {
+				this.$container.scrollLeft = this.wrapWidth;
+			}
 		}, 100);
 	}
 
@@ -73,8 +98,8 @@ export default class KeywordInputCtrl {
 		document.body.appendChild($div);
 		const keywordWidth = $div.getBoundingClientRect().width;
 
-		const offWidth = this.containerWidth - keywordWidth;
-		this.inputWidth = offWidth > this.containerWidth / 2 ? offWidth : this.containerWidth / 2;
+		const diffWidth = this.containerWidth - keywordWidth;
+		this.inputWidth = diffWidth > this.containerWidth / 2 ? diffWidth : this.containerWidth / 2;
 
 		this.wrapWidth = keywordWidth + this.inputWidth + 10;
 
