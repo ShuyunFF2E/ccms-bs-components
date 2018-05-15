@@ -7,6 +7,7 @@
 	padding: 3px 4px;
 	box-sizing: border-box;
 	overflow: hidden;
+	cursor: pointer;
 	&:focus {
 		border-color: #aacbe1;
 	}
@@ -21,25 +22,48 @@
 	.input {
 		border-color: transparent;
 		height: 22px;
+		line-height: 22px;
 		max-width: 100%;
 		padding: 0;
 		&:focus {
 			border-color: transparent;
 		}
 	}
+	* {
+		box-sizing: border-box;
+	}
 }
 
 .keyword {
 	font-family: PingFang-SC-Bold;
-	color: #333;
 	background: #f1f1f1;
 	border: 1px solid #ddd;
+	border-radius: 2px;
 	padding: 4px 5px 3px;
+	min-width: 22px;
+	color: #333;
 	display: inline-block;
 	margin-right: 3px;
 	white-space: nowrap;
-	border-radius: 4px;
 	cursor: pointer;
+	position: relative;
+	.btn-remove {
+		position: absolute;
+		right: 1px;
+		top: 1px;
+		color: #c4c4c4;
+		background: inherit;
+		display: none;
+		transition: color ease-in-out 0.25s;
+		&:hover {
+			color: #aaa;
+		}
+	}
+	&:hover {
+		.btn-remove {
+			display: inline-block;
+		}
+	}
 }
 
 .vir-container {

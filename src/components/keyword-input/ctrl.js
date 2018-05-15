@@ -21,6 +21,8 @@ export default class KeywordInputCtrl {
 	}
 
 	$onInit() {
+		document.addEventListener('click', this.click, true);
+
 		setTimeout(() => {
 			this.containerWidth = this.$container.getBoundingClientRect().width;
 			this.calculateWidth();
@@ -28,14 +30,25 @@ export default class KeywordInputCtrl {
 			this.$input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
 			this.$input.addEventListener('compositionend', this.onCompositionEnd.bind(this), true);
 
-		}, 200);
+		}, 50);
 	}
 
-	focusInput() {
-		this.$input.focus();
+	$onDestroy() {
+		document.removeEventListener('click', this.blur, true);
 	}
 
-	enter(event) {
+	click = evt => {
+		const targetClassList = [...evt.target.classList];
+		if (!this._$element[0].contains(evt.target)) {
+			this.pushKeyword();
+			this.$container.scrollLeft = 0;
+		} else if (!targetClassList.includes(classes.btnRemove) &&
+			!targetClassList.includes(classes.input)) {
+			this.$input.focus();
+		}
+	}
+
+	keydown(event) {
 		if (this.lock) return;
 
 		if (event.code === 'Enter' || event.keyCode === 13) {
@@ -45,11 +58,6 @@ export default class KeywordInputCtrl {
 			this.ngModel.pop();
 			this.updateNgModel();
 		}
-	}
-
-	onBlur() {
-		this.pushKeyword();
-		this.$container.scrollLeft = 0;
 	}
 
 	// 中文输入法开始
@@ -78,6 +86,15 @@ export default class KeywordInputCtrl {
 				this.$container.scrollLeft = this.wrapWidth;
 			}
 		}, 100);
+	}
+
+	remove(evt, keyword) {
+		evt.stopPropagation();
+
+		const index = this.ngModel.indexOf(keyword);
+		if (~index) this.ngModel.splice(index, 1);
+		this.updateNgModel();
+		this.calculateWidth();
 	}
 
 	updateNgModel() {

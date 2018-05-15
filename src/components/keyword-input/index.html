@@ -1,13 +1,15 @@
-<div ng-class="$ctrl.classes.keywordInput" ng-click="$ctrl.focusInput()">
+<div ng-class="$ctrl.classes.keywordInput">
 	<div ng-class="$ctrl.classes.container">
 		<div ng-class="$ctrl.classes.wrap" ng-style="{width: $ctrl.wrapWidth + 'px'}">
-			<span ng-class="$ctrl.classes.keyword" ng-repeat="keyword in $ctrl.ngModel" ng-bind="keyword"></span>
+			<div ng-class="$ctrl.classes.keyword" ng-repeat="keyword in $ctrl.ngModel">
+				<span ng-bind="keyword"></span>
+				<span ng-class="$ctrl.classes.btnRemove" class="iconfont icon-clear" ng-click="$ctrl.remove($event,keyword)"></span>
+			</div>
 			<input ng-if="!$ctrl.ngDisabled" type="text"
 				ng-class="$ctrl.classes.input"
 				ng-style="{width:$ctrl.inputWidth+'px'}"
 				ng-model="$ctrl.keyword"
-				ng-keydown="$ctrl.enter($event)"
-				ng-blur="$ctrl.onBlur()"
+				ng-keydown="$ctrl.keydown($event)"
 			/>
 		</div>
 	</div>
