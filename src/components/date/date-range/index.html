@@ -28,6 +28,19 @@
 			<bs-month-date month="$ctrl.dateRange.endMonth" date="$ctrl.dateRange.endDate"></bs-month-date>
 		</div>
 
+		<div ng-switch-when="hms">
+			<span ng-class="$ctrl.styles.text">介于</span>
+			<bs-time time="$ctrl.dateRange.start"></bs-time>
+			<span ng-class="$ctrl.styles.text">至</span>
+			<bs-time time="$ctrl.dateRange.end"></bs-time>
+		</div>
+
+		<div ng-switch-when="Dhms">
+			<span ng-class="$ctrl.styles.text">介于</span>
+			<bs-d-time value="$ctrl.dateRange.start"></bs-d-time>
+			<span ng-class="$ctrl.styles.text">至</span>
+			<bs-d-time value="$ctrl.dateRange.end"></bs-d-time>
+		</div>
 
 		<div ng-class="$ctrl.styles.footer">
 			<button class="btn-ok" ng-click="$ctrl.ok()">确定</button>

@@ -13,6 +13,8 @@ export default class ConditionItemCtrl {
 		} else if (condition.dataType === 'enum' || condition.dataType === 'dict') {
 			condition.dynamicConfigs = condition.dynamicConfigs || [];
 			condition.values = condition.values || [];
+		} else if (condition.dataType === 'text') {
+			condition.values = [];
 		}
 	}
 }

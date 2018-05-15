@@ -10,12 +10,15 @@ import searchInput from './components/search-input';
 import keywordInput from './components/keyword-input';
 import dropdownSearch from './components/dropdown-search';
 import numberRange from './components/number-range';
-import dateRange from './components/date-range';
-import MonthDate from './components/month-date';
+import dateRange from './components/date/date-range';
+import MonthDate from './components/date/month-date';
+import time from './components/date/time';
+import DTime from './components/date/D-time';
 
 const version = process.env.version;
 
 const bsComponents = angular.module('ccms.bs.components', [
+	angularDragula(angular),
 	ccmsComponents,
 	detailSelector,
 	conditionSelector,
@@ -25,7 +28,8 @@ const bsComponents = angular.module('ccms.bs.components', [
 	numberRange,
 	dateRange,
 	MonthDate,
-	angularDragula(angular)
+	time,
+	DTime
 ]);
 
 bsComponents.version = version;

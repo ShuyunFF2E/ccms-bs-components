@@ -9,17 +9,12 @@ const DDO = {
 	template,
 	// transclude: true,
 	bindings: {
-		start: '=?',
-		end: '=?',
-		// minDate: '<?',
-		// maxDate: '<?',
-		format: '<?',
-		disabled: '<?',
-		placeholder: '<?'
+		time: '=?',
+		placeholders: '<?'
 	}
 };
 
 export default angular
-	.module('bs.components.dateRange', [])
-	.component('bsDateRange', DDO)
+	.module('bs.components.time', [])
+	.component('bsTime', DDO)
 	.name;

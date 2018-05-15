@@ -10,4 +10,11 @@
 		margin: 0 5px;
 		line-height: 30px;
 	}
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		appearance: none;
+	}
+	input[type="number"] {
+		appearance: textfield;
+	}
 }

@@ -68,7 +68,7 @@ const config = {
 		},
 		{
 			"columnName": "created",
-			"styleType": "YMDhms",
+			"styleType": "Dhms",
 			"typeName": "date",
 			"displayName": "创建时间",
 			"dicType": null,
@@ -77,7 +77,7 @@ const config = {
 		},
 		{
 			"columnName": "reset_time",
-			"styleType": "YMD",
+			"styleType": "hms",
 			"typeName": "date",
 			"displayName": "重置时间",
 			"dicType": null,

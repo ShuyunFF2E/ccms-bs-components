@@ -34,19 +34,19 @@ bs-condition-item {
 	position: relative;
 	.btn-remove {
 		position: absolute;
-		right: 5px;
+		right: 3px;
 		top: 4px;
 		cursor: pointer;
 		min-width: unset;
 		border: none;
 		padding: 0 5px 0 0;
-		color: #ddd;
+		color: #d9d9d9;
 		&:hover {
 			background-color: transparent;
 			color: #aaa;
 		}
 		:global(.iconfont) {
-			font-size: 16px;
+			font-size: 20px;
 		}
 	}
 }

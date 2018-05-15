@@ -1,0 +1,43 @@
+.time {
+	position: relative;
+	input {
+		width: 100%;
+	}
+	:global(.dropdown-select) {
+		min-width: 50px;
+	}
+}
+
+.head {
+	position: relative;
+	:global(.iconfont) {
+		position: absolute;
+		right: 5px;
+		top: 6px;
+		color: #999;
+	}
+}
+
+.content {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 30px;
+	min-width: 200px;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+	z-index: 1;
+	background: #fff;
+	.item {
+		flex: 1;
+		margin: 0 3px;
+		&:first-child {
+			margin-left: 0;
+		}
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}

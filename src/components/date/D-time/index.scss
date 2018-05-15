@@ -1,0 +1,17 @@
+.d-time {
+	display: flex;
+	flex-direction: row;
+	.date {
+		width: 65px;
+		margin-right: 3px;
+	}
+	.time {
+		flex: 1;
+	}
+}
+
+.d-time {
+	input {
+		width: 100%;
+	}
+}

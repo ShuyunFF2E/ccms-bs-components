@@ -14,7 +14,7 @@
 		"angular-resource": "=1.5.8",
 		"angular-ui-router": "~0.2.18",
 		"angularjs-dragula": "^2.0.0",
-		"ccms-ep-components": "^1.1.5",
+		"ccms-ep-components": "^1.1.6",
 		"common-javascript-utils": "0.0.1"
 	},
 	"devDependencies": {
