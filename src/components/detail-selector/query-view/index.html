@@ -4,21 +4,23 @@
 	<bs-base-condition-box
 		opts="$ctrl.opts"
 		config="$ctrl.config"
-		refresh-conditions="$ctrl.refreshConditions"
+		fetch="$ctrl.search"
 		ng-if="$ctrl.opts.conditionModel==='BASE'">
 	</bs-base-condition-box>
 
 	<!-- 高级查找 -->
 	<bs-advance-condition-box
 		opts="$ctrl.opts"
+		config="$ctrl.config"
+		fetch="$ctrl.search"
 		ng-if="$ctrl.opts.conditionModel==='ADVANCE'">
 	</bs-advance-condition-box>
 
-	<div class="{{$ctrl.styles.resultHolder}}">
+	<div ng-class="$ctrl.styles.resultHolder">
 		<bs-selector-grid
-			columns="$ctrl.config.columns"
 			opts="$ctrl.opts"
-			external-data="$ctrl.gridExternalData"
-			lazyload="$ctrl.fetchResourceData"></bs-selector-grid>
+			config="$ctrl.config"
+		>
+		</bs-selector-grid>
 	</div>
 </div>

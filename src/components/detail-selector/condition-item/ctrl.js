@@ -1,20 +1,37 @@
 import styles from './index.scss';
 
 export default class ConditionItemCtrl {
-
 	styles = styles;
 
 	$onInit() {
 		const condition = this.condition;
 
+		// 数字
 		if (condition.dataType === 'number') {
-			condition.minValue = condition.minValue || undefined;
-			condition.maxValue = condition.maxValue || undefined;
-		} else if (condition.dataType === 'enum' || condition.dataType === 'dict') {
+			condition.value = condition.value || {
+				min: undefined,
+				max: undefined
+			};
+		}
+
+		// 枚举 & 字典
+		else if (condition.dataType === 'enum' ||
+			condition.dataType === 'dict') {
 			condition.dynamicConfigs = condition.dynamicConfigs || [];
-			condition.values = condition.values || [];
-		} else if (condition.dataType === 'text') {
-			condition.values = [];
+			condition.value = condition.value || [];
+		}
+
+		// 文本
+		else if (condition.dataType === 'text') {
+			condition.value = [];
+		}
+
+		// 日期
+		else if (condition.dataType === 'date') {
+			condition.value = condition.value || {
+				start: undefined,
+				end: undefined
+			};
 		}
 	}
 }

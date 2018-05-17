@@ -8,15 +8,15 @@
 			<!-- 布尔型 -->
 			<cc-dropdown-select ng-switch-when="boolean" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.value" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}"></cc-dropdown-select>
 			<!-- 枚举型 -->
-			<cc-dropdown-multiselect ng-switch-when="enum" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}" native="false"></cc-dropdown-multiselect>
+			<cc-dropdown-multiselect ng-switch-when="enum" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.value" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}" native="false"></cc-dropdown-multiselect>
 			<!-- 字典型 -->
-			<cc-dropdown-multiselect ng-switch-when="dict" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.values" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}" native="false"></cc-dropdown-multiselect>
+			<cc-dropdown-multiselect ng-switch-when="dict" ng-class="$ctrl.styles.valueField" model="$ctrl.condition.value" datalist="$ctrl.condition.dynamicConfigs" mapping="{valueField:'descVal',displayField:'destVal'}" native="false"></cc-dropdown-multiselect>
 			<!-- 数值型 -->
-			<bs-number-range ng-switch-when="number" ng-class="$ctrl.styles.valueField" min-value="$ctrl.condition.minValue" max-value="$ctrl.condition.maxValue"></bs-number-range>
+			<bs-number-range ng-switch-when="number" ng-class="$ctrl.styles.valueField" min-value="$ctrl.condition.value.min" max-value="$ctrl.condition.value.max"></bs-number-range>
 			<!-- 日期型 -->
-			<bs-date-range ng-switch-when="date" ng-class="$ctrl.styles.valueField" start="$ctrl.condition.start" end="$ctrl.condition.end" format="$ctrl.condition.styleType"></bs-date-range>
+			<bs-date-range ng-switch-when="date" ng-class="$ctrl.styles.valueField" start="$ctrl.condition.value.start" end="$ctrl.condition.value.end" format="$ctrl.condition.styleType"></bs-date-range>
 			<!-- default text -->
-			<bs-keyword-input ng-switch-default ng-class="$ctrl.styles.valueField" ng-model="$ctrl.condition.values"></bs-keyword-input>
+			<bs-keyword-input ng-switch-default ng-class="$ctrl.styles.valueField" ng-model="$ctrl.condition.value"></bs-keyword-input>
 		</div>
 		<button class="{{$ctrl.styles.btnRemove}}" ng-if="$ctrl.extend" ng-click="$ctrl.condition.selected=false">
 			<span class="iconfont icon-tiaojianyichu"></span>

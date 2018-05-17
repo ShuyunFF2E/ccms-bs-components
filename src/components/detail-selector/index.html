@@ -1,5 +1,5 @@
-<div class="{{$ctrl.styles.selector}}">
-	<div class="{{$ctrl.styles.loadingWrap}}" ng-show="false">
+<div ng-class="$ctrl.styles.selector">
+	<div ng-class="$ctrl.styles.loadingWrap" ng-show="$ctrl.opts.isLoading">
 		<cc-loading type="grid"></cc-loading>
 	</div>
 
@@ -14,17 +14,17 @@
 		switch-to-query-view="$ctrl.switchToQueryView"
 		ng-if="$ctrl.model==='CHECK'"></bs-check-view>
 
-	<footer class="{{$ctrl.styles.resultFooter}}" ng-if="$ctrl.model==='QUERY'&&$ctrl.selectType==='multiple'">
+	<footer ng-class="$ctrl.styles.resultFooter" ng-if="$ctrl.model==='QUERY'&&$ctrl.selectType==='multiple'">
 		<span>已选 / 总计：</span>
-		<span class="{{$ctrl.styles.selectedCount}}" ng-bind="$ctrl.opts.statistic.selected"></span> /
-		<span class="{{$ctrl.styles.totalCount}}" ng-bind="$ctrl.opts.statistic.total"></span>
+		<span ng-class="$ctrl.styles.selectedCount" ng-bind="$ctrl.opts.statistic.selected"></span> /
+		<span ng-class="$ctrl.styles.totalCount" ng-bind="$ctrl.opts.statistic.total"></span>
 
-		<button class="{{$ctrl.styles.btnSwitch}}"
+		<button ng-class="$ctrl.styles.btnSwitch"
 			ng-click="$ctrl.switchToCheckView()"
 			ng-disabled="$ctrl.opts.statistic.selected===0">查看已选</button>
 	</footer>
 </div>
 
-<div class="{{$ctrl.styles.settingWrap}}" ng-if="$ctrl.preferenceAble" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-center">
+<div ng-class="$ctrl.styles.settingWrap" ng-if="$ctrl.config.preferenceAble" ng-click="$ctrl.openSelectorSetter()" cc-tooltip="'点击设置组件'" tooltip-placement="bottom-center">
 	<span class="bs-iconfont icon-peizhi"></span>
 </div>

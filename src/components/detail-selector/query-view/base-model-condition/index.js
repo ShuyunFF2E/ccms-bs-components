@@ -11,7 +11,7 @@ const DDO = {
 	bindings: {
 		opts: '<',
 		config: '<',
-		refreshConditions: '<'
+		fetch: '<'
 	}
 };
 

@@ -13,7 +13,7 @@ const DDO = {
 	controller,
 	transclude: true,
 	bindings: {
-		opts: '<',
+		opts: '=',
 		config: '<'
 	}
 };

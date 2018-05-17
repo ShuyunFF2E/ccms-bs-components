@@ -10,7 +10,7 @@ import { getPureCondition } from './utils';
 const CONFIG_KEY_PREFIX = 'CCMS_BS_DETAIL_SELECTOR_CONFIG';
 
 
-@Inject('$rootScope', '$scope', '$ccModal', '$ccTips', '$element', '$timeout', '$q', 'modalInstance', 'resources')
+@Inject('$rootScope', '$scope', '$ccModal', '$ccTips', '$element', '$timeout', '$q', 'modalInstance')
 export default class DetailSelectorCtrl {
 	styles = styles;
 
@@ -22,44 +22,22 @@ export default class DetailSelectorCtrl {
 
 		// 当前选择器的模式 [QUERY:查询模式, CHECK:查看模式]
 		this.model = 'QUERY';
-
-		this.config = {
-			// 常用条件
-			conditions: [],
-			// 可用搜索条件
-			extendConditions: [],
-			// 列表显示字段
-			columns: []
-		};
-
-		// 当前需要显示的搜索条件集合
-		// this.conditions;
-		// 当前列表需要显示的数据项
-		// this.gridColumns;
 	}
 
 	$onInit() {
 		const conditionConfig = this.matchLocalConfig();
-		this.config = {
-			// 常用条件
-			conditions: conditionConfig.conditions,
-			// 可用搜索条件
-			extendConditions: conditionConfig.extendConditions,
-			// 列表显示字段
-			columns: this.columns
-		};
+		// 常用条件
+		this.config.conditions = conditionConfig.conditions;
+		// 可用搜索条件
+		this.config.extendConditions = conditionConfig.extendConditions;
 
 		this.opts = {
+			isLoading: false,
 			/**
 			 * 条件模式[BASE:简单查找,ADVANCE:高级查找]
 			 */
 			conditionModel: 'BASE',
-			statistic: { selected: 0, total: 0 },
-			params: { keyword: '' },
-			// 单选/多选
-			selectType: this.selectType,
-			// 是否开启高级搜索
-			advanceSearchAble: this.advanceSearchAble
+			statistic: { selected: 0, total: 0 }
 		};
 	}
 
@@ -68,17 +46,17 @@ export default class DetailSelectorCtrl {
 		const localConditionSet = JSON.parse(window.localStorage.getItem(this.cacheKey));
 		if (!localConditionSet) {
 			return {
-				conditions: this.conditions,
-				extendConditions: this.extendConditions
+				conditions: this.config.conditions,
+				extendConditions: this.config.extendConditions
 			};
 		}
 
 		// 如果本地缓存中的配置项与传入组件的配置不匹配，则返回传入的配置
-		const conditionSet = [...this.conditions, ...this.extendConditions];
+		const conditionSet = [...this.config.conditions, ...this.config.extendConditions];
 		if (conditionSet.map(v => v.code).sort().join(',') !== [...localConditionSet.conditions, ...localConditionSet.extendConditions].sort().join(',')) {
 			return {
-				conditions: this.conditions,
-				extendConditions: this.extendConditions
+				conditions: this.config.conditions,
+				extendConditions: this.config.extendConditions
 			};
 		}
 

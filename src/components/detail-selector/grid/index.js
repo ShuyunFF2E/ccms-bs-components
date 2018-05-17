@@ -9,10 +9,8 @@ const DDO = {
 	controller,
 	transclude: true,
 	bindings: {
-		columns: '<',
-		opts: '<',
-		externalData: '<',
-		lazyload: '<'
+		opts: '=',
+		config: '<'
 	}
 };
 

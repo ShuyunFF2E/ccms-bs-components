@@ -14,8 +14,8 @@ export default class DateRangeCtrl {
 
 		this.dateRange = {};
 
-		this.start = {};
-		this.end = {};
+		// this.start = {};
+		// this.end = {};
 	}
 
 	$onInit() {
@@ -60,16 +60,21 @@ export default class DateRangeCtrl {
 	}
 
 	getMonthDateRangeText() {
-		const start = this.start.month && this.start.date ? `${fillMonthDate(this.start.month)}月${fillMonthDate(this.start.date)}日` : '';
-		const end = this.end.month && this.end.date ? `${fillMonthDate(this.end.month)}月${fillMonthDate(this.end.date)}日` : '';
+		const ostart = this.start || {};
+		const oend = this.end || {};
+
+		const start = ostart.month && ostart.date ? `${fillMonthDate(ostart.month)}月${fillMonthDate(ostart.date)}日` : '';
+		const end = oend.month && oend.date ? `${fillMonthDate(oend.month)}月${fillMonthDate(oend.date)}日` : '';
 		if (!start && !end) return '';
 		return start + ' ~ ' + end;
 	}
 
 	getTimeRangeText() {
-		const start = !validateTime(this.start) ? '' :
+		const ostart = this.start || {};
+		const oend = this.end || {};
+		const start = !validateTime(ostart) ? '' :
 			`${genNumberText(this.start.h)}:${genNumberText(this.start.m)}:${genNumberText(this.start.s)}`;
-		const end = !validateTime(this.end) ? '' :
+		const end = !validateTime(oend) ? '' :
 			`${genNumberText(this.end.h)}:${genNumberText(this.end.m)}:${genNumberText(this.end.s)}`;
 
 		if (!start && !end) return '';
@@ -77,8 +82,10 @@ export default class DateRangeCtrl {
 	}
 
 	getDTimeRangeText() {
-		const start = !validateDTime(this.start) ? '' : getDTimeText(this.start);
-		const end = !validateDTime(this.end) ? '' : getDTimeText(this.end);
+		const ostart = this.start || {};
+		const oend = this.end || {};
+		const start = !validateDTime(ostart) ? '' : getDTimeText(ostart);
+		const end = !validateDTime(oend) ? '' : getDTimeText(oend);
 		if (!start && !end) return '';
 		return start + ' ~ ' + end;
 	}

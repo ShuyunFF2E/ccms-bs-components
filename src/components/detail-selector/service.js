@@ -7,6 +7,17 @@ const noop = () => {};
 // 默认选择器样式
 const defaultStyle = { width: '960px', maxWidth: '960px', minWidth: '960px', height: (window.screen.height - 400) + 'px' };
 
+const DefaultConfig = {
+	description: '',
+	preferenceAble: true,
+	advanceSearchAble: true,
+	conditions: [],
+	extendConditions: [],
+	columns: [],
+	type: 'multiple',
+	search: noop
+};
+
 @Inject('$ccModal', '$rootScope', )
 export default class DetailSelectorService {
 	constructor() {}
@@ -21,48 +32,40 @@ export default class DetailSelectorService {
 	 * @param extendConditions {arrayOf field}
 	 * @param columns {arrayOf field}
 	 * @param advanceSearchAble {boolean}  是否允许高级搜索
-	 * @param selectType {string}  选择器类型，multiple(多选)、single(单选)
-	 * @param resources {object}  业务接口配置
+	 * @param type {string}  选择器类型，multiple(多选)、single(单选)
 	 * @param onClose {function | undefined}  关闭时回调
 	 */
 	open({
 		title = '明细选择器',
-		description = '',
 		uid,
 		style = {},
-		preferenceAble = true,
-		conditions = [],
-		extendConditions = [],
-		columns = [],
-		advanceSearchAble = true,
-		selectType = 'multiple',
-		resources = {},
+		config,
 		onClose = noop
 	} = {}) {
 		if (isUndefined(uid)) {
 			throw new Error('`uid` is required for `bsDetailSelector`');
 		}
 
-		const scope = this._$rootScope.$new();
-		scope.uid = uid;
-		scope.selectType = selectType;
-		scope.advanceSearchAble = advanceSearchAble;
-		scope.preferenceAble = preferenceAble;
-		scope.conditions = conditions;
-		scope.extendConditions = extendConditions;
-		scope.columns = columns;
+		Object.keys(DefaultConfig).forEach(key => {
+			if (!config.hasOwnProperty(key)) {
+				config[key] = DefaultConfig[key];
+			}
+		});
 
-		const locals = { resources };
+		const scope = this._$rootScope.$new();
+
+		scope.uid = uid;
+		scope.config = config;
+
 
 		title = `<span>${title}</span>
-			${description?`<icon class="iconfont icon-bangzhu" cc-tooltip="'${description}'"></icon>`:''}
+			${config.description?`<icon class="iconfont icon-bangzhu" cc-tooltip="'${config.description}'"></icon>`:''}
 		`;
 
 		return this._$ccModal.modal({
 			bindings: scope,
 			__body: body,
 			scope,
-			locals,
 			title,
 			style: Object.assign({}, defaultStyle, style),
 			controller,

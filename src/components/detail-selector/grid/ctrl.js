@@ -1,8 +1,5 @@
-import jQuery from 'jquery';
-
 import styles from './index.scss';
 import { isBoolean } from '@/utils';
-import throttle from '@/utils/throttle';
 import dateFormat from 'common-javascript-utils/src/date';
 
 import { Inject } from 'angular-es-utils';
@@ -14,12 +11,6 @@ export default class DetailSelectorGridCtrl {
 	fieldParser = {};
 
 	constructor() {
-		/**
-		 * 是否显示表格
-		 * 当需要显示的表格列变化之后重新设置headerTpl不起效果
-		 * 所以做一次重新渲染grid组件
-		 */
-		this.showGrid = true;
 
 		/**
 		 * 全选标记（多选）
@@ -31,58 +22,38 @@ export default class DetailSelectorGridCtrl {
 		 */
 		this.singleSelectedValue = '';
 
-		/**
-		 * 正在加载下一页数据
-		 */
-		this.isLazyLoading = false;
-
 
 		this.gridOpts = {
 			showPagination: false,
 			emptyTipTpl: `<div class="${styles.gridEmptyMessage}">当前条件未查询到任何数据</div>`
 		};
+		this._$scope.opts = this.opts;
+
+		this._$scope.$watch('opts', (newValue, oldValue) => {
+			if (newValue.data !== oldValue.data) {
+				this.gridOpts.externalData = this.opts.data;
+				this._$ccGrid.refresh(this.gridOpts);
+			}
+		}, true);
 	}
 
 	$onInit() {
 		this.initGridOpts();
-
-		// this.initLazyLoad();
-	}
-
-	$onChanges(changes) {
-		if (changes.columns) {
-			this.generateGridColumns();
-
-			this.rerenderGrid();
-		}
-
-		if (changes.externalData) {
-			this.gridOpts.externalData = this.externalData;
-			this._$ccGrid.refresh(this.gridOpts);
-		}
 	}
 
 	initGridOpts() {
-		this.gridOpts.externalData = this.externalData;
+		this.gridOpts.externalData = this.opts.data;
 
 		this.generateGridColumns();
 
 	}
 
-	// 重新渲染 grid 组件
-	rerenderGrid() {
-		this.showGrid = false;
-		this._$timeout(() => {
-			this.showGrid = true;
-		});
-	}
-
 	// 计算表格的列（因为列是可配的）
 	generateGridColumns() {
-		if (this.opts.selectType === 'multiple') {
+		if (this.config.type === 'multiple') {
 			this.generateCheckboxGridColumns();
 			// this.generatePlainGridColumns();
-		} else if (this.opts.selectType === 'single') {
+		} else if (this.config.type === 'single') {
 			this.generateRadioGridColumns();
 			// this.generatePlainGridColumns();
 		} else {
@@ -96,7 +67,7 @@ export default class DetailSelectorGridCtrl {
 		// 	${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		// </tr>`;
 
-		const columnsDef = this.columns.map(item => {
+		const columnsDef = this.config.columns.map(item => {
 
 			this.fieldParser[item.code] = this.genFieldParser(item);
 
@@ -116,13 +87,13 @@ export default class DetailSelectorGridCtrl {
 	generateRadioGridColumns() {
 		const headerTpl = `<tr>
 			<th style="width:30px;"></th>
-			${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
+			${this.config.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		</tr>`;
 
 		const columnsDef = [{
 			cellTemplate: `<cc-radio ng-model="$ctrl.singleSelectedValue" ng-value="entity.id"></cc-radio>`,
 			width: '30px'
-		}].concat(this.columns.map(item => {
+		}].concat(this.config.columns.map(item => {
 			return {
 				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
 				field: item.code,
@@ -141,13 +112,13 @@ export default class DetailSelectorGridCtrl {
 			<th style="width:30px;">
 				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'"></cc-checkbox>
 			</th>
-			${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
+			${this.config.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		</tr>`;
 
 		const columnsDef = [{
 			cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect()"></cc-checkbox>`,
 			width: '30px'
-		}].concat(this.columns.map(item => {
+		}].concat(this.config.columns.map(item => {
 			return {
 				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
 				field: item.code,
@@ -190,46 +161,18 @@ export default class DetailSelectorGridCtrl {
 		this.opts.statistic.selected = this.opts.statistic.total - unselected.length;
 	}
 
-	/**
-	 * 滚动至底部自动加载下一页数据
-	 */
-	initLazyLoad() {
-		const $element = jQuery(this._$element[0]);
-
-		function mousewheel(event) {
-			const $this = jQuery(event.currentTarget);
-			// 可见高度
-			const viewH = $this.height();
-			// 内容高度
-			const contentH = $this.get(0).scrollHeight;
-			// 滚动高度
-			const scrollTop = $this.scrollTop();
-
-			if (contentH - viewH - scrollTop <= 100) {
-				if (this.isLazyLoading) return;
-
-				this._$timeout(() => {
-					this.isLazyLoading = true;
-					this.gridOpts.loading = true;
-
-					this._$timeout(() => {
-						this.isLazyLoading = false;
-						this.lazyload(this.isAllSelected);
-						this.calculateSelectedCount();
-					}, 500);
-
-				});
-			}
-		}
-
-		$element.on('mousewheel', '.datalist', throttle(mousewheel, 50, this));
-	}
 
 	genFieldParser(field) {
+		console.log(field.dataType);
+
 		return value => {
 
 			if (field.dataType === 'boolean') {
+				console.log(value);
+
 				if (!isBoolean(value)) return '';
+				console.log(field.dynamicConfigs.find(v => v.descVal === value.toString()));
+
 				return field.dynamicConfigs.find(v => v.descVal === value.toString()).destVal;
 			}
 
