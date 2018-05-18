@@ -140,10 +140,6 @@ function genNumberText(num) {
 	return num < 10 ? `0${num}` : `${num}`;
 }
 
-function isUndefined(v) {
-	return v === undefined || v === null;
-}
-
 function getDTimeText(time) {
 	return `${time.D}日 ${genNumberText(time.h)}:${genNumberText(time.m)}:${genNumberText(time.s)}`;
 }
