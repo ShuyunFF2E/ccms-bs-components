@@ -1,4 +1,4 @@
 <div ng-class="$ctrl.styles.selectorGrid">
 	<!-- type="selectable" -->
-	<cc-grid opts="$ctrl.gridOpts"></cc-grid>
+	<cc-grid opts="$ctrl.gridOpts" on-refresh="$ctrl.onRefresh(opts)"></cc-grid>
 </div>

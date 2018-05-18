@@ -39,6 +39,13 @@ export default class DetailSelectorGridCtrl {
 
 	$onInit() {
 		this.initGridOpts();
+		this.config.columns.forEach(item => {
+			this.fieldParser[item.code] = this.genFieldParser(item);
+		});
+	}
+	onRefresh(opts) {
+		console.log(opts);
+
 	}
 
 	initGridOpts() {
@@ -69,7 +76,7 @@ export default class DetailSelectorGridCtrl {
 
 		const columnsDef = this.config.columns.map(item => {
 
-			this.fieldParser[item.code] = this.genFieldParser(item);
+			// this.fieldParser[item.code] = this.genFieldParser(item);
 
 			return {
 				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
@@ -94,8 +101,11 @@ export default class DetailSelectorGridCtrl {
 			cellTemplate: `<cc-radio ng-model="$ctrl.singleSelectedValue" ng-value="entity.id"></cc-radio>`,
 			width: '30px'
 		}].concat(this.config.columns.map(item => {
+
+			// this.fieldParser[item.code] = this.genFieldParser(item);
+
 			return {
-				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
+				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
 				field: item.code,
 				displayName: item.name || item.code,
 				tooltip: item.tooltip
@@ -119,8 +129,11 @@ export default class DetailSelectorGridCtrl {
 			cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect()"></cc-checkbox>`,
 			width: '30px'
 		}].concat(this.config.columns.map(item => {
+
+			// this.fieldParser[item.code] = this.genFieldParser(item);
+
 			return {
-				cellTemplate: `<span ng-bind="entity.${item.code}"></span>`,
+				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
 				field: item.code,
 				displayName: item.name || item.code,
 				tooltip: item.tooltip
@@ -163,15 +176,11 @@ export default class DetailSelectorGridCtrl {
 
 
 	genFieldParser(field) {
-		console.log(field.dataType);
 
 		return value => {
 
 			if (field.dataType === 'boolean') {
-				console.log(value);
-
 				if (!isBoolean(value)) return '';
-				console.log(field.dynamicConfigs.find(v => v.descVal === value.toString()));
 
 				return field.dynamicConfigs.find(v => v.descVal === value.toString()).destVal;
 			}
