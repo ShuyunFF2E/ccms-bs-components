@@ -1,4 +1,11 @@
 import styles from './index.scss';
+import DateValidation from '@/utils/date';
+import dateFormat from 'common-javascript-utils/src/date';
+
+const DateFormatMapping = {
+	YMD: 'yyyy-MM-dd',
+	YMDhms: 'yyyy-MM-dd hh:mm:ss'
+};
 
 export default class BaseModelConditionBox {
 	styles = styles;
@@ -31,15 +38,19 @@ export default class BaseModelConditionBox {
 				condition.value.min = undefined;
 				condition.value.max = undefined;
 			} else if (dataType === 'date') {
-				const format = condition.styleType;
+				const format = condition.format;
 				if (format === 'YMDhms' || format === 'YMD') {
-					condition.value = undefined;
+					condition.value.start = undefined;
+					condition.value.end = undefined;
 				} else if (format === 'MD') {
-					condition.value = undefined;
+					condition.value.start = {};
+					condition.value.end = {};
 				} else if (format === 'Dhms') {
-					condition.value = undefined;
+					condition.value.start = {};
+					condition.value.end = {};
 				} else if (format === 'hms') {
-					condition.value = undefined;
+					condition.value.start = {};
+					condition.value.end = {};
 				}
 			}
 		});
@@ -69,6 +80,9 @@ export default class BaseModelConditionBox {
 			} else if (dataType === 'number') {
 				if (isValidation(item.value.min) || isValidation(item.value.max)) {
 					formData.operator = '介于';
+					const min = isValidation(item.value.min) ? item.value.min : null;
+					const max = isValidation(item.value.max) ? item.value.max : null;
+					formData.value = [min, max];
 					formDataList.push(formData);
 				}
 			} else if (dataType === 'boolean') {
@@ -79,8 +93,30 @@ export default class BaseModelConditionBox {
 				}
 			} else if (dataType === 'date' && item.value && (item.value.start || item.value.end)) {
 				const format = item.format;
+				formData.operator = '介于';
 				if (format === 'YMDhms' || format === 'YMD') {
+					const start = item.value.start ? dateFormat(item.value.start, DateFormatMapping[format]) : null;
+					const end = item.value.end ? dateFormat(item.value.end, DateFormatMapping[format]) : null;
+					formData.value = [start, end];
 					formDataList.push(formData);
+				} else if (format === 'MD') {
+					const range = getMDRange(item.value);
+					if (range.start || range.end) {
+						formData.value = [range.start, range.end];
+						formDataList.push(formData);
+					}
+				} else if (format === 'Dhms') {
+					const range = getDhmsRange(item.value);
+					if (range.start || range.end) {
+						formData.value = [range.start, range.end];
+						formDataList.push(formData);
+					}
+				} else if (format === 'hms') {
+					const range = getHmsRange(item.value);
+					if (range.start || range.end) {
+						formData.value = [range.start, range.end];
+						formDataList.push(formData);
+					}
 				}
 			}
 		});
@@ -113,4 +149,41 @@ function getFormDataType(dataType, format) {
 	}
 
 	return format;
+}
+
+
+function genNumberText(num) {
+	return num < 10 ? `0${num}` : `${num}`;
+}
+
+function getHmsText(time) {
+	return `${genNumberText(time.h)}:${genNumberText(time.m)}:${genNumberText(time.s)}`;
+}
+
+function getDhmsText(time) {
+	return `${genNumberText(time.D)} ${getHmsText(time)}`;
+}
+
+function getMDRange(value) {
+	const ostart = value.start;
+	const oend = value.end;
+	const start = ostart && DateValidation.MD(ostart) ? `${genNumberText(ostart.M)}-${genNumberText(ostart.D)}` : null;
+	const end = oend && DateValidation.MD(oend) ? `${genNumberText(oend.M)}-${genNumberText(oend.D)}` : null;
+	return { start, end };
+}
+
+function getDhmsRange(value) {
+	const ostart = value.start;
+	const oend = value.end;
+	const start = ostart && DateValidation.Dhms(ostart) ? getDhmsText(ostart) : null;
+	const end = oend && DateValidation.Dhms(oend) ? getDhmsText(oend) : null;
+	return { start, end };
+}
+
+function getHmsRange(value) {
+	const ostart = value.start;
+	const oend = value.end;
+	const start = ostart && DateValidation.hms(ostart) ? getHmsText(ostart) : null;
+	const end = oend && DateValidation.hms(oend) ? getHmsText(oend) : null;
+	return { start, end };
 }

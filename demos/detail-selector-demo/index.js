@@ -4,7 +4,8 @@ function genCondition(c) {
 		name: c.displayName,
 		code: c.columnName,
 		tooltip: c.helpText,
-		dataType: c.typeName
+		dataType: c.typeName,
+		format: c.styleType
 	};
 }
 
@@ -28,7 +29,7 @@ const HOSTS = {
 (function(angular) {
 	angular
 		.module('app', ['ccms.bs.components'])
-		.controller('ctrl', function($scope, $bsDetailSelector, $ccTips) {
+		.controller('ctrl', function($scope, $bsDetailSelector, $ccTips, $resource) {
 			const params = window.Qs.parse(window.location.search.replace('?', ''));
 
 			$scope.ID = params.ID || '';
@@ -46,6 +47,16 @@ const HOSTS = {
 					return $ccTips.error('请填写接口Token');
 				}
 
+				const Resource = $resource($scope.host + '/detailSelector/search', {}, {
+					post: {
+						method: 'POST',
+						withCredentials: true,
+						headers: {
+							Authorization: $scope.token
+						}
+					}
+				});
+
 				getInstanceConfig().then(config => {
 
 					config.commonConditionConfig = config.commonConditionConfig || [];
@@ -62,10 +73,19 @@ const HOSTS = {
 					$bsDetailSelector.open({
 						uid: $scope.ID,
 						title: config.displayName,
-						description: config.helpText,
-						conditions: config.commonConditionConfig.map(genCondition),
-						extendConditions: config.moreConditionConfig.map(genCondition),
-						columns: config.displayColumnConfig.map((c) => genColumns(c, fields))
+						config: {
+							description: config.helpText,
+							conditions: config.commonConditionConfig.map(genCondition),
+							extendConditions: config.moreConditionConfig.map(genCondition),
+							columns: config.displayColumnConfig.map((c) => genColumns(c, fields)),
+							search(params) {
+								return Resource.post({
+									id: 13,
+									...params,
+									conditions: params.conditions.map(item => ({ childCond: item }))
+								}).$promise;
+							}
+						}
 					});
 				});
 			};

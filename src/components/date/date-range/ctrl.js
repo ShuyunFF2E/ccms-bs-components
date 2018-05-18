@@ -1,4 +1,5 @@
 import styles from './index.scss';
+import DateValidation from '@/utils/date';
 import dateFormat from 'common-javascript-utils/src/date';
 
 const DateFormatMapping = {
@@ -13,9 +14,6 @@ export default class DateRangeCtrl {
 		this.open = false;
 
 		this.dateRange = {};
-
-		// this.start = {};
-		// this.end = {};
 	}
 
 	$onInit() {
@@ -25,10 +23,10 @@ export default class DateRangeCtrl {
 		} else if (this.format === 'MD') {
 			this.start = this.start || {};
 			this.end = this.end || {};
-			this.dateRange.startMonth = this.start.month;
-			this.dateRange.startDate = this.start.date;
-			this.dateRange.endMonth = this.end.month;
-			this.dateRange.endDate = this.end.date;
+			this.dateRange.startMonth = this.start.M;
+			this.dateRange.startDate = this.start.D;
+			this.dateRange.endMonth = this.end.M;
+			this.dateRange.endDate = this.end.D;
 		} else if (this.format === 'hms') {
 			this.dateRange.start = {};
 			this.dateRange.end = {};
@@ -63,8 +61,8 @@ export default class DateRangeCtrl {
 		const ostart = this.start || {};
 		const oend = this.end || {};
 
-		const start = ostart.month && ostart.date ? `${fillMonthDate(ostart.month)}月${fillMonthDate(ostart.date)}日` : '';
-		const end = oend.month && oend.date ? `${fillMonthDate(oend.month)}月${fillMonthDate(oend.date)}日` : '';
+		const start = ostart.M && ostart.D ? `${fillMonthDate(ostart.M)}月${fillMonthDate(ostart.D)}日` : '';
+		const end = oend.M && oend.D ? `${fillMonthDate(oend.M)}月${fillMonthDate(oend.D)}日` : '';
 		if (!start && !end) return '';
 		return start + ' ~ ' + end;
 	}
@@ -72,9 +70,9 @@ export default class DateRangeCtrl {
 	getTimeRangeText() {
 		const ostart = this.start || {};
 		const oend = this.end || {};
-		const start = !validateTime(ostart) ? '' :
+		const start = !DateValidation.hms(ostart) ? '' :
 			`${genNumberText(this.start.h)}:${genNumberText(this.start.m)}:${genNumberText(this.start.s)}`;
-		const end = !validateTime(oend) ? '' :
+		const end = !DateValidation.hms(oend) ? '' :
 			`${genNumberText(this.end.h)}:${genNumberText(this.end.m)}:${genNumberText(this.end.s)}`;
 
 		if (!start && !end) return '';
@@ -84,8 +82,8 @@ export default class DateRangeCtrl {
 	getDTimeRangeText() {
 		const ostart = this.start || {};
 		const oend = this.end || {};
-		const start = !validateDTime(ostart) ? '' : getDTimeText(ostart);
-		const end = !validateDTime(oend) ? '' : getDTimeText(oend);
+		const start = !DateValidation.Dhms(ostart) ? '' : getDTimeText(ostart);
+		const end = !DateValidation.Dhms(oend) ? '' : getDTimeText(oend);
 		if (!start && !end) return '';
 		return start + ' ~ ' + end;
 	}
@@ -99,25 +97,25 @@ export default class DateRangeCtrl {
 			this.end = this.dateRange.end;
 		} else if (this.format === 'MD') {
 			this.start = {
-				month: this.dateRange.startMonth,
-				date: this.dateRange.startDate
+				M: this.dateRange.startMonth,
+				D: this.dateRange.startDate
 			};
 			this.end = {
-				month: this.dateRange.endMonth,
-				date: this.dateRange.endDate
+				M: this.dateRange.endMonth,
+				D: this.dateRange.endDate
 			};
 		} else if (this.format === 'hms') {
-			if (validateTime(this.dateRange.start)) {
+			if (DateValidation.hms(this.dateRange.start)) {
 				this.start = this.dateRange.start;
 			}
-			if (validateTime(this.dateRange.end)) {
+			if (DateValidation.hms(this.dateRange.end)) {
 				this.end = this.dateRange.end;
 			}
 		} else if (this.format === 'Dhms') {
-			if (validateDTime(this.dateRange.start)) {
+			if (DateValidation.Dhms(this.dateRange.start)) {
 				this.start = this.dateRange.start;
 			}
-			if (validateDTime(this.dateRange.end)) {
+			if (DateValidation.Dhms(this.dateRange.end)) {
 				this.end = this.dateRange.end;
 			}
 		}
@@ -136,9 +134,7 @@ function isDateFormat(format) {
 
 function fillMonthDate(number) {
 	return number + '';
-	// return number >= 10 ? '' + number : '0' + number;
 }
-
 
 function genNumberText(num) {
 	return num < 10 ? `0${num}` : `${num}`;
@@ -146,14 +142,6 @@ function genNumberText(num) {
 
 function isUndefined(v) {
 	return v === undefined || v === null;
-}
-
-function validateTime(time) {
-	return !isUndefined(time.h) && !isUndefined(time.m) && !isUndefined(time.s);
-}
-
-function validateDTime(time) {
-	return !isUndefined(time.D) && validateTime(time);
 }
 
 function getDTimeText(time) {

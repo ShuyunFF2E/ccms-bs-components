@@ -22,11 +22,11 @@
 			margin: 100px auto;
 		}
 
-		input {
+		.demo-input {
 			width: 100% !important;
 		}
 
-		textarea {
+		.demo-textarea {
 			width: 100%;
 			outline: none;
 			border: 1px solid #d9d9d9;
@@ -50,21 +50,21 @@
 			<div class="form-item">
 				<div class="form-title">实例ID</div>
 				<div class="form-content">
-					<input ng-model="ID" placeholder="选择器配置ID" />
+					<input class="demo-input" ng-model="ID" placeholder="选择器配置ID" />
 				</div>
 			</div>
 
 			<div class="form-item">
 				<div class="form-title">接口域名+服务</div>
 				<div class="form-content">
-					<input ng-model="host" placeholder="http://ual.dcartoon.saasproj.fenxibao.com" />
+					<input class="demo-input" ng-model="host" placeholder="http://ual.dcartoon.saasproj.fenxibao.com" />
 				</div>
 			</div>
 
 			<div class="form-item">
 				<div class="form-title">接口Token</div>
 				<div class="form-content">
-					<textarea ng-model="token" rows="8" placeholder="接口Token"></textarea>
+					<textarea class="demo-textarea" ng-model="token" rows="8" placeholder="接口Token"></textarea>
 				</div>
 			</div>
 

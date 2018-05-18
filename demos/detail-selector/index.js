@@ -43,7 +43,7 @@ function genColumns(c, fields = []) {
 					method: 'POST',
 					withCredentials: true,
 					headers: {
-						Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJzc28iOmZhbHNlLCJqdGkiOiI1MmZiZDA5YTAzZmY0ZWU1YWM3MTg4YmEyMjZiMjQxOSIsImV4cCI6MTUyNjU4MzQ5MiwiaWF0IjoxNTI2NTQ3NDkyLCJpc3MiOiJlcGFzc3BvcnQiLCJhdWQiOiJwb3J0YWwiLCJzdWIiOiIxIiwidHlwIjoiQmVhcmVyIiwib3NpIjoiMmFjMzc4NDYyZjZhNGUzMWJhMzIwYWMyNDMwMzMwYjgiLCJ0ZW5hbnQiOiJjYXJ0b29uIiwicHJlZmVycmVkX3VzZXJuYW1lIjoi57O757uf566h55CG5ZGYIiwibmFtZSI6ImFkbWluIiwiaXNTU08iOmZhbHNlfQ.EpgYXvDPE4BhfE8Nw_9rpMDQcejychah3ky5HbcZRyM'
+						Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJzc28iOmZhbHNlLCJqdGkiOiIwZmI5NGI2M2YzYWU0ZjQyYmVjMTg3OTQ0ZDE2NDRiYyIsImV4cCI6MTUyNjY0NTExNSwiaWF0IjoxNTI2NjA5MTE1LCJpc3MiOiJlcGFzc3BvcnQiLCJhdWQiOiJwb3J0YWwiLCJzdWIiOiIxIiwidHlwIjoiQmVhcmVyIiwib3NpIjoiYmYzNTU1ZDA1YWYxNDlmNmFiN2IzNzg4MzFiNzg0NDMiLCJ0ZW5hbnQiOiJjYXJ0b29uIiwicHJlZmVycmVkX3VzZXJuYW1lIjoi57O757uf566h55CG5ZGYIiwibmFtZSI6ImFkbWluIiwiaXNTU08iOmZhbHNlfQ.FHx1hwPJCbAxmw-pjqh5aKyhrV_TNQpzspgxfZvyT5g'
 					}
 				}
 			});
