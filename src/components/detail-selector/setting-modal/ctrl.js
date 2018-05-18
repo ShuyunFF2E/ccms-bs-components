@@ -14,8 +14,12 @@ export default class DetailSelectorSetterCtrl {
 
 		this._dragulaService.options(this._$scope, 'bag-condition', {
 			accepts(el, target) {
+				if (el.dataset.owner === target.dataset.owner) {
+					return true;
+				}
+
 				// 常显条件最多设置8个
-				if (target.dataset.owner === 'conditions' &&
+				if (target.dataset.owner === 'COMMON' &&
 					target.children.length >= 8) {
 					return false;
 				}

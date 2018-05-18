@@ -4,8 +4,10 @@ import controller from './ctrl';
 
 const noop = () => {};
 
+const height = Math.min(window.screen.height - 200, 800);
+
 // 默认选择器样式
-const defaultStyle = { width: '960px', maxWidth: '960px', minWidth: '960px', height: (window.screen.height - 400) + 'px' };
+const defaultStyle = { width: '960px', maxWidth: '960px', minWidth: '960px', height: height + 'px' };
 
 const DefaultConfig = {
 	description: '',
