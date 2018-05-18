@@ -122,7 +122,7 @@ export default class BaseModelConditionBox {
 		});
 
 		this.fetch({
-			conditions: formDataList,
+			conditions: formDataList.length > 0 ? [formDataList] : [],
 			isMeet: true,
 			offset: 0,
 			limit: 10

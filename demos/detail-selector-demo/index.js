@@ -82,7 +82,7 @@ const HOSTS = {
 								return Resource.post({
 									id: 13,
 									...params,
-									conditions: params.conditions.map(item => ({ childCond: item }))
+									conditions: params.conditions.map(v => ({ childCond: v }))
 								}).$promise;
 							}
 						}
