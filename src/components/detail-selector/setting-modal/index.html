@@ -1,7 +1,7 @@
-<div class="{{$ctrl.styles.container}}">
-	<div class="{{$ctrl.styles.conditionBox}}">
-		<div class="{{$ctrl.styles.head}}">常显条件
-			<span class="{{$ctrl.styles.tips}}">（最多设置8个）</span>
+<div ng-class="$ctrl.styles.container">
+	<div ng-class="$ctrl.styles.conditionBox">
+		<div ng-class="$ctrl.styles.head">常显条件
+			<span ng-class="$ctrl.styles.tips">（最多设置{{$ctrl.commonZoneMax}}个）</span>
 		</div>
 		<div ng-class="$ctrl.styles.content" dragula="'bag-condition'" dragula-model="$ctrl.conditions" data-owner="COMMON">
 			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.conditions track by $index" data-owner="COMMON">
@@ -13,17 +13,17 @@
 		</div>
 	</div>
 	<div ng-class="$ctrl.styles.oopsBox">
-		<button ng-click="$ctrl.moveToExtendCondition()" class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnAdd}}" ng-disabled="$ctrl.getSelectedConditions($ctrl.conditions).length===0">
+		<button ng-click="$ctrl.moveToExtendCondition()" ng-class="{[$ctrl.styles.btnOop]:true,[$ctrl.styles.btnAdd]:true}" ng-disabled="$ctrl.getSelectedConditions($ctrl.conditions).length===0">
 			<span class="iconfont icon-rightarrow"></span>
 		</button>
-		<button ng-click="$ctrl.moveToCondition()" class="{{$ctrl.styles.btnOop}} {{$ctrl.styles.btnRemove}}" ng-disabled="$ctrl.conditions.length>=8||$ctrl.getSelectedConditions($ctrl.extendConditions).length===0">
+		<button ng-click="$ctrl.moveToCondition()" ng-class="{[$ctrl.styles.btnOop]:true, [$ctrl.styles.btnRemove]:true}" ng-disabled="$ctrl.conditions.length>=$ctrl.commonZoneMax||$ctrl.getSelectedConditions($ctrl.extendConditions).length===0">
 			<span class="iconfont icon-rightarrow"></span>
 		</button>
 	</div>
-	<div class="{{$ctrl.styles.conditionBox}}">
-		<div class="{{$ctrl.styles.head}}">更多条件</div>
-		<div ng-class="$ctrl.styles.content" dragula="'bag-condition'" dragula-model="$ctrl.extendConditions"  data-owner="MORE">
-			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.extendConditions track by $index"  data-owner="MORE">
+	<div ng-class="$ctrl.styles.conditionBox">
+		<div ng-class="$ctrl.styles.head">更多条件</div>
+		<div ng-class="$ctrl.styles.content" dragula="'bag-condition'" dragula-model="$ctrl.extendConditions" data-owner="MORE">
+			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.extendConditions track by $index" data-owner="MORE">
 				<cc-checkbox ng-model="condition.checked">
 					<span ng-bind="condition.name||condition.code" cc-tooltip="condition.name||condition.code"></span>
 				</cc-checkbox>

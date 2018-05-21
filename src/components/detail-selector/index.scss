@@ -14,7 +14,7 @@
 
 .selector {
 	height: 100%;
-	display: block;
+	position: relative;
 	.loading-wrap {
 		position: absolute;
 		z-index: 999;
@@ -31,34 +31,11 @@
 			margin-left: -20px;
 		}
 	}
-	.btn-text {
-		border: none;
-		min-width: unset;
-		background-color: transparent;
-		padding: 0;
-		margin: 0 0.5em;
-		&:hover {
-			background-color: transparent;
-		}
-	}
-	.btn-link {
-		color: #0083ba;
-		&:hover {
-			color: #41b5e6;
-		}
-	}
-	.result-footer {
-		margin-right: 250px;
-		color: #666;
-		.selected-count {
-			font-size: 16px;
-			color: #0083ba;
-		}
-	}
-	.btn-switch {
-		margin: 12px;
-		padding-top: 6px;
-		padding-bottom: 6px;
-		height: unset;
-	}
+}
+
+.footer {
+	position: absolute;
+	color: #666;
+	left: 0;
+	bottom: -35px;
 }

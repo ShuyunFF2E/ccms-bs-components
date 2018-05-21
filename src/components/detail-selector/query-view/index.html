@@ -4,7 +4,7 @@
 	<bs-base-condition-box
 		opts="$ctrl.opts"
 		config="$ctrl.config"
-		fetch="$ctrl.search"
+		fetch="$ctrl.fetch"
 		ng-if="$ctrl.opts.conditionModel==='BASE'">
 	</bs-base-condition-box>
 
@@ -12,7 +12,7 @@
 	<bs-advance-condition-box
 		opts="$ctrl.opts"
 		config="$ctrl.config"
-		fetch="$ctrl.search"
+		fetch="$ctrl.fetch"
 		ng-if="$ctrl.opts.conditionModel==='ADVANCE'">
 	</bs-advance-condition-box>
 
@@ -20,6 +20,7 @@
 		<bs-selector-grid
 			opts="$ctrl.opts"
 			config="$ctrl.config"
+			fetch="$ctrl.fetch"
 		>
 		</bs-selector-grid>
 	</div>

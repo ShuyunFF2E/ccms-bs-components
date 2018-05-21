@@ -55,4 +55,10 @@
 		color: #666;
 		cursor: move;
 	}
+	:global(.cc-checkbox-label) {
+		max-width: 180px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 }

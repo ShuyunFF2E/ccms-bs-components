@@ -10,6 +10,7 @@ const height = Math.min(window.screen.height - 200, 800);
 const defaultStyle = { width: '960px', maxWidth: '960px', minWidth: '960px', height: height + 'px' };
 
 const DefaultConfig = {
+	commonZoneMax: 8, // 常显条件区最多数量
 	description: '',
 	preferenceAble: true,
 	advanceSearchAble: true,
@@ -17,7 +18,7 @@ const DefaultConfig = {
 	extendConditions: [],
 	columns: [],
 	type: 'multiple',
-	search: noop
+	fetch: noop
 };
 
 @Inject('$ccModal', '$rootScope', )

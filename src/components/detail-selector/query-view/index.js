@@ -14,7 +14,8 @@ const DDO = {
 	transclude: true,
 	bindings: {
 		opts: '=',
-		config: '<'
+		config: '<',
+		fetch: '<'
 	}
 };
 

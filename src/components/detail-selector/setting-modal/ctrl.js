@@ -12,6 +12,9 @@ export default class DetailSelectorSetterCtrl {
 		this.conditions.forEach(v => v.checked = false);
 		this.extendConditions.forEach(v => v.checked = false);
 
+		const commonZoneMax = this.commonZoneMax;
+		const conditions = this.conditions;
+
 		this._dragulaService.options(this._$scope, 'bag-condition', {
 			accepts(el, target) {
 				if (el.dataset.owner === target.dataset.owner) {
@@ -20,7 +23,7 @@ export default class DetailSelectorSetterCtrl {
 
 				// 常显条件最多设置8个
 				if (target.dataset.owner === 'COMMON' &&
-					target.children.length >= 8) {
+					conditions.length >= commonZoneMax) {
 					return false;
 				}
 				return true;
@@ -46,7 +49,7 @@ export default class DetailSelectorSetterCtrl {
 		const conditions = this.getSelectedConditions(this.extendConditions);
 
 		for (let i = 0; i < conditions.length; i++) {
-			if (this.conditions.length >= 8) return;
+			if (this.conditions.length >= this.commonZoneMax) return;
 
 			const condition = conditions[i];
 			condition.checked = false;

@@ -57,7 +57,7 @@ export default class BaseModelConditionBox {
 
 	}
 
-	search() {
+	searchData() {
 		const conditions = this.getEnableConditions();
 
 		const formDataList = [];
@@ -121,12 +121,11 @@ export default class BaseModelConditionBox {
 			}
 		});
 
-		this.fetch({
-			conditions: formDataList.length > 0 ? [formDataList] : [],
-			isMeet: true,
-			offset: 0,
-			limit: 10
-		});
+		this.opts.params.conditions = formDataList.length > 0 ? [formDataList] : [];
+		this.opts.params.isMeet = true;
+		this.opts.params.page = 1;
+
+		this.fetch();
 	}
 }
 

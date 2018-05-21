@@ -33,12 +33,20 @@ export default class DetailSelectorCtrl {
 
 		this.opts = {
 			isLoading: false,
-			/**
-			 * 条件模式[BASE:简单查找,ADVANCE:高级查找]
-			 */
+			// 条件模式[BASE:简单查找,ADVANCE:高级查找]
 			conditionModel: 'BASE',
-			statistic: { selected: 0, total: 0 }
+			statistic: { selected: 0, total: 0 },
+			params: {
+				isMeet: true,
+				page: 1,
+				size: 10,
+				conditions: []
+			},
+			total: 0,
+			data: []
 		};
+
+		this.fetch();
 	}
 
 	matchLocalConfig() {
@@ -70,6 +78,7 @@ export default class DetailSelectorCtrl {
 	// 设置选择器搜索条件以及显示的列表字段
 	openSelectorSetter() {
 		const scope = this._$rootScope.$new();
+		scope.commonZoneMax = this.config.commonZoneMax;
 		scope.conditions = this.config.conditions.map(getPureCondition);
 		scope.extendConditions = this.config.extendConditions.map(getPureCondition);
 
@@ -107,5 +116,24 @@ export default class DetailSelectorCtrl {
 	 */
 	switchToQueryView = () => {
 		this.model = 'QUERY';
+	}
+
+
+	setGridData = data => {
+		Object.assign(this.opts, data);
+		// this.opts = { ...this.opts, ...data };
+	}
+
+	fetch = () => {
+		const params = { ...this.opts.params };
+		this.opts.isLoading = true;
+		return this.config.fetch(params).then(res => {
+			this.opts.isLoading = false;
+			this.setGridData(res);
+		}).catch(err => {
+			this.opts.isLoading = false;
+			this._$ccTips.error(err.message, this.body);
+			throw err;
+		});
 	}
 }

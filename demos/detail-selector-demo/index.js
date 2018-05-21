@@ -78,12 +78,18 @@ const HOSTS = {
 							conditions: config.commonConditionConfig.map(genCondition),
 							extendConditions: config.moreConditionConfig.map(genCondition),
 							columns: config.displayColumnConfig.map((c) => genColumns(c, fields)),
-							search(params) {
+							fetch(params) {
+								params.offset = (params.page - 1) * params.size;
+								params.limit = params.size;
+								delete params.page;
+								delete params.size;
 								return Resource.post({
 									id: 13,
 									...params,
-									conditions: params.conditions.map(v => ({ childCond: v }))
-								}).$promise;
+									conditions: params.conditions.map(item => ({ childCond: item }))
+								}).$promise.catch(err => {
+									throw new Error(err.data.message);
+								});
 							}
 						}
 					});

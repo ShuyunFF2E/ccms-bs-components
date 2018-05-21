@@ -12,8 +12,7 @@ const DDO = {
 	transclude: true,
 	bindings: {
 		opts: '<',
-		config: '<',
-		switchToQueryView: '<'
+		config: '<'
 	}
 };
 

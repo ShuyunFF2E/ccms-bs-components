@@ -9,8 +9,9 @@ const DDO = {
 	controller,
 	transclude: true,
 	bindings: {
-		opts: '=',
-		config: '<'
+		opts: '<',
+		config: '<',
+		fetch: '<'
 	}
 };
 

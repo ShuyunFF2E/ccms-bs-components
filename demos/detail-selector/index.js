@@ -43,7 +43,7 @@ function genColumns(c, fields = []) {
 					method: 'POST',
 					withCredentials: true,
 					headers: {
-						Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJzc28iOmZhbHNlLCJqdGkiOiIwZmI5NGI2M2YzYWU0ZjQyYmVjMTg3OTQ0ZDE2NDRiYyIsImV4cCI6MTUyNjY0NTExNSwiaWF0IjoxNTI2NjA5MTE1LCJpc3MiOiJlcGFzc3BvcnQiLCJhdWQiOiJwb3J0YWwiLCJzdWIiOiIxIiwidHlwIjoiQmVhcmVyIiwib3NpIjoiYmYzNTU1ZDA1YWYxNDlmNmFiN2IzNzg4MzFiNzg0NDMiLCJ0ZW5hbnQiOiJjYXJ0b29uIiwicHJlZmVycmVkX3VzZXJuYW1lIjoi57O757uf566h55CG5ZGYIiwibmFtZSI6ImFkbWluIiwiaXNTU08iOmZhbHNlfQ.FHx1hwPJCbAxmw-pjqh5aKyhrV_TNQpzspgxfZvyT5g'
+						Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Imp3dCJ9.eyJzc28iOmZhbHNlLCJqdGkiOiI0OTEwYWNkZDExNTE0MTJiODc0MGRkZGJkMDAxMjcxZCIsImV4cCI6MTUyNjkwOTQxMiwiaWF0IjoxNTI2ODczNDEyLCJpc3MiOiJlcGFzc3BvcnQiLCJhdWQiOiJwb3J0YWwiLCJzdWIiOiIxIiwidHlwIjoiQmVhcmVyIiwib3NpIjoiYmU4OGQ1YmM4Yjg0NGZlYzhjZTk3MDA4NzU5OGExYTAiLCJ0ZW5hbnQiOiJjYXJ0b29uIiwicHJlZmVycmVkX3VzZXJuYW1lIjoi57O757uf566h55CG5ZGYIiwibmFtZSI6ImFkbWluIiwiaXNTU08iOmZhbHNlfQ.ydqWGRbOdnQ6-15OhCZg5Ho8zs7jNyIS-q1hq-Hvsk4'
 					}
 				}
 			});
@@ -58,12 +58,18 @@ function genColumns(c, fields = []) {
 						conditions: config.commonConditionConfig.map(genCondition),
 						extendConditions: config.moreConditionConfig.map(genCondition),
 						columns: config.displayColumnConfig.map((c) => genColumns(c, fields)),
-						search(params) {
+						fetch(params) {
+							params.offset = (params.page - 1) * params.size;
+							params.limit = params.size;
+							delete params.page;
+							delete params.size;
 							return Resource.post({
 								id: 13,
 								...params,
 								conditions: params.conditions.map(item => ({ childCond: item }))
-							}).$promise;
+							}).$promise.catch(err => {
+								throw new Error(err.data.message);
+							});
 						}
 					}
 				});

@@ -6,22 +6,21 @@
 	<bs-query-view
 		opts="$ctrl.opts"
 		config="$ctrl.config"
+		fetch="$ctrl.fetch"
 		ng-if="$ctrl.model==='QUERY'"></bs-query-view>
 
 	<bs-check-view
 		opts="$ctrl.opts"
 		config="$ctrl.config"
-		switch-to-query-view="$ctrl.switchToQueryView"
+		fetch="$ctrl.fetch"
 		ng-if="$ctrl.model==='CHECK'"></bs-check-view>
 
-	<footer ng-class="$ctrl.styles.resultFooter" ng-if="$ctrl.model==='QUERY'&&$ctrl.selectType==='multiple'">
-		<span>已选 / 总计：</span>
-		<span ng-class="$ctrl.styles.selectedCount" ng-bind="$ctrl.opts.statistic.selected"></span> /
-		<span ng-class="$ctrl.styles.totalCount" ng-bind="$ctrl.opts.statistic.total"></span>
-
-		<button ng-class="$ctrl.styles.btnSwitch"
-			ng-click="$ctrl.switchToCheckView()"
-			ng-disabled="$ctrl.opts.statistic.selected===0">查看已选</button>
+	<footer ng-class="$ctrl.styles.footer"
+		ng-if="$ctrl.config.type==='multiple'"
+	>
+		<cc-checkbox ng-model="$ctrl.model" ng-true-value="'CHECK'" ng-false-value="'QUERY'">
+			<span>查看已选（{{$ctrl.opts.statistic.selected}}）</span>
+		</cc-checkbox>
 	</footer>
 </div>
 

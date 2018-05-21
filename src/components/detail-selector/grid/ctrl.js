@@ -12,14 +12,10 @@ export default class DetailSelectorGridCtrl {
 
 	constructor() {
 
-		/**
-		 * 全选标记（多选）
-		 */
+		// 全选标记（多选）
 		this.isAllSelected = false;
 
-		/**
-		 * 当前选中的值（单选）
-		 */
+		// 当前选中的值（单选）
 		this.singleSelectedValue = '';
 
 
@@ -42,10 +38,6 @@ export default class DetailSelectorGridCtrl {
 		this.config.columns.forEach(item => {
 			this.fieldParser[item.code] = this.genFieldParser(item);
 		});
-	}
-	onRefresh(opts) {
-		console.log(opts);
-
 	}
 
 	initGridOpts() {
@@ -120,7 +112,7 @@ export default class DetailSelectorGridCtrl {
 	generateCheckboxGridColumns() {
 		const headerTpl = `<tr>
 			<th style="width:30px;">
-				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'"></cc-checkbox>
+				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'" tooltip-placement="bottom-left"></cc-checkbox>
 			</th>
 			${this.config.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		</tr>`;
@@ -171,7 +163,7 @@ export default class DetailSelectorGridCtrl {
 
 		// 如果全选，则为全部数量减去未选中的数量
 		const unselected = this.gridOpts.externalData.filter(item => !item.selected);
-		this.opts.statistic.selected = this.opts.statistic.total - unselected.length;
+		this.opts.statistic.selected = this.opts.total - unselected.length;
 	}
 
 
@@ -204,5 +196,30 @@ export default class DetailSelectorGridCtrl {
 			return value;
 		}
 
+	}
+
+	get totalPages() {
+		const size = this.opts.params.size;
+		const total = this.opts.total;
+
+		return Math.ceil(total / size);
+	}
+
+	refresh() {
+		this.fetch();
+	}
+
+	// 翻页
+	onPageChnage(page, size) {
+		const oPage = this.opts.params.page;
+		const oSize = this.opts.params.size;
+
+		this.opts.params.page = page;
+		this.opts.params.size = size;
+
+		this.fetch().catch(() => {
+			this.opts.params.page = oPage;
+			this.opts.params.size = oSize;
+		});
 	}
 }
