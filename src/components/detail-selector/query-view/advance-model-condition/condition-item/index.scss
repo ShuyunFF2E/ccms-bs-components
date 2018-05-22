@@ -1,0 +1,33 @@
+.container {
+	position: relative;
+	padding: 0 70px;
+	.and {
+		position: absolute;
+		left: 0;
+		top: 10px;
+	}
+	.controls {
+		position: absolute;
+		right: 0;
+		top: 10px;
+	}
+	.condition {
+		display: flex;
+		flex-direction: row;
+	}
+	.operator {
+		width: 120px;
+		margin: 0 10px;
+	}
+	.field,
+	.value {
+		flex: 1;
+	}
+	:global(cc-dropdown-select) {
+		width: 100%;
+	}
+	:global(.dropdown-select) {
+		max-width: unset;
+		min-width: unset;
+	}
+}

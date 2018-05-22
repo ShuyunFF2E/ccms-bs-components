@@ -1,18 +1,12 @@
-<div class="advance-condition-box">
+<div ng-class="$ctrl.styles.container">
+	<div ng-class="$ctrl.styles.conditionBox">
+		<div ng-class="$ctrl.styles.head">
+			<cc-dropdown-select model="$ctrl.conditionData.isMeet" datalist="[{title:'满足',value:true},{title:'不满足',value:false}]"></cc-dropdown-select>
+			<span>以下条件</span>
+		</div>
 
-	<div class="search-box">
-		<bs-search-input
-			ng-model="$ctrl.advanceConditionStr"
-			search="$ctrl.opts.advanceSearch()"
-			width="'100%'">
-		</bs-search-input>
-	</div>
-
-	<div class="toobar-box">
-		<button class="btn-text" ng-click="$ctrl.setCondition()">
-			<i class="bs-iconfont icon-bangzhu" cc-tooltip="'这里显示什么文案呢'"></i>
-			<span class="text">设置条件</span>
-		</button>
-		<button class="btn-base-model btn-text btn-link" ng-click="$ctrl.opts.conditionModel='BASE'">简单查找</button>
+		<div>
+			<bs-condition-group ng-repeat="conditions in $ctrl.conditionData.groups" conditions="conditions"></bs-condition-group>
+		</div>
 	</div>
 </div>

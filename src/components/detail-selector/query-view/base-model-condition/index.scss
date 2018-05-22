@@ -17,11 +17,24 @@
 	}
 }
 
-.toolbar-zone {
+.toolbar {
+	position: relative;
 	margin: 0 -20px;
 	padding: 8px 20px;
 	text-align: right;
 	border-bottom: 1px solid #e8e8e8;
+	.btn-link-text {
+		position: absolute;
+		left: 10px;
+		top: 10px;
+		border: none;
+		outline: none;
+		background: transparent;
+		color: #0083ba;
+		&:hover {
+			color: #43c0f4;
+		}
+	}
 	.extend-condition-setter {
 		text-align: left;
 		position: relative;

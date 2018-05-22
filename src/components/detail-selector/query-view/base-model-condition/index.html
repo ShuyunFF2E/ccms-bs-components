@@ -5,7 +5,9 @@
 		<bs-condition-item ng-repeat="condition in $ctrl.config.extendConditions" condition="condition" extend="true" ng-if="condition.selected"></bs-condition-item>
 	</div>
 
-	<div ng-class="$ctrl.styles.toolbarZone">
+	<div ng-class="$ctrl.styles.toolbar">
+
+		<button ng-class="$ctrl.styles.btnLinkText" ng-click="$ctrl.config.searchModel='ADVANCE'">高级搜索</button>
 
 		<cc-dropdown ng-show="$ctrl.config.extendConditions.length>0" ng-class="$ctrl.styles.extendConditionSetter" class="dropdown-closed">
 			<button cc-dropdown-toggle>
@@ -16,7 +18,7 @@
 				<div ng-class="$ctrl.styles.extendConditionText">更多条件</div>
 				<div ng-class="$ctrl.styles.extendConditionItem" ng-repeat="condition in $ctrl.config.extendConditions track by $index">
 					<cc-checkbox ng-model="condition.selected">
-						<div ng-class="$ctrl.styles.conditionName" class="bs-ellipsis" cc-tooltip="condition.name||condition.code" ng-bind="condition.name||condition.code"></div>
+						<div ng-class="$ctrl.styles.conditionName" class="bs-ellipsis" title="{{condition.name||condition.code}}" ng-bind="condition.name||condition.code"></div>
 					</cc-checkbox>
 				</div>
 			</div>

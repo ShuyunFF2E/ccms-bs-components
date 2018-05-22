@@ -1,0 +1,21 @@
+<div ng-class="$ctrl.styles.container">
+	<div ng-class="$ctrl.styles.and">AND</div>
+	<div ng-class="$ctrl.styles.condition">
+		<div ng-class="$ctrl.styles.field">
+			<cc-dropdown-select model="$ctrl.condition.column" datalist="$ctrl.fields" placeholder="请选择字段"></cc-dropdown-select>
+		</div>
+		<div ng-class="$ctrl.styles.operator">
+			<cc-dropdown-select model="$ctrl.condition.operator" datalist="$ctrl.operators" placeholder="运算符"></cc-dropdown-select>
+		</div>
+		<div ng-class="$ctrl.styles.value"></div>
+	</div>
+	<div ng-class="$ctrl.styles.controls">
+		<button ng-class="$ctrl.styles.btnIcon">
+			<span class="iconfont icon-jian"></span>
+		</button>
+		<button ng-class="$ctrl.styles.btnIcon">
+			<span class="iconfont icon-jia"></span>
+		</button>
+	</div>
+</div>
+

@@ -6,7 +6,7 @@
 		<div ng-class="$ctrl.styles.content" dragula="'bag-condition'" dragula-model="$ctrl.conditions" data-owner="COMMON">
 			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.conditions track by $index" data-owner="COMMON">
 				<cc-checkbox ng-model="condition.checked">
-					<span ng-bind="condition.name||condition.code" cc-tooltip="condition.name||condition.code"></span>
+					<span ng-bind="condition.name||condition.code" title="{{condition.name||condition.code}}"></span>
 				</cc-checkbox>
 				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>
@@ -25,7 +25,7 @@
 		<div ng-class="$ctrl.styles.content" dragula="'bag-condition'" dragula-model="$ctrl.extendConditions" data-owner="MORE">
 			<div class="bs-components-condition-item" ng-repeat="condition in $ctrl.extendConditions track by $index" data-owner="MORE">
 				<cc-checkbox ng-model="condition.checked">
-					<span ng-bind="condition.name||condition.code" cc-tooltip="condition.name||condition.code"></span>
+					<span ng-bind="condition.name||condition.code" title="{{condition.name||condition.code}}"></span>
 				</cc-checkbox>
 				<span class="bs-iconfont icon-tuozhuaibiaoshi"></span>
 			</div>

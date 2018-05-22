@@ -1,29 +1,13 @@
-.advance-condition-box {
-	position: relative;
-	margin-top: 0;
-	margin-bottom: 10px;
+.container {
+	height: 100%;
+}
 
-	.search-box{
-		margin-right: 160px;
-	}
-
-	.toobar-box{
-		position: absolute;
-		right: 0;
-		top: 4px;
-	}
-
-	.btn-text{
-		.bs-iconfont,.text{
-			vertical-align: middle;
+.condition-box {
+	padding: 10px 0;
+	.head {
+		margin-bottom: 20px;
+		:global(cc-dropdown-select) {
+			width: 80px;
 		}
-		.bs-iconfont{
-			color: green;
-			font-weight: 400;
-		}
-	}
-
-	.btn-base-model{
-		vertical-align: middle;
 	}
 }

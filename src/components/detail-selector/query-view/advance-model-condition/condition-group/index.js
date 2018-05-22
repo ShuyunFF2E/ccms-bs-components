@@ -3,21 +3,20 @@ import './index.scss';
 import angular from 'angular';
 import controller from './ctrl';
 import template from './index.html';
-
-import conditionGroup from './condition-group';
+import bsAdvanceConditionItem from '../condition-item';
 
 const DDO = {
 	template,
 	controller,
 	transclude: true,
 	bindings: {
-		opts: '<',
-		config: '<',
-		search: '<'
+		// opts: '<',
+		// config: '<',
+		conditions: '<'
 	}
 };
 
 export default angular
-	.module('bs.components.advanceModelConditionBox', [conditionGroup])
-	.component('bsAdvanceConditionBox', DDO)
+	.module('bs.components.advanceModelConditionGroup', [bsAdvanceConditionItem])
+	.component('bsConditionGroup', DDO)
 	.name;

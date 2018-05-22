@@ -33,8 +33,6 @@ export default class DetailSelectorCtrl {
 
 		this.opts = {
 			isLoading: false,
-			// 条件模式[BASE:简单查找,ADVANCE:高级查找]
-			conditionModel: 'BASE',
 			statistic: { selected: 0, total: 0 },
 			params: {
 				isMeet: true,
