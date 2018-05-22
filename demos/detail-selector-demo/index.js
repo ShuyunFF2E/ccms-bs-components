@@ -84,7 +84,7 @@ const HOSTS = {
 								delete params.page;
 								delete params.size;
 								return Resource.post({
-									id: 13,
+									id: $scope.ID,
 									...params,
 									conditions: params.conditions.map(item => ({ childCond: item }))
 								}).$promise.catch(err => {
