@@ -5,9 +5,31 @@
 .condition-box {
 	padding: 10px 0;
 	.head {
-		margin-bottom: 20px;
+		margin-bottom: 15px;
 		:global(cc-dropdown-select) {
 			width: 80px;
 		}
 	}
+}
+
+.middle {
+	vertical-align: middle;
+}
+
+.groups {
+	margin-bottom: 15px;
+}
+
+.btn-link {
+	border: none;
+	outline: none;
+	appearance: none;
+	background: transparent;
+	color: #0083ba;
+}
+
+.or {
+	text-align: center;
+	margin: 8px 0;
+	color: #999;
 }

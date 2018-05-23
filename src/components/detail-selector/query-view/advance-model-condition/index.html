@@ -2,11 +2,16 @@
 	<div ng-class="$ctrl.styles.conditionBox">
 		<div ng-class="$ctrl.styles.head">
 			<cc-dropdown-select model="$ctrl.conditionData.isMeet" datalist="[{title:'满足',value:true},{title:'不满足',value:false}]"></cc-dropdown-select>
-			<span>以下条件</span>
+			<span ng-class="$ctrl.styles.middle">以下条件</span>
 		</div>
 
-		<div>
-			<bs-condition-group ng-repeat="conditions in $ctrl.conditionData.groups" conditions="conditions"></bs-condition-group>
+		<div ng-class="$ctrl.styles.groups">
+			<div ng-repeat="conditions in $ctrl.conditionData.groups track by $index">
+				<div ng-class="$ctrl.styles.or" ng-if="$index>0">OR</div>
+				<bs-condition-group config="$ctrl.config" conditions="conditions" remove-group="$ctrl.removeGroup"></bs-condition-group>
+			</div>
 		</div>
+
+		<button ng-class="$ctrl.styles.btnLink" ng-click="$ctrl.addGroup()">添加条件</button>
 	</div>
 </div>

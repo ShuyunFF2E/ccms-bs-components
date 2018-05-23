@@ -10,8 +10,10 @@ const DDO = {
 	transclude: true,
 	bindings: {
 		// opts: '<',
-		// config: '<',
-		condition: '<'
+		config: '<',
+		condition: '<',
+		add: '<',
+		remove: '<'
 	}
 };
 

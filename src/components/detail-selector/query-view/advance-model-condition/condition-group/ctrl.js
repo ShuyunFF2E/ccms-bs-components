@@ -8,7 +8,18 @@ export default class ConditionGroup {
 	conditions = [];
 
 	$onInit() {
-		console.log(this.conditions);
 
+	}
+
+	add = () => {
+		this.conditions.push({});
+	}
+
+	remove = (item) => {
+		const index = this.conditions.indexOf(item);
+		this.conditions.splice(index, 1);
+		if (this.conditions.length === 0) {
+			this.removeGroup(this.conditions)
+		}
 	}
 }

@@ -2,20 +2,46 @@
 	<div ng-class="$ctrl.styles.and">AND</div>
 	<div ng-class="$ctrl.styles.condition">
 		<div ng-class="$ctrl.styles.field">
-			<cc-dropdown-select model="$ctrl.condition.column" datalist="$ctrl.fields" placeholder="请选择字段"></cc-dropdown-select>
+			<cc-dropdown-select
+				model="$ctrl.condition.code"
+				datalist="$ctrl.fields"
+				mapping="{valueField:'code',displayField:'name'}"
+				placeholder="请选择字段"
+				on-select-change="$ctrl.onCodeChange($event)"
+			></cc-dropdown-select>
 		</div>
 		<div ng-class="$ctrl.styles.operator">
 			<cc-dropdown-select model="$ctrl.condition.operator" datalist="$ctrl.operators" placeholder="运算符"></cc-dropdown-select>
 		</div>
-		<div ng-class="$ctrl.styles.value"></div>
+		<div ng-class="$ctrl.styles.value">
+			<div ng-show="!$ctrl.condition.code" ng-class="$ctrl.styles.error">请先选择字段</div>
+			<form name="form" cc-validators="$ctrl.validators"
+				ng-show="$ctrl.condition.code"
+				ng-switch="$ctrl.condition.dataType"
+			>
+				<!-- text -->
+				<div ng-class="$ctrl.styles.textInput">
+					<input ng-switch-when="text" type="text"
+						name="value"
+						ng-model="$ctrl.condition.value"
+						placeholder="值"
+						cc-validator="textValue"
+						required
+					/>
+					{{form.value.$error.pattern}}
+				</div>
+
+				<!-- unknown -->
+				<div ng-switch-default ng-class="$ctrl.styles.error">未知的字段类型{{$ctrl.condition.dataType}}</div>
+			</form>
+		</div>
 	</div>
 	<div ng-class="$ctrl.styles.controls">
-		<button ng-class="$ctrl.styles.btnIcon">
+		<button ng-class="$ctrl.styles.btnIcon" ng-click="$ctrl.remove($ctrl.condition)" title="删除该条件">
 			<span class="iconfont icon-jian"></span>
 		</button>
-		<button ng-class="$ctrl.styles.btnIcon">
+		<button ng-class="[$ctrl.styles.btnIcon,$ctrl.styles.btnAdd]" ng-click="$ctrl.add()" title="添加条件">
 			<span class="iconfont icon-jia"></span>
 		</button>
 	</div>
 </div>
-

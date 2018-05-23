@@ -11,8 +11,9 @@ const DDO = {
 	transclude: true,
 	bindings: {
 		// opts: '<',
-		// config: '<',
-		conditions: '<'
+		config: '<',
+		conditions: '<',
+		removeGroup: '<'
 	}
 };
 

@@ -1,3 +1,10 @@
 <div ng-class="$ctrl.styles.group">
-	<bs-advance-condition-item ng-repeat="condition in $ctrl.conditions track by $index" condition="condition"></bs-advance-condition-item>
+	<bs-advance-condition-item
+		ng-repeat="condition in $ctrl.conditions track by $index"
+		config="$ctrl.config"
+		condition="condition"
+		add="$ctrl.add"
+		remove="$ctrl.remove"
+	>
+	</bs-advance-condition-item>
 </div>
