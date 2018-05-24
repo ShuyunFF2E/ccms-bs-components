@@ -35,10 +35,13 @@
 		margin: 0 10px;
 	}
 	.field {
-		flex: 2
+		width: 200px;
 	}
 	.value {
 		flex: 4;
+		.input {
+			width: 100%;
+		}
 	}
 	:global(cc-dropdown-select) {
 		width: 100%;
@@ -85,9 +88,6 @@
 	color: #f97272;
 }
 
-.text-input {
+.vfield {
 	position: relative;
-	input {
-		width: 100%;
-	}
 }

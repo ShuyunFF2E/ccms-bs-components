@@ -13,7 +13,7 @@ const DDO = {
 	bindings: {
 		opts: '<',
 		config: '<',
-		search: '<'
+		fetch: '<'
 	}
 };
 

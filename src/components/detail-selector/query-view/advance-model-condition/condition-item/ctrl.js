@@ -17,12 +17,19 @@ export default class ConditionItem {
 				const v = modelValue || viewValue || '';
 				return v.length < 10;
 			}
+		},
+		operator: {
+			msg: '哈哈',
+			fn() {
+				return false;
+			}
 		}
 	};
 
 	$onInit() {
 		this.genFields();
 		this.genOperators(this.condition.dataType);
+		console.log(this.condition);
 	}
 
 	onCodeChange() {
@@ -31,6 +38,12 @@ export default class ConditionItem {
 
 		this.genOperators(this.condition.dataType);
 		this.condition.operator = this.operators[0];
+		this.condition.value = undefined;
+	}
+
+	onOpChange() {
+		console.log(this.condition);
+
 	}
 
 	getField(code) {
@@ -39,11 +52,13 @@ export default class ConditionItem {
 
 	genFields() {
 		const { conditions, extendConditions } = this.config;
+
 		this.fields = [...conditions, ...extendConditions].map(item => {
 			return {
 				code: item.code,
 				name: item.name,
-				dataType: item.dataType
+				dataType: item.dataType,
+				options: item.dynamicConfigs || []
 			};
 		});
 	}

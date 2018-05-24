@@ -1,5 +1,5 @@
 <div ng-class="$ctrl.styles.container">
-	<div ng-class="$ctrl.styles.conditionBox">
+	<div ng-class="{[$ctrl.styles.conditionBox]:true,[$ctrl.styles.show]:$ctrl.isOpen}">
 		<div ng-class="$ctrl.styles.head">
 			<cc-dropdown-select model="$ctrl.conditionData.isMeet" datalist="[{title:'满足',value:true},{title:'不满足',value:false}]"></cc-dropdown-select>
 			<span ng-class="$ctrl.styles.middle">以下条件</span>
@@ -12,6 +12,13 @@
 			</div>
 		</div>
 
-		<button ng-class="$ctrl.styles.btnLink" ng-click="$ctrl.addGroup()">添加条件</button>
+		<button ng-class="$ctrl.styles.btnLinkText" ng-click="$ctrl.addGroup()">添加条件</button>
+	</div>
+	<div ng-class="$ctrl.styles.toolbar">
+		<button ng-class="$ctrl.styles.btnLinkText" ng-click="$ctrl.config.searchModel='BASE'">简单搜索</button>
+
+		<button class="btn btn-ok" ng-class="$ctrl.styles.btnSearch" ng-click="$ctrl.search()">搜索</button>
+		<button ng-class="[$ctrl.styles.btnText,$ctrl.styles.btnResert]" ng-click="$ctrl.reset()">重置</button>
+		<button ng-class="[$ctrl.styles.btnText,$ctrl.styles.btnResert]" ng-click="$ctrl.switchConditionBox()">{{$ctrl.isOpen?'收起':'展开'}}</button>
 	</div>
 </div>

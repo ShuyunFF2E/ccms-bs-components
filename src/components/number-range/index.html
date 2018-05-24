@@ -1,5 +1,25 @@
-<div ng-class="$ctrl.styles.numberRange">
-	<input ng-class="$ctrl.styles.input" class="min-input" type="number" ng-model="$ctrl.minValue" ng-disabled="$ctrl.disabled" placeholder="{{$ctrl.minPlaceholder}}" />
-	<span ng-class="$ctrl.styles.separate">-</span>
-	<input ng-class="$ctrl.styles.input" class="max-input" type="number" ng-model="$ctrl.maxValue" ng-disabled="$ctrl.disabled" placeholder="{{$ctrl.maxPlaceholder}}" />
+<div>
+	<form name="numberRange"
+		ng-class="$ctrl.styles.numberRange"
+		cc-validators="$ctrl.validators">
+		<input
+			type="number"
+			class="min-input"
+			ng-class="$ctrl.styles.input"
+			ng-model="$ctrl.minValue"
+			ng-disabled="$ctrl.disabled"
+			placeholder="{{$ctrl.minPlaceholder}}"
+			cc-validator="min"
+		/>
+		<span ng-class="$ctrl.styles.separate">-</span>
+		<input
+			type="number"
+			class="max-input"
+			ng-class="$ctrl.styles.input"
+			ng-model="$ctrl.maxValue"
+			ng-disabled="$ctrl.disabled"
+			placeholder="{{$ctrl.maxPlaceholder}}"
+			cc-validator="max"
+		/>
+	</form>
 </div>

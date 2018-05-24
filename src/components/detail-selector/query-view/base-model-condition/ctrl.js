@@ -1,12 +1,16 @@
 import styles from './index.scss';
 import DateValidation from '@/utils/date';
 import dateFormat from 'common-javascript-utils/src/date';
+import { Inject } from 'angular-es-utils';
+
 
 const DateFormatMapping = {
 	YMD: 'yyyy-MM-dd',
 	YMDhms: 'yyyy-MM-dd hh:mm:ss'
 };
 
+
+@Inject('$element')
 export default class BaseModelConditionBox {
 	styles = styles;
 
@@ -21,6 +25,27 @@ export default class BaseModelConditionBox {
 			...this.config.conditions,
 			...this.config.extendConditions.filter(v => v.selected)
 		];
+	}
+
+	switchConditionBox() {
+		const $conditionBoxDOM = this._$element[0].querySelector('.' + styles.conditionZone);
+		if (this.isOpen) {
+			$conditionBoxDOM.oheight = $conditionBoxDOM.getBoundingClientRect().height;
+
+			$conditionBoxDOM.style.height = $conditionBoxDOM.oheight + 'px';
+			setTimeout(() => {
+				$conditionBoxDOM.style.height = 0;
+				$conditionBoxDOM.style.overflow = 'hidden';
+			}, 0);
+		} else {
+			$conditionBoxDOM.style.height = $conditionBoxDOM.oheight + 'px';
+			setTimeout(() => {
+				$conditionBoxDOM.style.overflow = 'unset';
+				$conditionBoxDOM.style.height = 'unset';
+			}, 300);
+		}
+
+		this.isOpen = !this.isOpen;
 	}
 
 	reset() {

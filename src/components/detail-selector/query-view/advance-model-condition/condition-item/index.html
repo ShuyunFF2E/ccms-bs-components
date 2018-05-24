@@ -1,6 +1,9 @@
 <div ng-class="$ctrl.styles.container">
 	<div ng-class="$ctrl.styles.and">AND</div>
-	<div ng-class="$ctrl.styles.condition">
+	<form ng-class="$ctrl.styles.condition"
+		name="form"
+		cc-validators="$ctrl.validators"
+	>
 		<div ng-class="$ctrl.styles.field">
 			<cc-dropdown-select
 				model="$ctrl.condition.code"
@@ -15,27 +18,60 @@
 		</div>
 		<div ng-class="$ctrl.styles.value">
 			<div ng-show="!$ctrl.condition.code" ng-class="$ctrl.styles.error">请先选择字段</div>
-			<form name="form" cc-validators="$ctrl.validators"
-				ng-show="$ctrl.condition.code"
-				ng-switch="$ctrl.condition.dataType"
-			>
+			<div ng-show="$ctrl.condition.code" ng-switch="$ctrl.condition.dataType">
 				<!-- text -->
-				<div ng-class="$ctrl.styles.textInput">
-					<input ng-switch-when="text" type="text"
-						name="value"
+				<div ng-switch-when="text" ng-class="[$ctrl.styles.vfield,$ctrl.styles.text]">
+					<input type="text"
+						ng-class="$ctrl.styles.input"
 						ng-model="$ctrl.condition.value"
 						placeholder="值"
 						cc-validator="textValue"
 						required
 					/>
-					{{form.value.$error.pattern}}
+				</div>
+
+				<!-- boolean -->
+				<div ng-switch-when="boolean" ng-class="[$ctrl.styles.vfield,$ctrl.styles.boolean]">
+					<cc-dropdown-select model="$ctrl.condition.value" datalist="$ctrl.condition.options" mapping="{valueField:'descVal',displayField:'destVal'}" placeholder="值"></cc-dropdown-select>
+				</div>
+
+				<!-- number -->
+				<div ng-switch-when="number" ng-class="[$ctrl.styles.vfield,$ctrl.styles.number]">
+					<input type="number"
+						ng-class="$ctrl.styles.input"
+						ng-if="$ctrl.condition.operator!=='介于'"
+						ng-model="$ctrl.condition.value"
+						placeholder="值"
+						cc-validator
+						required
+					/>
+					<bs-number-range
+						ng-if="$ctrl.condition.operator==='介于'"
+						min-placeholder="'值'"
+						max-placeholder="'值'"
+					></bs-number-range>
+				</div>
+
+				<!-- enum -->
+				<div ng-switch-when="enum" ng-class="[$ctrl.styles.vfield,$ctrl.styles.enum]">
+					<cc-dropdown-select model="$ctrl.condition.value" datalist="$ctrl.condition.options" mapping="{valueField:'descVal',displayField:'destVal'}" placeholder="值"></cc-dropdown-select>
+				</div>
+
+				<!-- dict -->
+				<div ng-switch-when="dict" ng-class="[$ctrl.styles.vfield,$ctrl.styles.enum]">
+					<cc-dropdown-select model="$ctrl.condition.value" datalist="$ctrl.condition.options" mapping="{valueField:'descVal',displayField:'destVal'}" placeholder="值"></cc-dropdown-select>
+				</div>
+
+				<!-- date -->
+				<div ng-switch-when="date" ng-class="[$ctrl.styles.vfield,$ctrl.styles.date]">
+					<cc-date-range opts="$ctrl.condition.value"></cc-date-range>
 				</div>
 
 				<!-- unknown -->
 				<div ng-switch-default ng-class="$ctrl.styles.error">未知的字段类型{{$ctrl.condition.dataType}}</div>
 			</form>
 		</div>
-	</div>
+	</form>
 	<div ng-class="$ctrl.styles.controls">
 		<button ng-class="$ctrl.styles.btnIcon" ng-click="$ctrl.remove($ctrl.condition)" title="删除该条件">
 			<span class="iconfont icon-jian"></span>
