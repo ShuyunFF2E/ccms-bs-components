@@ -30,20 +30,35 @@ export default class ConditionItem {
 		this.genFields();
 		this.genOperators(this.condition.dataType);
 		console.log(this.condition);
+
 	}
 
 	onCodeChange() {
-		const field = this.getField(this.condition.code);
-		this.condition = Object.assign(this.condition, field);
+		const { condition } = this;
+		const field = this.getField(condition.code);
+		this.condition = Object.assign(condition, field);
 
-		this.genOperators(this.condition.dataType);
-		this.condition.operator = this.operators[0];
-		this.condition.value = undefined;
+		this.genOperators(condition.dataType);
+		condition.operator = this.operators[0];
+		if (condition.dataType === 'text') {
+			condition.value = [];
+		} else {
+			condition.value = undefined;
+		}
+
 	}
 
-	onOpChange() {
-		console.log(this.condition);
-
+	onOperatorChange() {
+		const { condition } = this;
+		if (condition.dataType === 'date') {
+			condition.value = [];
+		} else if (condition.dataType === 'number') {
+			if (condition.operator === '介于') {
+				condition.value = { min: undefined, max: undefined };
+			} else {
+				condition.value = undefined;
+			}
+		}
 	}
 
 	getField(code) {
@@ -57,6 +72,7 @@ export default class ConditionItem {
 			return {
 				code: item.code,
 				name: item.name,
+				format: item.format,
 				dataType: item.dataType,
 				options: item.dynamicConfigs || []
 			};

@@ -177,9 +177,9 @@ export default class DetailSelectorGridCtrl {
 				return field.dynamicConfigs.find(v => v.descVal === value.toString()).destVal;
 			}
 
-			if (field.dataType === 'enum') {
+			if (field.dataType === 'enum' || field.dataType === 'dict') {
 				if (!value) return '';
-				return (field.dynamicConfigs.find(v => v.descVal === value) || {}).destVal || '';
+				return (field.dynamicConfigs.find(v => v.descVal === value) || {}).destVal || value;
 			}
 
 			if (field.dataType === 'date') {

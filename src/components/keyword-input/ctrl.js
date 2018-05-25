@@ -11,6 +11,7 @@ export default class KeywordInputCtrl {
 		this.wrapWidth = 1000;
 		this.containerWidth;
 		this.inputWidth;
+		this.width = 200;
 	}
 
 	get $input() {

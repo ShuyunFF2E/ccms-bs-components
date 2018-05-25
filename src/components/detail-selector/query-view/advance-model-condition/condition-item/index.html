@@ -14,20 +14,30 @@
 			></cc-dropdown-select>
 		</div>
 		<div ng-class="$ctrl.styles.operator">
-			<cc-dropdown-select model="$ctrl.condition.operator" datalist="$ctrl.operators" placeholder="运算符"></cc-dropdown-select>
+			<cc-dropdown-select
+				model="$ctrl.condition.operator"
+				datalist="$ctrl.operators"
+				placeholder="运算符"
+				on-select-change="$ctrl.onOperatorChange($event)"
+			></cc-dropdown-select>
 		</div>
 		<div ng-class="$ctrl.styles.value">
 			<div ng-show="!$ctrl.condition.code" ng-class="$ctrl.styles.error">请先选择字段</div>
 			<div ng-show="$ctrl.condition.code" ng-switch="$ctrl.condition.dataType">
 				<!-- text -->
 				<div ng-switch-when="text" ng-class="[$ctrl.styles.vfield,$ctrl.styles.text]">
-					<input type="text"
+					<input ng-if="$ctrl.condition.operator==='等于'||$ctrl.condition.operator==='不等于'"
+						type="text"
 						ng-class="$ctrl.styles.input"
-						ng-model="$ctrl.condition.value"
+						ng-model="$ctrl.condition.value[0]"
 						placeholder="值"
 						cc-validator="textValue"
 						required
 					/>
+					<bs-keyword-input ng-if="$ctrl.condition.operator!=='等于'&&$ctrl.condition.operator!=='不等于'"
+						width="440"
+						ng-model="$ctrl.condition.value"
+					></bs-keyword-input>
 				</div>
 
 				<!-- boolean -->

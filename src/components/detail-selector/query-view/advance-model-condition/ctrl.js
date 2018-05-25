@@ -1,5 +1,13 @@
 import styles from './index.scss';
 import { Inject } from 'angular-es-utils';
+import { isNumber } from '@/utils/index';
+import dateFormat from 'common-javascript-utils/src/date';
+
+
+const DateFormatMapping = {
+	YMD: 'yyyy-MM-dd',
+	YMDhms: 'yyyy-MM-dd hh:mm:ss'
+};
 
 @Inject('$element', '$ccTips')
 export default class AdvanceModelConditionBox {
@@ -82,9 +90,72 @@ export default class AdvanceModelConditionBox {
 						return { result: false, message: `请填写 ${condition.name} 的值` };
 					}
 				}
+				if (condition.dataType === 'boolean' || condition.dataType === 'enum' || condition.dataType === 'dict') {
+					if (!condition.value) {
+						return { result: false, message: `请选择 ${condition.name} 的值` };
+					}
+				}
+				if (condition.dataType === 'date') {
+					if (!condition.value.start && !condition.value.end) {
+						return { result: false, message: `请选择 ${condition.name} 的值` };
+					}
+				}
+				if (condition.dataType === 'number') {
+					if (condition.operator === '介于') {
+						if (!isNumber(condition.value.min) || !isNumber(condition.value.max)) {
+							return { result: false, message: `请填写 ${condition.name} 的值` };
+						}
+					} else {
+						if (!isNumber(condition.value)) {
+							return { result: false, message: `请填写 ${condition.name} 的值` };
+						}
+					}
+				}
 			}
 		}
 		return { result: true };
+	}
+
+	parseConditions() {
+		const conditions = [];
+
+		this.conditionData.groups.forEach(group => {
+			const sub = [];
+			group.forEach(item => {
+				const condition = { column: item.code, operator: item.operator };
+				if (item.dataType === 'text') {
+					condition.type = 'INPUT';
+					condition.value = item.value;
+				} else if (item.dataType === 'boolean') {
+					condition.type = 'Boolean';
+					condition.value = item.value === 'true';
+				} else if (item.dataType === 'enum') {
+					condition.type = 'Enum';
+					condition.value = item.value;
+				} else if (item.dataType === 'dict') {
+					condition.type = 'Dict';
+					condition.value = item.value;
+				} else if (item.dataType === 'number') {
+					condition.type = 'Number';
+					if (item.operator === '介于') {
+						const min = isNumber(item.value.min) ? item.value.min : null;
+						const max = isNumber(item.value.max) ? item.value.max : null;
+						condition.value = [min, max];
+					} else {
+						condition.value = item.value;
+					}
+				} else if (item.dataType === 'date') {
+					condition.type = 'YMDhms';
+					const start = item.value.start ? dateFormat(item.value.start, DateFormatMapping[condition.type]) : null;
+					const end = item.value.end ? dateFormat(item.value.end, DateFormatMapping[condition.type]) : null;
+					condition.value = [start, end];
+				}
+
+				sub.push(condition);
+			});
+			conditions.push(sub);
+		});
+		return conditions;
 	}
 
 	search() {
@@ -94,7 +165,13 @@ export default class AdvanceModelConditionBox {
 			return;
 		}
 
-		console.log(validation);
+		const conditions = this.parseConditions();
 
+		this.opts.params.conditions = conditions;
+		this.opts.params.isMeet = this.conditionData.isMeet;
+		this.opts.params.page = 1;
+
+
+		this.fetch();
 	}
 }

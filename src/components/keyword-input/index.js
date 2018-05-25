@@ -10,7 +10,8 @@ const DDO = {
 	// transclude: true,
 	bindings: {
 		ngModel: '<?',
-		ngDisabled: '<?'
+		ngDisabled: '<?',
+		width: '<?'
 	},
 	require: {
 		ngModelController: '?ngModel'
