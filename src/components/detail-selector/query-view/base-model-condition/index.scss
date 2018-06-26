@@ -1,102 +1,103 @@
 .base-condition-box {
-	position: relative;
+    position: relative;
 }
 
 .condition-zone {
-	margin: 10px -20px;
-	padding: 0 20px;
-	transition: height 0.3s ease-in-out;
+    margin: 10px -20px;
+    padding: 0 20px;
+    transition: height 0.3s ease-in-out;
 }
 
 .toolbar {
-	position: relative;
-	margin: 0 -20px;
-	padding: 8px 20px;
-	text-align: right;
-	border-top: 1px solid #e8e8e8;
-	border-bottom: 1px solid #e8e8e8;
-	.btn-link-text {
-		position: absolute;
-		left: 10px;
-		top: 10px;
-		border: none;
-		outline: none;
-		background: transparent;
-		color: #0083ba;
-		&:hover {
-			color: #43c0f4;
-		}
-	}
-	.extend-condition-setter {
-		text-align: left;
-		position: relative;
-		width: 75px;
-		overflow: visible;
-		display: inline-block;
-		:global([cc-dropdown-toggle]) {
-			padding-top: 7px;
-			padding-bottom: 6px;
-			height: unset;
-			width: 70px;
-		}
-		.icon-arrow {
-			font-size: 12px;
-		}
-		:global(.dropdown-panel) {
-			position: absolute;
-			z-index: 10;
-			top: 32px;
-			left: 1px;
-			width: 150px;
-			padding: 5px 0;
-			border-radius: 2px;
-			box-shadow: 0px 0px 2px #aaa;
-			background-color: #fff;
-		}
-		.cc-checkbox-label {
-			width: 100px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-		:global(.iconfont) {
-			font-size: 12px;
-		}
-	}
-	.btn-search {
-		min-width: 65px;
-		height: 28px;
-		margin: 0 0.5em;
-	}
+    position: relative;
+    margin: 0 -20px;
+    padding: 8px 20px;
+    text-align: right;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    .btn-link-text {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: #0083ba;
+        &:hover {
+            color: #43c0f4;
+        }
+    }
+    .extend-condition-setter {
+        text-align: left;
+        position: relative;
+        width: 75px;
+        overflow: visible;
+        display: inline-block;
+        :global([cc-dropdown-toggle]) {
+            padding-top: 7px;
+            padding-bottom: 6px;
+            height: unset;
+            width: 70px;
+        }
+        .icon-arrow {
+            font-size: 12px;
+        }
+        :global(.dropdown-panel) {
+            position: absolute;
+            z-index: 10;
+            top: 32px;
+            left: 1px;
+            width: 150px;
+            padding: 5px 0;
+            border-radius: 2px;
+            box-shadow: 0px 0px 2px #aaa;
+            background-color: #fff;
+        }
+        .cc-checkbox-label {
+            width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        :global(.iconfont) {
+            font-size: 12px;
+        }
+    }
+    .btn-search {
+        min-width: 65px;
+        height: 28px;
+        margin: 0 0.5em;
+    }
 }
 
 .extend-condition-text {
-	padding: 8px 10px;
-	color: #888;
+    padding: 8px 10px;
+    color: #888;
 }
 
 .extend-condition-item {
-	padding: 5px 10px;
-	&:hover {
-		background-color: #e7f7f8;
-	}
+    padding: 5px 10px;
+    &:hover {
+        background-color: #e7f7f8;
+    }
 }
 
 .btn-text {
-	border: none;
-	min-width: unset;
-	background-color: transparent;
-	padding: 0;
-	margin: 0 0.5em;
-	&:hover {
-		background-color: transparent;
-	}
+    border: none;
+    min-width: unset;
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0.5em;
+    &:hover {
+        background-color: transparent;
+    }
 }
 
 .condition-name {
-	width: 105px;
+    width: 105px;
+    padding: 1px 0 2px;
 }
 
 .extends-box {
-	max-height: 300px;
-	overflow: auto;
+    max-height: 300px;
+    overflow: auto;
 }

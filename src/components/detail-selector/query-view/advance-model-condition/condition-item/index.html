@@ -58,7 +58,9 @@
 					<bs-number-range
 						ng-if="$ctrl.condition.operator==='介于'"
 						min-placeholder="'值'"
-						max-placeholder="'值'"
+            max-placeholder="'值'"
+            min-value="$ctrl.condition.value.min"
+            max-value="$ctrl.condition.value.max"
 					></bs-number-range>
 				</div>
 

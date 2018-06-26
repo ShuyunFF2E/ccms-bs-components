@@ -1,6 +1,6 @@
 <div ng-class="$ctrl.styles.baseConditionBox">
 
-	<div class="bs-clearfix" ng-class="$ctrl.styles.conditionZone">
+  <div class="bs-clearfix" ng-class="$ctrl.styles.conditionZone">
 		<bs-condition-item ng-repeat="condition in $ctrl.config.conditions" condition="condition"></bs-condition-item>
 		<bs-condition-item ng-repeat="condition in $ctrl.config.extendConditions" condition="condition" extend="true" ng-if="condition.selected"></bs-condition-item>
 	</div>

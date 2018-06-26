@@ -1,52 +1,53 @@
 .container {
-	height: 100%;
+    height: 100%;
 }
 
 .grid {
-	height: calc(100% - 50px);
-	:global(.grid-empty-message) {
-		color: #888;
-	}
-	:global(.cc-radio) :global(.radio-button-icon) {
-		height: 1.5em;
-		width: 1.5em;
-		&:before {
-			left: 0.35em;
-			top: 0.35em;
-		}
-	}
-	:global(.loading-mask) {
-		background-color: rgba(255, 255, 255, 0.5);
-	}
-	:global(.tooltip-opened) {
-		z-index: 10;
-	}
+    height: calc(100% - 50px);
+    overflow: auto;
+    .grid-empty-message {
+        color: #888;
+    }
+    :global(.cc-radio) :global(.radio-button-icon) {
+        height: 1.5em;
+        width: 1.5em;
+        &:before {
+            left: 0.35em;
+            top: 0.35em;
+        }
+    }
+    :global(.loading-mask) {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    :global(.tooltip-opened) {
+        z-index: 10;
+    }
 }
 
 .footer {
-	color: #666;
-	height: 50px;
-	line-height: 50px;
-	position: relative;
-	> span {
-		vertical-align: middle;
-	}
-	.btn-refresh {
-		border: none;
-		outline: none;
-		cursor: pointer;
-		height: unset;
-		min-width: unset;
-		padding: 0;
-		line-height: 20px;
-		margin-left: 10px;
-		:global(.iconfont) {
-			font-size: 14px;
-		}
-	}
-	.pagination {
-		position: absolute;
-		right: 10px;
-		top: 0;
-	}
+    color: #666;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    > span {
+        vertical-align: middle;
+    }
+    .btn-refresh {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        height: unset;
+        min-width: unset;
+        padding: 0;
+        line-height: 20px;
+        margin-left: 10px;
+        :global(.iconfont) {
+            font-size: 14px;
+        }
+    }
+    .pagination {
+        position: absolute;
+        right: 10px;
+        top: 0;
+    }
 }

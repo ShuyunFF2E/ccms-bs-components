@@ -1,4 +1,7 @@
-<div cc-dropdown is-open="$ctrl.open" ng-class="$ctrl.styles.dateRange">
+<div cc-dropdown
+  is-open="$ctrl.open"
+  on-dropdown-open="$ctrl.onDropdownOpen()"
+  ng-class="$ctrl.styles.dateRange">
 
 	<div cc-dropdown-toggle ng-class="$ctrl.styles.dateRangeInputWrap">
 		<input ng-class="$ctrl.styles.input" ng-value="$ctrl.dateRangeText" ng-disabled="$ctrl.disabled" readonly placeholder="{{$ctrl.placeholder}}" />

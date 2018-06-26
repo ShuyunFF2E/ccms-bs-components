@@ -12,8 +12,9 @@ trim_trailing_whitespace = true
 # 编码格式，编码格式，支持latin1、utf-8、utf-8-bom、utf-16be和utf-16le，不建议使用uft-8-bom。
 charset = utf-8
 
-# 项目中采用tab作为代码缩进样式
-indent_style = tab
+# 项目中采用space作为代码缩进样式
+indent_style = space
+indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false

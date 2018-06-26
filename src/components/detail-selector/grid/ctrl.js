@@ -6,220 +6,224 @@ import { Inject } from 'angular-es-utils';
 
 @Inject('$scope', '$ccGrid', '$timeout', '$element')
 export default class DetailSelectorGridCtrl {
-	styles = styles;
+    styles = styles;
 
-	fieldParser = {};
+    fieldParser = {};
 
-	constructor() {
+    gridWidth = '100%';
 
-		// 全选标记（多选）
-		this.isAllSelected = false;
+    constructor() {
 
-		// 当前选中的值（单选）
-		this.singleSelectedValue = '';
+        // 全选标记（多选）
+        this.isAllSelected = false;
 
+        // 当前选中的值（单选）
+        this.singleSelectedValue = '';
 
-		this.gridOpts = {
-			showPagination: false,
-			emptyTipTpl: `<div class="${styles.gridEmptyMessage}">当前条件未查询到任何数据</div>`
-		};
-		this._$scope.opts = this.opts;
+        this.gridWidth = (this.config.columns.length * 100 + 50) + 'px';
 
-		this._$scope.$watch('opts', (newValue, oldValue) => {
-			if (newValue.data !== oldValue.data) {
-				this.gridOpts.externalData = this.opts.data;
-				this._$ccGrid.refresh(this.gridOpts);
-			}
-		}, true);
-	}
+        this.gridOpts = {
+            showPagination: false,
+            emptyTipTpl: `<div class="${styles.gridEmptyMessage}">当前条件未查询到任何数据</div>`
+        };
+        this._$scope.opts = this.opts;
 
-	$onInit() {
-		this.initGridOpts();
-		this.config.columns.forEach(item => {
-			this.fieldParser[item.code] = this.genFieldParser(item);
-		});
-	}
+        this._$scope.$watch('opts', (newValue, oldValue) => {
+            if (newValue.data !== oldValue.data) {
+                this.gridOpts.externalData = this.opts.data;
+                this._$ccGrid.refresh(this.gridOpts);
+            }
+        }, true);
+    }
 
-	initGridOpts() {
-		this.gridOpts.externalData = this.opts.data;
+    $onInit() {
+        this.initGridOpts();
+        this.config.columns.forEach(item => {
+            this.fieldParser[item.code] = this.genFieldParser(item);
+        });
+    }
 
-		this.generateGridColumns();
+    initGridOpts() {
+        this.gridOpts.externalData = this.opts.data;
 
-	}
+        this.generateGridColumns();
 
-	// 计算表格的列（因为列是可配的）
-	generateGridColumns() {
-		if (this.config.type === 'multiple') {
-			this.generateCheckboxGridColumns();
-			// this.generatePlainGridColumns();
-		} else if (this.config.type === 'single') {
-			this.generateRadioGridColumns();
-			// this.generatePlainGridColumns();
-		} else {
-			this.generatePlainGridColumns();
-		}
-	}
+    }
 
-	// 无选择框
-	generatePlainGridColumns() {
-		// const headerTpl = `<tr>
-		// 	${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
-		// </tr>`;
+    // 计算表格的列（因为列是可配的）
+    generateGridColumns() {
+        if (this.config.type === 'multiple') {
+            this.generateCheckboxGridColumns();
+            // this.generatePlainGridColumns();
+        } else if (this.config.type === 'single') {
+            this.generateRadioGridColumns();
+            // this.generatePlainGridColumns();
+        } else {
+            this.generatePlainGridColumns();
+        }
+    }
 
-		const columnsDef = this.config.columns.map(item => {
+    // 无选择框
+    generatePlainGridColumns() {
+        // const headerTpl = `<tr>
+        // 	${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
+        // </tr>`;
 
-			// this.fieldParser[item.code] = this.genFieldParser(item);
+        const columnsDef = this.config.columns.map(item => {
 
-			return {
-				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
-				field: item.code,
-				displayName: item.name || item.code,
-				tooltip: item.tooltip
-			};
-		});
+            // this.fieldParser[item.code] = this.genFieldParser(item);
 
-		// this.gridOpts.headerTpl = headerTpl;
-		this.gridOpts.columnsDef = columnsDef;
-	}
+            return {
+                cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
+                field: item.code,
+                displayName: item.name || item.code,
+                tooltip: item.tooltip
+            };
+        });
 
-	// 单选框
-	generateRadioGridColumns() {
-		const headerTpl = `<tr>
+        // this.gridOpts.headerTpl = headerTpl;
+        this.gridOpts.columnsDef = columnsDef;
+    }
+
+    // 单选框
+    generateRadioGridColumns() {
+        const headerTpl = `<tr>
 			<th style="width:30px;"></th>
 			${this.config.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		</tr>`;
 
-		const columnsDef = [{
-			cellTemplate: `<cc-radio ng-model="$ctrl.singleSelectedValue" ng-value="entity.id"></cc-radio>`,
-			width: '30px'
-		}].concat(this.config.columns.map(item => {
+        const columnsDef = [{
+            cellTemplate: `<cc-radio ng-model="$ctrl.singleSelectedValue" ng-value="entity.id"></cc-radio>`,
+            width: '30px'
+        }].concat(this.config.columns.map(item => {
 
-			// this.fieldParser[item.code] = this.genFieldParser(item);
+            // this.fieldParser[item.code] = this.genFieldParser(item);
 
-			return {
-				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
-				field: item.code,
-				displayName: item.name || item.code,
-				tooltip: item.tooltip
-			};
-		}));
+            return {
+                cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
+                field: item.code,
+                displayName: item.name || item.code,
+                tooltip: item.tooltip
+            };
+        }));
 
-		this.gridOpts.headerTpl = headerTpl;
-		this.gridOpts.columnsDef = columnsDef;
-	}
+        this.gridOpts.headerTpl = headerTpl;
+        this.gridOpts.columnsDef = columnsDef;
+    }
 
-	// 多选框
-	generateCheckboxGridColumns() {
-		const headerTpl = `<tr>
+    // 多选框
+    generateCheckboxGridColumns() {
+        const headerTpl = `<tr>
 			<th style="width:30px;">
 				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'" tooltip-placement="bottom-left"></cc-checkbox>
 			</th>
 			${this.config.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
 		</tr>`;
 
-		const columnsDef = [{
-			cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect()"></cc-checkbox>`,
-			width: '30px'
-		}].concat(this.config.columns.map(item => {
+        const columnsDef = [{
+            cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect()"></cc-checkbox>`,
+            width: '30px'
+        }].concat(this.config.columns.map(item => {
 
-			// this.fieldParser[item.code] = this.genFieldParser(item);
+            // this.fieldParser[item.code] = this.genFieldParser(item);
 
-			return {
-				cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
-				field: item.code,
-				displayName: item.name || item.code,
-				tooltip: item.tooltip
-			};
-		}));
+            return {
+                cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
+                field: item.code,
+                displayName: item.name || item.code,
+                tooltip: item.tooltip,
+                width: '100px'
+            };
+        }));
 
-		this.gridOpts.headerTpl = headerTpl;
-		this.gridOpts.columnsDef = columnsDef;
-	}
+        this.gridOpts.headerTpl = headerTpl;
+        this.gridOpts.columnsDef = columnsDef;
+    }
 
-	/**
-	 * 切换全选
-	 */
-	switchAllSelect() {
-		this.gridOpts.externalData.forEach(v => v.selected = this.isAllSelected);
+    /**
+     * 切换全选
+     */
+    switchAllSelect() {
+        this.gridOpts.externalData.forEach(v => v.selected = this.isAllSelected);
 
-		this.calculateSelectedCount();
-	}
+        this.calculateSelectedCount();
+    }
 
-	/**
-	 * 切换选择
-	 */
-	switchSelect() {
-		this.calculateSelectedCount();
-	}
+    /**
+     * 切换选择
+     */
+    switchSelect() {
+        this.calculateSelectedCount();
+    }
 
-	/**
-	 * 计算已选中的数量
-	 */
-	calculateSelectedCount() {
-		// 如果未全选，则选中几条算几条
-		if (!this.isAllSelected) {
-			return this.opts.statistic.selected = this.gridOpts.externalData.filter(item => !!item.selected).length;
-		}
+    /**
+     * 计算已选中的数量
+     */
+    calculateSelectedCount() {
+        // 如果未全选，则选中几条算几条
+        if (!this.isAllSelected) {
+            return this.opts.statistic.selected = this.gridOpts.externalData.filter(item => !!item.selected).length;
+        }
 
-		// 如果全选，则为全部数量减去未选中的数量
-		const unselected = this.gridOpts.externalData.filter(item => !item.selected);
-		this.opts.statistic.selected = this.opts.total - unselected.length;
-	}
+        // 如果全选，则为全部数量减去未选中的数量
+        const unselected = this.gridOpts.externalData.filter(item => !item.selected);
+        this.opts.statistic.selected = this.opts.total - unselected.length;
+    }
 
 
-	genFieldParser(field) {
+    genFieldParser(field) {
 
-		return value => {
+        return value => {
 
-			if (field.dataType === 'boolean') {
-				if (!isBoolean(value)) return '';
+            if (field.dataType === 'boolean') {
+                if (!isBoolean(value)) return '';
 
-				return field.dynamicConfigs.find(v => v.descVal === value.toString()).destVal;
-			}
+                return field.dynamicConfigs.find(v => v.descVal === value.toString()).destVal;
+            }
 
-			if (field.dataType === 'enum' || field.dataType === 'dict') {
-				if (!value) return '';
-				return (field.dynamicConfigs.find(v => v.descVal === value) || {}).destVal || value;
-			}
+            if (field.dataType === 'enum' || field.dataType === 'dict') {
+                if (!value) return '';
+                return (field.dynamicConfigs.find(v => v.descVal === value) || {}).destVal || value;
+            }
 
-			if (field.dataType === 'date') {
-				if (!value) return '';
+            if (field.dataType === 'date') {
+                if (!value) return '';
 
-				const format = {
-					'YMD': 'yyyy-MM-dd',
-					'YMDhms': 'yyyy-MM-dd hh:mm:ss',
-					'YMDhm': 'yyyy-MM-dd hh:mm',
-				}[field.styleType] || 'yyyy-MM-dd hh:mm:ss';
-				return dateFormat(new Date(value), format);
-			}
+                const format = {
+                    'YMD': 'yyyy-MM-dd',
+                    'YMDhms': 'yyyy-MM-dd hh:mm:ss',
+                    'YMDhm': 'yyyy-MM-dd hh:mm',
+                }[field.styleType] || 'yyyy-MM-dd hh:mm:ss';
+                return dateFormat(new Date(value), format);
+            }
 
-			return value;
-		}
+            return value;
+        }
 
-	}
+    }
 
-	get totalPages() {
-		const size = this.opts.params.size;
-		const total = this.opts.total;
+    get totalPages() {
+        const size = this.opts.params.size;
+        const total = this.opts.total;
 
-		return Math.ceil(total / size);
-	}
+        return Math.ceil(total / size);
+    }
 
-	refresh() {
-		this.fetch();
-	}
+    refresh() {
+        this.fetch();
+    }
 
-	// 翻页
-	onPageChnage(page, size) {
-		const oPage = this.opts.params.page;
-		const oSize = this.opts.params.size;
+    // 翻页
+    onPageChnage(page, size) {
+        const oPage = this.opts.params.page;
+        const oSize = this.opts.params.size;
 
-		this.opts.params.page = page;
-		this.opts.params.size = size;
+        this.opts.params.page = page;
+        this.opts.params.size = size;
 
-		this.fetch().catch(() => {
-			this.opts.params.page = oPage;
-			this.opts.params.size = oSize;
-		});
-	}
+        this.fetch().catch(() => {
+            this.opts.params.page = oPage;
+            this.opts.params.size = oSize;
+        });
+    }
 }
