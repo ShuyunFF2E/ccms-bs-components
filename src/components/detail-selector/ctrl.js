@@ -21,7 +21,7 @@ export default class DetailSelectorCtrl {
         this.body = this._$element[0].querySelector('.modal-body');
 
         // 当前选择器的模式 [QUERY:查询模式, CHECK:查看模式]
-        this.model = 'QUERY';
+        this.model = 'CHECK';
     }
 
     $onInit() {

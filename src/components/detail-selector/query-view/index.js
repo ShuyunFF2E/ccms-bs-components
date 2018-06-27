@@ -4,24 +4,24 @@ import angular from 'angular';
 import controller from './ctrl';
 import template from './index.html';
 
-import Grid from './../grid';
+import Grid from './grid';
 import baseConditionBox from './base-model-condition';
 import adnavceConditionBox from './advance-model-condition';
 
 const DDO = {
-	template,
-	controller,
-	transclude: true,
-	bindings: {
-		opts: '=',
-		config: '<',
-		fetch: '<'
-	}
+    template,
+    controller,
+    transclude: true,
+    bindings: {
+        opts: '=',
+        config: '<',
+        fetch: '<'
+    }
 };
 
 export default angular
-	.module('bs.components.detailSelectorQueryView', [
-		Grid, baseConditionBox, adnavceConditionBox
-	])
-	.component('bsQueryView', DDO)
-	.name;
+    .module('bs.components.detailSelectorQueryView', [
+        Grid, baseConditionBox, adnavceConditionBox
+    ])
+    .component('bsQueryView', DDO)
+    .name;

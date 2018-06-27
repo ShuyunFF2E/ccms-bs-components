@@ -19,7 +19,7 @@ const DefaultConfig = {
     columns: [], // 显示列
     type: 'multiple', // 选择框类型
     fetch: noop, // 接口请求函数
-
+    fetchResult: noop, // 查看已选数据
     // 条件模式[BASE:简单查找,ADVANCE:高级查找]
     searchModel: 'BASE'
 };

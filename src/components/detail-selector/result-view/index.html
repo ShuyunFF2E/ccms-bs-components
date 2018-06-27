@@ -1,0 +1,14 @@
+<section ng-class="$ctrl.classes.container">
+	<div ng-class="$ctrl.classes.gridWrap">
+		<bs-result-view-grid
+      data="$ctrl.data",
+      columns="$ctrl.config.columns",
+      page="$ctrl.params.page"
+      size="$ctrl.params.size"
+      total="$ctrl.total"
+      on-refresh="$ctrl.refresh()"
+      on-page-change="$ctrl.pageChange(pageNum,pageSize)"
+		>
+		</bs-result-view-grid>
+	</div>
+</section>

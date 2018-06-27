@@ -7,13 +7,15 @@
 		opts="$ctrl.opts"
 		config="$ctrl.config"
 		fetch="$ctrl.fetch"
-		ng-if="$ctrl.model==='QUERY'"></bs-query-view>
+    ng-if="$ctrl.model==='QUERY'">
+  </bs-query-view>
 
-	<bs-check-view
+	<bs-result-view
 		opts="$ctrl.opts"
 		config="$ctrl.config"
 		fetch="$ctrl.fetch"
-		ng-if="$ctrl.model==='CHECK'"></bs-check-view>
+    ng-if="$ctrl.model==='CHECK'">
+  </bs-result-view>
 
 	<footer ng-class="$ctrl.styles.footer"
 		ng-if="$ctrl.config.type==='multiple'"

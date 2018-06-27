@@ -1,0 +1,27 @@
+<div ng-class="$ctrl.styles.container">
+	<!-- type="selectable" -->
+	<div ng-class="$ctrl.styles.grid">
+		<cc-grid opts="$ctrl.gridOpts" ng-style="{width:$ctrl.gridWidth,minWidth:'100%'}"></cc-grid>
+	</div>
+
+	<div ng-class="$ctrl.styles.footer">
+		<span>共 <span ng-bind="$ctrl.opts.total"></span> 条</span>
+
+		<span ng-class="$ctrl.styles.btnRefresh" ng-click="$ctrl.refresh()">
+			<span class="iconfont icon-refresh"></span>
+			<span>刷新</span>
+		</span>
+
+		<div ng-class="$ctrl.styles.pagination">
+			<cc-pagination
+				totals="$ctrl.total"
+				total-pages="$ctrl.totalPages"
+				page-num="$ctrl.page"
+				page-size="$ctrl.size"
+				page-size-list="[10,20,50,100]"
+				on-change="$ctrl.pageChange(pageNum,pageSize)"
+			/>
+
+			</div>
+	</div>
+</div>

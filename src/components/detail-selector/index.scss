@@ -1,41 +1,48 @@
 .setting-wrap {
-	position: absolute;
-	top: -32px;
-	right: 50px;
-	color: #666;
-	cursor: pointer;
-	&:hover {
-		color: #444;
-	}
-	:global(.bs-iconfont) {
-		font-size: 18px;
-	}
+    position: absolute;
+    top: -32px;
+    right: 50px;
+    color: #666;
+    cursor: pointer;
+    &:hover {
+        color: #444;
+    }
+    :global(.bs-iconfont) {
+        font-size: 18px;
+    }
 }
 
 .selector {
-	height: 100%;
-	position: relative;
-	.loading-wrap {
-		position: absolute;
-		z-index: 999;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		background: transparent;
-		cc-loading {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			margin-top: -25px;
-			margin-left: -20px;
-		}
-	}
+    height: 100%;
+    position: relative;
+    .loading-wrap {
+        position: absolute;
+        z-index: 999;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: transparent;
+        cc-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -25px;
+            margin-left: -20px;
+        }
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        appearance: none;
+    }
+    input[type=number] {
+        appearance: textfield;
+    }
 }
 
 .footer {
-	position: absolute;
-	color: #666;
-	left: 0;
-	bottom: -35px;
+    position: absolute;
+    color: #666;
+    left: 0;
+    bottom: -35px;
 }

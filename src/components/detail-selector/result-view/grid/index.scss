@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .grid {
+        flex: 1;
+        overflow: hidden;
+    }
+}
+
+.footer {
+    color: #666;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    > span {
+        vertical-align: middle;
+    }
+    .btn-refresh {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        height: unset;
+        min-width: unset;
+        padding: 0;
+        line-height: 20px;
+        margin-left: 10px;
+        :global(.iconfont) {
+            font-size: 14px;
+        }
+    }
+    .pagination {
+        position: absolute;
+        right: 10px;
+        top: 0;
+    }
+}
+
+.tips {
+    color: #999;
+}
