@@ -1,52 +1,46 @@
-bs-condition-item {
-	float: left;
-	width: 25%;
-	margin-bottom: 10px;
-}
-
 .condition-input {
-	padding-right: 30px;
+    padding-right: 30px;
 }
 
 .condition-item {
-	.value-field {
-		width: 100%;
-	}
+    .value-field {
+        width: 100%;
+    }
 }
 
 .name {
-	color: #666;
-	margin-bottom: 3px;
-	height: 20px;
-	> span {
-		vertical-align: middle;
-	}
-	.name-text {
-		max-width: calc(100% - 50px);
-		display: inline-block;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
+    color: #666;
+    margin-bottom: 3px;
+    height: 20px;
+    > span {
+        vertical-align: middle;
+    }
+    .name-text {
+        max-width: calc(100% - 50px);
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
 .content {
-	position: relative;
-	.btn-remove {
-		position: absolute;
-		right: 3px;
-		top: 4px;
-		cursor: pointer;
-		min-width: unset;
-		border: none;
-		padding: 0 5px 0 0;
-		color: #d9d9d9;
-		&:hover {
-			background-color: transparent;
-			color: #aaa;
-		}
-		:global(.iconfont) {
-			font-size: 20px;
-		}
-	}
+    position: relative;
+    .btn-remove {
+        position: absolute;
+        right: 3px;
+        top: 4px;
+        cursor: pointer;
+        min-width: unset;
+        border: none;
+        padding: 0 5px 0 0;
+        color: #d9d9d9;
+        &:hover {
+            background-color: transparent;
+            color: #aaa;
+        }
+        :global(.iconfont) {
+            font-size: 20px;
+        }
+    }
 }

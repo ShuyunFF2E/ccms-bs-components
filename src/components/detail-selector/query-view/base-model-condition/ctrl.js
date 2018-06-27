@@ -16,10 +16,6 @@ export default class BaseModelConditionBox {
 
     isOpen = true;
 
-    $onInit() {
-
-    }
-
     getEnableConditions() {
         return [
             ...this.config.conditions,
