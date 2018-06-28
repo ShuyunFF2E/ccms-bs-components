@@ -14,22 +14,24 @@ import dateRange from './components/date/date-range';
 import MonthDate from './components/date/month-date';
 import time from './components/date/time';
 import DTime from './components/date/D-time';
+import multipleSelect from './components/multiple-select';
 
 const version = process.env.version;
 
 const bsComponents = angular.module('ccms.bs.components', [
-	angularDragula(angular),
-	ccmsComponents,
-	detailSelector,
-	conditionSelector,
-	searchInput,
-	keywordInput,
-	dropdownSearch,
-	numberRange,
-	dateRange,
-	MonthDate,
-	time,
-	DTime
+  angularDragula(angular),
+  ccmsComponents,
+  detailSelector,
+  conditionSelector,
+  searchInput,
+  keywordInput,
+  dropdownSearch,
+  numberRange,
+  dateRange,
+  MonthDate,
+  time,
+  DTime,
+  multipleSelect
 ]);
 
 bsComponents.version = version;

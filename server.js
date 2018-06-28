@@ -10,26 +10,26 @@ const compiler = webpack(config);
 
 
 app.use(webpackDevMiddleware(compiler, {
-	noInfo: false,
-	stats: {
-		colors: true,
-		cached: false
-	},
-	publicPath: config.output.publicPath
+  noInfo: false,
+  stats: {
+    colors: true,
+    cached: false
+  },
+  publicPath: config.output.publicPath
 }));
 
 app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static(path.resolve('./demos')));
 app.use('/src', express.static(path.resolve('./src')));
-app.use('/node_modules',express.static(path.resolve('./node_modules')));
+app.use('/node_modules', express.static(path.resolve('./node_modules')));
 
 const port = 8080;
 const host = '0.0.0.0';
-app.listen(port, host, function(err) {
-	if (err) {
-		return console.error(err);
-	}
+app.listen(port, host, function (err) {
+  if (err) {
+    return console.error(err);
+  }
 
-	console.log(`Listening at http://localhost:${port}/`);
+  console.log(`Listening at http://localhost:${port}/`);
 });
