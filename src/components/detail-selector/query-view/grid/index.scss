@@ -5,8 +5,8 @@
 .grid {
     height: calc(100% - 50px);
     overflow: auto;
-    .grid-empty-message {
-        color: #888;
+    .tips {
+        color: #999;
     }
     :global(.cc-radio) :global(.radio-button-icon) {
         height: 1.5em;

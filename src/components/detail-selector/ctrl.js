@@ -21,7 +21,7 @@ export default class DetailSelectorCtrl {
         this.body = this._$element[0].querySelector('.modal-body');
 
         // 当前选择器的模式 [QUERY:查询模式, CHECK:查看模式]
-        this.model = 'CHECK';
+        this.model = 'QUERY';
     }
 
     $onInit() {
@@ -32,19 +32,16 @@ export default class DetailSelectorCtrl {
         this.config.extendConditions = conditionConfig.extendConditions;
 
         this.opts = {
-            isLoading: false,
-            statistic: { selected: 0, total: 0 },
-            params: {
-                isMeet: true,
-                page: 1,
-                size: 10,
-                conditions: []
-            },
-            total: 0,
-            data: []
+            GlobalConditionObj: {
+                statistic: 0,
+                conditions: {},
+                checkModel: {
+                    isAllSelected: false,
+                    includes: [],
+                    excludes: []
+                }
+            }
         };
-
-        this.fetch();
     }
 
     matchLocalConfig() {
@@ -102,39 +99,13 @@ export default class DetailSelectorCtrl {
         });
     }
 
-    /**
-     * 切换至查看视图
-     */
+    // 切换至查看视图
     switchToCheckView = () => {
         this.model = 'CHECK';
     }
 
-    /**
-     * 切换至查询视图
-     */
+    // 切换至查询视图
     switchToQueryView = () => {
         this.model = 'QUERY';
-    }
-
-
-    setGridData = data => {
-        Object.assign(this.opts, data);
-        // this.opts = { ...this.opts, ...data };
-    }
-
-    fetch = () => {
-        const params = { ...this.opts.params };
-        this.opts.isLoading = true;
-        return this.config.fetch(params).then(res => {
-            this.opts.isLoading = false;
-            this.setGridData(res);
-        }).catch(err => {
-            this.opts.isLoading = false;
-            this._$ccTips.error(err.message, {
-                container: this.body,
-                duration: 3000
-            });
-            throw err;
-        });
     }
 }

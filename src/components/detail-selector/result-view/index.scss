@@ -1,8 +1,24 @@
 .container {
-	height: 100%;
-	border-top: 1px solid transparent;
-	.grid-wrap {
-		height: 100%;
-		padding-top: 20px;
-	}
+    height: 100%;
+    border-top: 1px solid transparent;
+    position: relative;
+    .loader {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 10;
+        cc-loading {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -23px;
+            margin-left: -20px;
+        }
+    }
+    .grid-wrap {
+        height: 100%;
+        padding-top: 20px;
+    }
 }

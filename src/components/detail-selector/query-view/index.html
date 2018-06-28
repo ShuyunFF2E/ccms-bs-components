@@ -1,27 +1,34 @@
-<div class="{{$ctrl.styles.container}}">
+<div ng-class="$ctrl.styles.container">
+    <div ng-class="$ctrl.styles.loader" ng-show="$ctrl.isLoading">
+        <cc-loading type="grid"></cc-loading>
+    </div>
 
-	<!-- 简单查找 -->
-	<bs-base-condition-box
-		opts="$ctrl.opts"
-		config="$ctrl.config"
-		fetch="$ctrl.fetch"
-		ng-if="$ctrl.config.searchModel==='BASE'">
-	</bs-base-condition-box>
+    <!-- 简单查找 -->
+    <bs-base-condition-box
+        config="$ctrl.config"
+        fetch="$ctrl.fetch"
+        ng-if="$ctrl.config.searchModel==='BASE'">
+    </bs-base-condition-box>
 
-	<!-- 高级查找 -->
-	<bs-advance-condition-box
-		opts="$ctrl.opts"
-		config="$ctrl.config"
-		fetch="$ctrl.fetch"
-		ng-if="$ctrl.config.searchModel==='ADVANCE'">
-	</bs-advance-condition-box>
+    <!-- 高级查找 -->
+    <bs-advance-condition-box
+        config="$ctrl.config"
+        fetch="$ctrl.fetch"
+        ng-if="$ctrl.config.searchModel==='ADVANCE'">
+    </bs-advance-condition-box>
 
-	<div ng-class="$ctrl.styles.resultHolder">
-		<bs-selector-grid
-			opts="$ctrl.opts"
-			config="$ctrl.config"
-			fetch="$ctrl.fetch"
-		>
-		</bs-selector-grid>
-	</div>
+    <div ng-class="$ctrl.styles.resultHolder">
+        <bs-selector-grid
+            condition-state="$ctrl.opts.GlobalConditionObj.conditions[$ctrl.conditionKey]"
+            data="$ctrl.data",
+            columns="$ctrl.config.columns",
+            page="$ctrl.params.page"
+            size="$ctrl.params.size"
+            total="$ctrl.total"
+            on-refresh="$ctrl.refresh()"
+            on-page-change="$ctrl.pageChange(page, size)"
+            add-statistic-count="$ctrl.addStatisticCount(value)"
+        >
+        </bs-selector-grid>
+    </div>
 </div>

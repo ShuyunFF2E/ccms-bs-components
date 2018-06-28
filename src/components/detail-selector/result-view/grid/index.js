@@ -12,11 +12,12 @@ const DDO = {
     bindings: {
         page: '<',
         size: '<',
+        data: '<',
         total: '<',
         columns: '<',
-        data: '<',
+        onRefresh: '&',
         onPageChange: '&',
-        onRefresh: '&'
+        setStatisticState: '&'
     }
 };
 

@@ -167,11 +167,10 @@ export default class AdvanceModelConditionBox {
 
         const conditions = this.parseConditions();
 
-        this.opts.params.conditions = conditions;
-        this.opts.params.isMeet = this.conditionData.isMeet;
-        this.opts.params.page = 1;
-
-
-        this.fetch();
+        this.fetch({
+            page: 1,
+            isMeet: this.conditionData.isMeet,
+            conditions
+        }, true);
     }
 }

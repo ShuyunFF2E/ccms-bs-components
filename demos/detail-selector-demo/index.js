@@ -101,8 +101,20 @@ const HOSTS = {
                                     throw new Error(err.data.message);
                                 });
                             },
-                            fetchResult(conditions) {
-                                return resultResource.post();
+                            fetchResult(params) {
+                                return resultResource.post({
+                                    id: $scope.ID,
+                                    offset: (params.page - 1) * params.size,
+                                    limit: params.size,
+                                    conditions: []
+                                }).$promise.then(res => {
+                                    return {
+                                        data: res.data,
+                                        total: res.total
+                                    }
+                                }).catch(err => {
+                                    throw new Error(err.data.message);
+                                });
                             }
                         }
                     });

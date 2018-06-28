@@ -5,17 +5,23 @@ import template from './index.html';
 import controller from './ctrl';
 
 const DDO = {
-	template,
-	controller,
-	transclude: true,
-	bindings: {
-		opts: '<',
-		config: '<',
-		fetch: '<'
-	}
+    template,
+    controller,
+    transclude: true,
+    bindings: {
+        page: '<',
+        size: '<',
+        data: '<',
+        total: '<',
+        columns: '<',
+        conditionState: '<',
+        onRefresh: '&',
+        onPageChange: '&',
+        addStatisticCount: '&'
+    }
 };
 
 export default angular
-	.module('bs.components.detailSelectorGrid', [])
-	.component('bsSelectorGrid', DDO)
-	.name;
+    .module('bs.components.detailSelectorGrid', [])
+    .component('bsSelectorGrid', DDO)
+    .name;

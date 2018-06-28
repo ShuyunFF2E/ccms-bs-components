@@ -1,12 +1,8 @@
 <div ng-class="$ctrl.styles.selector">
-	<div ng-class="$ctrl.styles.loadingWrap" ng-show="$ctrl.opts.isLoading">
-		<cc-loading type="grid"></cc-loading>
-	</div>
-
 	<bs-query-view
 		opts="$ctrl.opts"
 		config="$ctrl.config"
-		fetch="$ctrl.fetch"
+    fetch="$ctrl.fetch"
     ng-if="$ctrl.model==='QUERY'">
   </bs-query-view>
 
@@ -21,7 +17,7 @@
 		ng-if="$ctrl.config.type==='multiple'"
 	>
 		<cc-checkbox ng-model="$ctrl.model" ng-true-value="'CHECK'" ng-false-value="'QUERY'">
-			<span>查看已选（{{$ctrl.opts.statistic.selected}}）</span>
+			<span>查看已选（{{$ctrl.opts.GlobalConditionObj.statistic}}）</span>
 		</cc-checkbox>
 	</footer>
 </div>

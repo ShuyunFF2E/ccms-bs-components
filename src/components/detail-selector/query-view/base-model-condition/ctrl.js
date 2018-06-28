@@ -142,11 +142,11 @@ export default class BaseModelConditionBox {
             }
         });
 
-        this.opts.params.conditions = formDataList.length > 0 ? [formDataList] : [];
-        this.opts.params.isMeet = true;
-        this.opts.params.page = 1;
-
-        this.fetch();
+        this.fetch({
+            page: 1,
+            isMeet: true,
+            conditions: formDataList.length > 0 ? [formDataList] : []
+        }, true);
     }
 }
 

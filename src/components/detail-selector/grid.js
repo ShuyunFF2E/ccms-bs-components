@@ -2,7 +2,7 @@ import { isBoolean } from '@/utils';
 import dateFormat from 'common-javascript-utils/src/date';
 
 export default class BaseGridCtrl {
-
+    gridWidth = 920;
     fieldParser = {};
 
     gridOpts = {
@@ -11,6 +11,7 @@ export default class BaseGridCtrl {
     };
 
     initGridOpts(columns) {
+        this.gridWidth = columns.length * 100 + 50;
         columns.forEach(item => {
             this.fieldParser[item.code] = this.genFieldParser(item);
         });
@@ -19,68 +20,62 @@ export default class BaseGridCtrl {
 
     // 计算表格的列（因为列是可配的）
     generateGridColumns(columns) {
-        // if (this.type === 'multiple') {
         this.generateCheckboxGridColumns(columns);
-        // } else if (this.type === 'single') {
-        //     this.generateRadioGridColumns();
-        // } else {
-        //     this.generatePlainGridColumns();
-        // }
     }
 
-    // 无选择框
-    generatePlainGridColumns() {
-        // const headerTpl = `<tr>
-        // 	${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
-        // </tr>`;
+    // // 无选择框
+    // generatePlainGridColumns() {
+    //     // const headerTpl = `<tr>
+    //     // 	${this.columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
+    //     // </tr>`;
 
-        const columnsDef = this.columns.map(item => {
+    //     const columnsDef = this.columns.map(item => {
 
-            // this.fieldParser[item.code] = this.genFieldParser(item);
+    //         // this.fieldParser[item.code] = this.genFieldParser(item);
 
-            return {
-                cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
-                field: item.code,
-                displayName: item.name || item.code,
-                tooltip: item.tooltip
-            };
-        });
+    //         return {
+    //             cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
+    //             field: item.code,
+    //             displayName: item.name || item.code,
+    //             tooltip: item.tooltip
+    //         };
+    //     });
 
-        // this.gridOpts.headerTpl = headerTpl;
-        this.gridOpts.columnsDef = columnsDef;
-    }
+    //     // this.gridOpts.headerTpl = headerTpl;
+    //     this.gridOpts.columnsDef = columnsDef;
+    // }
 
-    // 单选框
-    generateRadioGridColumns(columns) {
-        const headerTpl = `<tr>
-			<th style="width:30px;"></th>
-			${columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
-		</tr>`;
+    // // 单选框
+    // generateRadioGridColumns(columns) {
+    //     const headerTpl = `<tr>
+    // 	<th style="width:30px;"></th>
+    // 	${columns.map(item => `<th>${item.name||item.code}</th>`).join('')}
+    // </tr>`;
 
-        const columnsDef = [{
-            cellTemplate: `<cc-radio ng-model="$ctrl.singleSelectedValue" ng-value="entity.id"></cc-radio>`,
-            width: '30px'
-        }].concat(columns.map(item => {
+    //     const columnsDef = [{
+    //         cellTemplate: `<cc-radio ng-model="$ctrl.singleSelectedValue" ng-value="entity.id"></cc-radio>`,
+    //         width: '30px'
+    //     }].concat(columns.map(item => {
 
-            // this.fieldParser[item.code] = this.genFieldParser(item);
+    //         // this.fieldParser[item.code] = this.genFieldParser(item);
 
-            return {
-                cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
-                field: item.code,
-                displayName: item.name || item.code,
-                tooltip: item.tooltip
-            };
-        }));
+    //         return {
+    //             cellTemplate: `<span ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"></span>`,
+    //             field: item.code,
+    //             displayName: item.name || item.code,
+    //             tooltip: item.tooltip
+    //         };
+    //     }));
 
-        this.gridOpts.headerTpl = headerTpl;
-        this.gridOpts.columnsDef = columnsDef;
-    }
+    //     this.gridOpts.headerTpl = headerTpl;
+    //     this.gridOpts.columnsDef = columnsDef;
+    // }
 
     // 多选框
     generateCheckboxGridColumns(columns) {
         const headerTpl = `<tr>
 			<th style="width:30px;">
-				<cc-checkbox ng-model="$parent.$ctrl.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'" tooltip-placement="bottom-left"></cc-checkbox>
+				<cc-checkbox ng-model="$parent.$ctrl.conditionState.isAllSelected" ng-change="$parent.$ctrl.switchAllSelect()" cc-tooltip="'选中当前条件下所有的数据'" tooltip-placement="bottom-left"></cc-checkbox>
 			</th>
 			${columns.map((item,index) => {
         const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? '150px' : 'unset') : '150px';
@@ -89,7 +84,7 @@ export default class BaseGridCtrl {
 		</tr>`;
 
         const columnsDef = [{
-            cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect()"></cc-checkbox>`,
+            cellTemplate: `<cc-checkbox ng-model="entity.selected" ng-change="$ctrl.switchSelect(entity)"></cc-checkbox>`,
             width: '30px'
         }].concat(columns.map((item, index) => {
 

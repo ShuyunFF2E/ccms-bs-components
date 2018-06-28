@@ -1,4 +1,9 @@
 <section ng-class="$ctrl.classes.container">
+
+  <div ng-class="$ctrl.classes.loader" ng-show="$ctrl.isLoading">
+    <cc-loading type="grid"></cc-loading>
+  </div>
+
 	<div ng-class="$ctrl.classes.gridWrap">
 		<bs-result-view-grid
       data="$ctrl.data",
@@ -7,7 +12,8 @@
       size="$ctrl.params.size"
       total="$ctrl.total"
       on-refresh="$ctrl.refresh()"
-      on-page-change="$ctrl.pageChange(pageNum,pageSize)"
+      on-page-change="$ctrl.pageChange(page, size)"
+      set-statistic-state="$ctrl.setStatisticState(state)"
 		>
 		</bs-result-view-grid>
 	</div>

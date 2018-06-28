@@ -13,6 +13,7 @@
     height: 50px;
     line-height: 50px;
     position: relative;
+    user-select: none;
     > span {
         vertical-align: middle;
     }
