@@ -34,7 +34,7 @@ export default class DetailSelectorCtrl {
         this.opts = {
             GlobalConditionObj: {
                 statistic: 0,
-                conditions: {},
+                conditions: Object.create(null),
                 checkModel: {
                     isAllSelected: false,
                     includes: [],

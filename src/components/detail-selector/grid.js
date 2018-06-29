@@ -79,7 +79,9 @@ export default class BaseGridCtrl {
 			</th>
 			${columns.map((item,index) => {
         const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? '150px' : 'unset') : '150px';
-        return `<th style="width:${width}">${item.name||item.code}</th>`;
+        return `<th style="width:${width}">
+                    <div class="bs-ellipsis">${item.name||item.code}</div>
+                </th>`;
       }).join('')}
 		</tr>`;
 
