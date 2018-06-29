@@ -1,8 +1,10 @@
 <div ng-class="$ctrl.styles.container">
 	<!-- type="selectable" -->
 	<div ng-class="$ctrl.styles.grid">
-		<cc-grid opts="$ctrl.gridOpts" ng-style="{width:$ctrl.gridWidth+'px',minWidth:'100%'}"></cc-grid>
-	</div>
+        <div ng-style="{width:$ctrl.gridWidth+'px',minWidth:'100%',height:'100%'}">
+		    <cc-grid opts="$ctrl.gridOpts"></cc-grid>
+        </div>
+    </div>
 
 	<div ng-class="$ctrl.styles.footer">
 		<span>共 <span ng-bind="$ctrl.total"></span> 条</span>
