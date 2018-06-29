@@ -41,11 +41,9 @@ export default class DetailSelectorQueryViewCtrl {
                     excludes: [],
                     statistic: 0
                 };
+                this.lastStatisticValue = GlobalConditionObj.statistic;
             }
             console.log(GlobalConditionObj.conditions);
-
-            this.lastStatisticValue = GlobalConditionObj.statistic;
-
         }).catch(err => {
             this.isLoading = false;
             this._$ccTips.error(err.message, {

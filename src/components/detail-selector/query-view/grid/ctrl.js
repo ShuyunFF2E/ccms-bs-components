@@ -49,17 +49,18 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
     // 切换选择
     switchSelect(item) {
         const selected = item.selected;
+        const key = item[this.primaryKey];
         if (this.conditionState.isAllSelected) {
             if (selected) {
-                removeFromArr(this.conditionState.excludes, item.id);
+                removeFromArr(this.conditionState.excludes, key);
             } else {
-                addToArr(this.conditionState.excludes, item.id);
+                addToArr(this.conditionState.excludes, key);
             }
         } else {
             if (selected) {
-                addToArr(this.conditionState.includes, item.id);
+                addToArr(this.conditionState.includes, key);
             } else {
-                removeFromArr(this.conditionState.includes, item.id);
+                removeFromArr(this.conditionState.includes, key);
             }
         }
 
@@ -77,10 +78,11 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
     }
     // 计算数据的选中状态
     genDataItem = (item) => {
+        const key = item[this.primaryKey];
         if (this.conditionState.isAllSelected) {
-            item.selected = this.conditionState.excludes.includes(item.id) ? false : true;
+            item.selected = this.conditionState.excludes.includes(key) ? false : true;
         } else {
-            item.selected = this.conditionState.includes.includes(item.id) ? true : false;
+            item.selected = this.conditionState.includes.includes(key) ? true : false;
         }
         return item;
     }

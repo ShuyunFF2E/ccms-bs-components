@@ -25,6 +25,7 @@ export default class DetailSelectorResultViewCtrl {
             this.total = res.total;
             this.isLoading = false;
             Object.assign(this.params, params);
+            this.opts.GlobalConditionObj.statistic = res.total;
         }).catch(err => {
             this.isLoading = false;
             this._$ccTips.error(err.message, {

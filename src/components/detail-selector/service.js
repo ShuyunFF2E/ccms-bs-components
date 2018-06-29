@@ -14,6 +14,7 @@ const DefaultConfig = {
     description: '',
     preferenceAble: true, // 是否开启条件偏好设置
     advanceSearchAble: true, // 是否允许高级搜索
+    primaryKey: 'id', // 数据主键
     conditions: [], // 常用条件
     extendConditions: [], // 更多条件
     columns: [], // 显示列

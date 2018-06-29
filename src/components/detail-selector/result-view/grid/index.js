@@ -15,6 +15,7 @@ const DDO = {
         data: '<',
         total: '<',
         columns: '<',
+        primaryKey: '<',
         onRefresh: '&',
         onPageChange: '&',
         setStatisticState: '&'
