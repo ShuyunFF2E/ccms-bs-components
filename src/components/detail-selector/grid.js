@@ -152,11 +152,12 @@ export default class BaseGridCtrl {
             if (field.dataType === 'date') {
                 if (!value) return '';
 
-                const format = {
-                    'YMD': 'yyyy-MM-dd',
-                    'YMDhms': 'yyyy-MM-dd hh:mm:ss',
-                    'YMDhm': 'yyyy-MM-dd hh:mm',
-                }[field.styleType] || 'yyyy-MM-dd hh:mm:ss';
+                // const format = {
+                //     'YMD': 'yyyy-MM-dd',
+                //     'YMDhms': 'yyyy-MM-dd hh:mm:ss',
+                //     'YMDhm': 'yyyy-MM-dd hh:mm',
+                // }[field.styleType] || 'yyyy-MM-dd hh:mm:ss';
+                const format = 'yyyy-MM-dd hh:mm:ss';
                 return dateFormat(new Date(value), format);
             }
 
