@@ -10,10 +10,11 @@ export default class MultipleSelectCtrl {
   constructor() {
     this.ngModel = [];
     this.keyword = '';
-    this.wrapWidth = 1000;
+    this.wrapWidth = 200;
     this.containerWidth;
     this.inputWidth;
     this.width = 200;
+    this.keyWordWidth = 190;
   }
 
   get $input() {
@@ -29,10 +30,8 @@ export default class MultipleSelectCtrl {
     setTimeout(() => {
       this.containerWidth = this.$container.getBoundingClientRect().width;
       this.calculateWidth();
-
       this.$input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
       this.$input.addEventListener('compositionend', this.onCompositionEnd.bind(this), true);
-
     }, 50);
   }
 
@@ -53,7 +52,6 @@ export default class MultipleSelectCtrl {
 
   keydown(event) {
     if (this.lock) return;
-
     if (event.code === 'Enter' || event.keyCode === 13) {
       event.preventDefault();
       this.pushKeyword();
@@ -86,7 +84,8 @@ export default class MultipleSelectCtrl {
     this.calculateWidth();
     setTimeout(() => {
       if (this.wrapWidth > this.containerWidth * 1.5) {
-        this.$container.scrollLeft = this.wrapWidth;
+        // this.$container.scrollLeft = this.wrapWidth;
+
       }
     }, 100);
   }
@@ -119,10 +118,9 @@ export default class MultipleSelectCtrl {
     const keywordWidth = $div.getBoundingClientRect().width;
 
     const diffWidth = this.containerWidth - keywordWidth;
-    this.inputWidth = diffWidth > this.containerWidth / 2 ? diffWidth : this.containerWidth / 2;
+    // this.inputWidth = diffWidth > this.containerWidth / 2 ? diffWidth : this.containerWidth / 2;
 
     this.wrapWidth = keywordWidth + this.inputWidth + 10;
-
 
     document.body.removeChild($div);
   }

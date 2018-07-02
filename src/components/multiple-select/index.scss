@@ -1,8 +1,7 @@
 .multiple-select {
   background: #fff;
   border: 1px solid #d9d9d9;
-  width: 200px;
-  height: 30px;
+  width: 200px; // height: 30px;
   outline: none;
   padding: 3px 4px;
   box-sizing: border-box;
@@ -14,12 +13,14 @@
   .container {
     width: 100%;
     height: 50px;
-    overflow: auto;
+    overflow-y: scroll;
   }
   .wrap {
     min-width: 100%;
   }
   .input {
+    display: inline-block;
+    vertical-align: middle;
     border-color: transparent;
     height: 22px;
     line-height: 22px;
@@ -35,6 +36,9 @@
 }
 
 .keyword {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: PingFang-SC-Bold;
   background: #f1f1f1;
   border: 1px solid #ddd;
@@ -42,9 +46,9 @@
   padding: 4px 5px 3px;
   min-width: 22px;
   color: #333;
+  vertical-align: middle;
   display: inline-block;
   margin-right: 3px;
-  white-space: nowrap;
   cursor: pointer;
   position: relative;
   .btn-remove {

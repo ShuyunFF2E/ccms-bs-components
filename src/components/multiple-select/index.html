@@ -1,7 +1,8 @@
 <div ng-class="$ctrl.classes.multipleSelect" ng-style="{width:$ctrl.width+'px'}">
   <div ng-class="$ctrl.classes.container">
-    <div ng-class="$ctrl.classes.wrap" ng-style="{width: $ctrl.wrapWidth + 'px'}">
-      <div ng-class="$ctrl.classes.keyword" ng-repeat="keyword in $ctrl.ngModel">
+    <!-- <div ng-class="$ctrl.classes.wrap" ng-style="{width: $ctrl.wrapWidth + 'px'}"> -->
+    <div ng-class="$ctrl.classes.wrap">
+      <div ng-class="$ctrl.classes.keyword" ng-style="{maxWidth:$ctrl.keyWordWidth+'px'}" ng-repeat="keyword in $ctrl.ngModel">
         <span ng-bind="keyword"></span>
         <span ng-class="$ctrl.classes.btnRemove" class="iconfont icon-clear" ng-click="$ctrl.remove($event,keyword)"></span>
       </div>
