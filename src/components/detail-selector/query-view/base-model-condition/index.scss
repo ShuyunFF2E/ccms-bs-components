@@ -3,8 +3,8 @@
 }
 
 .condition-zone {
-    margin: 10px -20px;
-    padding: 0 20px;
+    margin: 10px 0;
+    padding: 0;
     transition: height 0.3s ease-in-out;
     display: flex;
     flex-direction: row;
@@ -17,19 +17,19 @@
 
 .toolbar {
     position: relative;
-    margin: 0 -20px;
-    padding: 8px 20px;
+    padding: 8px 0;
     text-align: right;
     border-top: 1px solid #e8e8e8;
     border-bottom: 1px solid #e8e8e8;
     .btn-link-text {
         position: absolute;
-        left: 10px;
+        left: 0;
         top: 10px;
         border: none;
         outline: none;
         background: transparent;
         color: #0083ba;
+        padding-left: 0;
         &:hover {
             color: #43c0f4;
         }
