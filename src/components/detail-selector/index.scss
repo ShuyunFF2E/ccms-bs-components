@@ -15,21 +15,9 @@
 .selector {
     height: 100%;
     position: relative;
-    .loading-wrap {
-        position: absolute;
-        z-index: 999;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background: transparent;
-        cc-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -25px;
-            margin-left: -20px;
-        }
+    .container {
+        height: 100%;
+        overflow: auto;
     }
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
