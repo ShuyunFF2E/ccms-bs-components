@@ -82,8 +82,9 @@ export default class BaseGridCtrl {
 			${columns.map((item,index) => {
                 const itemWidth = item.width || 150;
                 const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? (itemWidth + 'px') : 'unset') : (itemWidth + 'px');
+                const fieldName = item.name || item.code;
                 return `<th style="width:${width}">
-                    <div class="bs-ellipsis">${item.name||item.code}</div>
+                    <div class="bs-ellipsis" title="${fieldName}">${fieldName}</div>
                 </th>`;
             }).join('')}
 		</tr>`;
