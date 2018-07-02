@@ -11,7 +11,8 @@ const DDO = {
   bindings: {
     ngModel: '<?',
     ngDisabled: '<?',
-    width: '<?'
+    width: '<?',
+    height: '<?'
   },
   require: {
     ngModelController: '?ngModel'

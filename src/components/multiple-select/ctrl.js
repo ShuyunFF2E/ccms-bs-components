@@ -10,11 +10,10 @@ export default class MultipleSelectCtrl {
   constructor() {
     this.ngModel = [];
     this.keyword = '';
-    this.wrapWidth = 200;
     this.containerWidth;
     this.inputWidth;
+    this.height = 50;
     this.width = 200;
-    this.keyWordWidth = 190;
   }
 
   get $input() {
@@ -29,7 +28,6 @@ export default class MultipleSelectCtrl {
 
     setTimeout(() => {
       this.containerWidth = this.$container.getBoundingClientRect().width;
-      this.calculateWidth();
       this.$input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
       this.$input.addEventListener('compositionend', this.onCompositionEnd.bind(this), true);
     }, 50);
@@ -52,8 +50,10 @@ export default class MultipleSelectCtrl {
 
   keydown(event) {
     if (this.lock) return;
+    this.calculateInputWidth();
     if (event.code === 'Enter' || event.keyCode === 13) {
       event.preventDefault();
+      this.inputWidth = 10;
       this.pushKeyword();
     } else if (event.code === 'Backspace' && !event.target.value) {
       this.ngModel.pop();
@@ -80,48 +80,24 @@ export default class MultipleSelectCtrl {
     this.ngModel.push(keyword);
     this.updateNgModel();
     this.keyword = '';
-
-    this.calculateWidth();
-    setTimeout(() => {
-      if (this.wrapWidth > this.containerWidth * 1.5) {
-        // this.$container.scrollLeft = this.wrapWidth;
-
-      }
-    }, 100);
   }
 
   remove(evt, keyword) {
     evt.stopPropagation();
-
     const index = this.ngModel.indexOf(keyword);
     if (~index) this.ngModel.splice(index, 1);
     this.updateNgModel();
-    this.calculateWidth();
   }
 
   updateNgModel() {
     this.ngModelController && this.ngModelController.$setViewValue(this.ngModel);
   }
 
-  // 计算DOM元素的宽度
-  calculateWidth() {
-    const $div = document.createElement('div');
-    $div.className = classes.virContainer;
-    this.ngModel.forEach(keyword => {
-      const $span = document.createElement('span');
-      $span.className = classes.keyword;
-      $span.innerText = keyword;
-      $div.appendChild($span);
-    });
-
-    document.body.appendChild($div);
-    const keywordWidth = $div.getBoundingClientRect().width;
-
-    const diffWidth = this.containerWidth - keywordWidth;
-    // this.inputWidth = diffWidth > this.containerWidth / 2 ? diffWidth : this.containerWidth / 2;
-
-    this.wrapWidth = keywordWidth + this.inputWidth + 10;
-
-    document.body.removeChild($div);
+  // 计算INPUT元素的宽度,动态的等于当前输入的input value 的宽度
+  calculateInputWidth() {
+    const mirror = document.getElementById('mirrorInput');
+    mirror.innerText = this.$input.value;
+    const width = Math.ceil(mirror.getBoundingClientRect().width);
+    this.inputWidth = width + 10;
   }
 }
