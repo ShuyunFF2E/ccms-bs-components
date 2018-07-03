@@ -20,7 +20,7 @@ function genDefaultConditionObj() {
     };
 }
 
-@Inject('$scope')
+@Inject('$scope', '$element')
 export default class DetailSelectorQueryViewCtrl {
     styles = styles;
 
@@ -62,7 +62,7 @@ export default class DetailSelectorQueryViewCtrl {
         }).catch(err => {
             this.isLoading = false;
             this._$ccTips.error(err.message, {
-                container: this.body,
+                container: this._$element[0].querySelector('.' + styles.container),
                 duration: 3000
             });
             throw err;

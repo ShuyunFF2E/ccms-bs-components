@@ -34,12 +34,7 @@ export default class DetailSelectorCtrl {
         this.opts = {
             GlobalConditionObj: {
                 statistic: 0,
-                conditions: [],
-                // checkModel: {
-                //     isAllSelected: false,
-                //     includes: [],
-                //     excludes: []
-                // }
+                conditions: []
             }
         };
     }
@@ -107,5 +102,36 @@ export default class DetailSelectorCtrl {
     // 切换至查询视图
     switchToQueryView = () => {
         this.model = 'QUERY';
+    }
+
+    submit() {
+        this.isSubmiting = false;
+        const conditionObj = this.opts.GlobalConditionObj.conditions.reduce((v, next) => {
+            v.search.push(next.search);
+            v.result.push(next.result);
+            return v;
+        }, {
+            search: [],
+            result: []
+        });
+        this.config.submit({
+            searchCondition: conditionObj.search,
+            additionCondition: conditionObj.result
+        }).then(res => {
+            this.isSubmiting = false;
+            return res;
+        }).catch(err => {
+            this.isSubmiting = false;
+            this._$ccTips.error(err.message, {
+                duration: 3000,
+                container: this._$element[0].querySelector('.' + styles.container)
+            });
+        });
+    }
+
+    ok() {
+        this.submit().then(res => {
+            this._modalInstance.ok(res);
+        });
     }
 }

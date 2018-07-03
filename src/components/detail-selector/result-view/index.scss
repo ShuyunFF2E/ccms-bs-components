@@ -1,7 +1,12 @@
 .container {
-    height: 100%;
     border-top: 1px solid transparent;
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #f8f8f8;
     .loader {
         position: absolute;
         left: 0;

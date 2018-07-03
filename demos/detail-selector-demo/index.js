@@ -35,6 +35,17 @@ const HOSTS = {
             $scope.ID = params.ID || '';
             $scope.host = params.host || HOSTS.qfish;
             $scope.token = params.token ? decodeURIComponent(params.token) : '';
+
+            const resourceParams = {
+                post: {
+                    method: 'POST',
+                    withCredentials: true,
+                    headers: {
+                        Authorization: $scope.token
+                    }
+                }
+            };
+
             $scope.open = function() {
 
                 if (!$scope.ID) {
@@ -47,25 +58,9 @@ const HOSTS = {
                     return $ccTips.error('请填写接口Token');
                 }
 
-                const searchResource = $resource($scope.host + '/detailSelector/search', {}, {
-                    post: {
-                        method: 'POST',
-                        withCredentials: true,
-                        headers: {
-                            Authorization: $scope.token
-                        }
-                    }
-                });
-
-                const resultResource = $resource($scope.host + '/detailSelector/select/data', {}, {
-                    post: {
-                        method: 'POST',
-                        withCredentials: true,
-                        headers: {
-                            Authorization: $scope.token
-                        }
-                    }
-                });
+                const searchResource = $resource($scope.host + '/detailSelector/search', {}, resourceParams);
+                const resultResource = $resource($scope.host + '/detailSelector/select/data', {}, resourceParams);
+                const submitResource = $resource($scope.host + '/detailSelector/submit', {}, resourceParams);
 
                 getInstanceConfig().then(config => {
 
@@ -102,37 +97,12 @@ const HOSTS = {
                                 });
                             },
                             fetchResult(params) {
-                                console.log(params);
-
                                 return resultResource.post({
                                     id: $scope.ID,
                                     offset: (params.page - 1) * params.size,
                                     limit: params.size,
-                                    searchCondition: params.searchCondition.map(item => {
-                                        const condition = {
-                                            isMeet: item.isMeet,
-                                            conditions: item.conditions.map(v => ({ childCond: v }))
-                                        };
-                                        if (item.isAllSelected) {
-                                            condition.isExclude = true;
-                                            condition.ids = item.excludes;
-                                        } else {
-                                            condition.isExclude = false;
-                                            condition.ids = item.includes;
-                                        }
-                                        return condition;
-                                    }),
-                                    additionCondition: params.additionCondition.map(item => {
-                                        const condition = {};
-                                        if (item.isAllSelected) {
-                                            condition.isExclude = true;
-                                            condition.ids = item.excludes;
-                                        } else {
-                                            condition.isExclude = false;
-                                            condition.ids = item.includes;
-                                        }
-                                        return condition;
-                                    })
+                                    searchCondition: params.searchCondition.map(parseSearchCondition),
+                                    additionCondition: params.additionCondition.map(parseAddtionCondition)
                                 }).$promise.then(res => {
                                     return {
                                         data: res.data,
@@ -140,6 +110,13 @@ const HOSTS = {
                                     }
                                 }).catch(err => {
                                     throw new Error(err.data.message);
+                                });
+                            },
+                            submit(params) {
+                                return submitResource.post({
+                                    id: $scope.ID,
+                                    searchCondition: params.searchCondition.map(parseSearchCondition),
+                                    additionCondition: params.additionCondition.map(parseAddtionCondition)
                                 });
                             }
                         }
@@ -180,3 +157,31 @@ const HOSTS = {
 
         });
 })(window.angular);
+
+
+function parseSearchCondition(item) {
+    const condition = {
+        isMeet: item.isMeet,
+        conditions: item.conditions.map(v => ({ childCond: v }))
+    };
+    if (item.isAllSelected) {
+        condition.isExclude = true;
+        condition.ids = item.excludes;
+    } else {
+        condition.isExclude = false;
+        condition.ids = item.includes;
+    }
+    return condition;
+}
+
+function parseAddtionCondition(item) {
+    const condition = {};
+    if (item.isAllSelected) {
+        condition.isExclude = true;
+        condition.ids = item.excludes;
+    } else {
+        condition.isExclude = false;
+        condition.ids = item.includes;
+    }
+    return condition;
+}

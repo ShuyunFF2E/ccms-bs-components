@@ -1,7 +1,7 @@
 import classes from './index.scss';
 import { Inject } from 'angular-es-utils';
 
-@Inject('$scope', '$ccTips')
+@Inject('$scope', '$ccTips', '$element')
 export default class DetailSelectorResultViewCtrl {
     classes = classes;
 
@@ -31,6 +31,9 @@ export default class DetailSelectorResultViewCtrl {
         this.isLoading = true;
         const fetchResult = this.config.fetchResult;
         const conditionObj = this.opts.GlobalConditionObj.conditions.reduce((v, next) => {
+            if (!next.search.isAllSelected && !next.search.includes.length) {
+                return v;
+            }
             v.search.push(next.search);
             v.result.push(next.result);
             return v;
@@ -53,7 +56,7 @@ export default class DetailSelectorResultViewCtrl {
             this.isLoading = false;
             this._$ccTips.error(err.message, {
                 duration: 3000,
-                container: this._$element[0].querySelector('.modal_body')
+                container: this._$element[0].querySelector('.' + classes.container)
             });
         });
     }
