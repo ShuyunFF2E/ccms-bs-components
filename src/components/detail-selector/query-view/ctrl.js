@@ -2,12 +2,12 @@ import styles from './index.scss';
 import { Inject } from 'angular-es-utils';
 import uuidv4 from 'uuid/v4';
 
-function genDefaultConditionObj() {
+function genDefaultConditionObj(conditions = []) {
     return {
         search: {
             isMeet: true,
             isAllSelected: false,
-            conditions: [],
+            conditions,
             includes: [],
             excludes: [],
             statistic: 0
@@ -53,7 +53,8 @@ export default class DetailSelectorQueryViewCtrl {
 
             if (isNewCondition) {
                 this.conditionKey = uuidv4();
-                const conditionObj = genDefaultConditionObj();
+                const conditions = query.conditions.map(item => ({ ...item }));
+                const conditionObj = genDefaultConditionObj(conditions);
                 this.conditionObj = conditionObj;
                 GlobalConditionObj.conditions.push(conditionObj);
                 this.lastStatisticValue = GlobalConditionObj.statistic;
