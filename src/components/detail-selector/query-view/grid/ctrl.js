@@ -38,29 +38,31 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
 
     // 全选
     switchAllSelect() {
-        this.conditionState.includes = [];
-        this.conditionState.excludes = [];
+        const searchObj = this.conditionState;
+        searchObj.includes = [];
+        searchObj.excludes = [];
 
-        this.data.forEach(v => v.selected = this.conditionState.isAllSelected);
+        this.data.forEach(v => v.selected = searchObj.isAllSelected);
 
         this.calculateSelectedCount();
     }
 
     // 切换选择
     switchSelect(item) {
+        const searchObj = this.conditionState;
         const selected = item.selected;
         const key = item[this.primaryKey];
-        if (this.conditionState.isAllSelected) {
+        if (searchObj.isAllSelected) {
             if (selected) {
-                removeFromArr(this.conditionState.excludes, key);
+                removeFromArr(searchObj.excludes, key);
             } else {
-                addToArr(this.conditionState.excludes, key);
+                addToArr(searchObj.excludes, key);
             }
         } else {
             if (selected) {
-                addToArr(this.conditionState.includes, key);
+                addToArr(searchObj.includes, key);
             } else {
-                removeFromArr(this.conditionState.includes, key);
+                removeFromArr(searchObj.includes, key);
             }
         }
 
@@ -70,19 +72,22 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
     // 计算已选中的数量
     calculateSelectedCount() {
         // 当前条件已选中数量
-        const count = this.conditionState.isAllSelected ?
-            (this.total - this.conditionState.excludes.length) :
-            this.conditionState.includes.length;
+        const searchObj = this.conditionState;
+        const count = searchObj.isAllSelected ?
+            (this.total - searchObj.excludes.length) :
+            searchObj.includes.length;
 
         this.addStatisticCount({ value: count });
     }
+
     // 计算数据的选中状态
     genDataItem = (item) => {
+        const searchObj = this.conditionState;
         const key = item[this.primaryKey];
-        if (this.conditionState.isAllSelected) {
-            item.selected = this.conditionState.excludes.includes(key) ? false : true;
+        if (searchObj.isAllSelected) {
+            item.selected = searchObj.excludes.includes(key) ? false : true;
         } else {
-            item.selected = this.conditionState.includes.includes(key) ? true : false;
+            item.selected = searchObj.includes.includes(key) ? true : false;
         }
         return item;
     }

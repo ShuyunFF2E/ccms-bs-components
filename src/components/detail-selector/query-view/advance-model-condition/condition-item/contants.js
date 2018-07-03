@@ -1,8 +1,8 @@
-export const EnumOperators = ['等于任意值'];
+export const EnumOperators = ['等于'];
 
-export const DictOperators = ['等于任意值'];
+export const DictOperators = ['等于'];
 
-export const BooleanOperators = ['等于其一'];
+export const BooleanOperators = ['等于'];
 
 export const NumberOperators = ['大于', '大于等于', '小于', '小于等于', '不等于', '介于'];
 
@@ -12,10 +12,10 @@ export const DateOperators = ['介于'];
 
 
 export const Operators = {
-	text: TextOperators,
-	number: NumberOperators,
-	boolean: BooleanOperators,
-	enum: EnumOperators,
-	dict: DictOperators,
-	date: DateOperators
+    text: TextOperators,
+    number: NumberOperators,
+    boolean: BooleanOperators,
+    enum: EnumOperators,
+    dict: DictOperators,
+    date: DateOperators
 };

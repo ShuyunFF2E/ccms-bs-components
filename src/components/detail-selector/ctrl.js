@@ -34,12 +34,12 @@ export default class DetailSelectorCtrl {
         this.opts = {
             GlobalConditionObj: {
                 statistic: 0,
-                conditions: Object.create(null),
-                checkModel: {
-                    isAllSelected: false,
-                    includes: [],
-                    excludes: []
-                }
+                conditions: [],
+                // checkModel: {
+                //     isAllSelected: false,
+                //     includes: [],
+                //     excludes: []
+                // }
             }
         };
     }

@@ -2,6 +2,24 @@ import styles from './index.scss';
 import { Inject } from 'angular-es-utils';
 import uuidv4 from 'uuid/v4';
 
+function genDefaultConditionObj() {
+    return {
+        search: {
+            isMeet: true,
+            isAllSelected: false,
+            conditions: [],
+            includes: [],
+            excludes: [],
+            statistic: 0
+        },
+        result: {
+            isAllSelected: true,
+            includes: [],
+            excludes: []
+        }
+    };
+}
+
 @Inject('$scope')
 export default class DetailSelectorQueryViewCtrl {
     styles = styles;
@@ -15,6 +33,8 @@ export default class DetailSelectorQueryViewCtrl {
 
     total = 0;
     data = [];
+
+    conditionObj = genDefaultConditionObj();
 
     $onInit() {
         this.fetch({ page: 1, size: 10 }, true);
@@ -33,17 +53,12 @@ export default class DetailSelectorQueryViewCtrl {
 
             if (isNewCondition) {
                 this.conditionKey = uuidv4();
-                GlobalConditionObj.conditions[this.conditionKey] = {
-                    isMeet: true,
-                    isAllSelected: false,
-                    conditions: [],
-                    includes: [],
-                    excludes: [],
-                    statistic: 0
-                };
+                const conditionObj = genDefaultConditionObj();
+                this.conditionObj = conditionObj;
+                GlobalConditionObj.conditions.push(conditionObj);
                 this.lastStatisticValue = GlobalConditionObj.statistic;
             }
-            console.log(GlobalConditionObj.conditions);
+            window.GlobalConditionObj = GlobalConditionObj.conditions;
         }).catch(err => {
             this.isLoading = false;
             this._$ccTips.error(err.message, {

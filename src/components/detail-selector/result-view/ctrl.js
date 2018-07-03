@@ -13,14 +13,37 @@ export default class DetailSelectorResultViewCtrl {
     total = 0;
     data = [];
 
+    conditionObj = {
+        result: {
+            isAllSelected: true,
+            includes: [],
+            excludes: []
+        }
+    };
+
     $onInit() {
+        const conditions = this.opts.GlobalConditionObj.conditions;
+        this.conditionObj = conditions[conditions.length - 1] || this.conditionObj;
         this.fetch({ page: 1, size: 10 });
     }
 
     fetch(params = {}) {
         this.isLoading = true;
         const fetchResult = this.config.fetchResult;
-        fetchResult({ ...this.params, ...params }).then(res => {
+        const conditionObj = this.opts.GlobalConditionObj.conditions.reduce((v, next) => {
+            v.search.push(next.search);
+            v.result.push(next.result);
+            return v;
+        }, {
+            search: [],
+            result: []
+        });
+        fetchResult({
+            ...this.params,
+            ...params,
+            searchCondition: conditionObj.search,
+            additionCondition: conditionObj.result
+        }).then(res => {
             this.data = res.data;
             this.total = res.total;
             this.isLoading = false;
@@ -44,6 +67,6 @@ export default class DetailSelectorResultViewCtrl {
     }
 
     setStatisticState(statistic) {
-        this.opts.statistic = statistic;
+        this.opts.GlobalConditionObj.statistic = statistic;
     }
 }

@@ -12,9 +12,10 @@
             size="$ctrl.params.size"
             total="$ctrl.total"
             primary-key="$ctrl.config.primaryKey"
+            condition-state="$ctrl.conditionObj.result"
             on-refresh="$ctrl.refresh()"
             on-page-change="$ctrl.pageChange(page, size)"
-            set-statistic-state="$ctrl.setStatisticState(state)"
+            set-statistic-state="$ctrl.setStatisticState(statistic)"
 		>
 		</bs-result-view-grid>
 	</div>

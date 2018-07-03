@@ -19,7 +19,7 @@
 
     <div ng-class="$ctrl.styles.resultHolder">
         <bs-selector-grid
-            condition-state="$ctrl.opts.GlobalConditionObj.conditions[$ctrl.conditionKey]"
+            condition-state="$ctrl.conditionObj.search"
             data="$ctrl.data",
             columns="$ctrl.config.columns",
             page="$ctrl.params.page"

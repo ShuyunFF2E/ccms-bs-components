@@ -57,7 +57,7 @@ const HOSTS = {
                     }
                 });
 
-                const resultResource = $resource($scope.host + '/detailSelector/search', {}, {
+                const resultResource = $resource($scope.host + '/detailSelector/select/data', {}, {
                     post: {
                         method: 'POST',
                         withCredentials: true,
@@ -102,11 +102,37 @@ const HOSTS = {
                                 });
                             },
                             fetchResult(params) {
+                                console.log(params);
+
                                 return resultResource.post({
                                     id: $scope.ID,
                                     offset: (params.page - 1) * params.size,
                                     limit: params.size,
-                                    conditions: []
+                                    searchCondition: params.searchCondition.map(item => {
+                                        const condition = {
+                                            isMeet: item.isMeet,
+                                            conditions: item.conditions.map(v => ({ childCond: v }))
+                                        };
+                                        if (item.isAllSelected) {
+                                            condition.isExclude = true;
+                                            condition.ids = item.excludes;
+                                        } else {
+                                            condition.isExclude = false;
+                                            condition.ids = item.includes;
+                                        }
+                                        return condition;
+                                    }),
+                                    additionCondition: params.additionCondition.map(item => {
+                                        const condition = {};
+                                        if (item.isAllSelected) {
+                                            condition.isExclude = true;
+                                            condition.ids = item.excludes;
+                                        } else {
+                                            condition.isExclude = false;
+                                            condition.ids = item.includes;
+                                        }
+                                        return condition;
+                                    })
                                 }).$promise.then(res => {
                                     return {
                                         data: res.data,
