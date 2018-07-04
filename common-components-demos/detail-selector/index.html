@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>明细选择器</title>
+
+    <link rel="stylesheet" href="/dist/components.css">
+    <link rel="stylesheet" href="/node_modules/ccms-ep-components/ccms-components.css">
+
+    <script src="../qs.js"></script>
+
+    <!-- [angular-resource] & [angular-ui-router] 为 [ccms-components] 的依赖 -->
+    <script src="/node_modules/angular/angular.js"></script>
+
+    <script src="/node_modules/angular-resource/angular-resource.js"></script>
+    <script src="/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/node_modules/ccms-ep-components/ccms-components.js"></script>
+
+    <script src="/dist/components.js"></script>
+    <script src="./index.js"></script>
+    <style>
+        main {
+            width: 500px;
+            margin: 100px auto;
+        }
+
+        .demo-input {
+            width: 100% !important;
+        }
+
+        .demo-textarea {
+            width: 100%;
+            outline: none;
+            border: 1px solid #d9d9d9;
+            resize: none;
+        }
+
+        .form-title {
+            margin-bottom: 5px;
+        }
+
+        .form-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <main ng-app="app" ng-controller="ctrl">
+
+        <div class="form">
+            <div class="form-item">
+                <div class="form-title">实例ID</div>
+                <div class="form-content">
+                    <input class="demo-input" ng-model="ID" placeholder="选择器配置ID" />
+                </div>
+            </div>
+
+            <div class="form-item">
+                <div class="form-title">接口域名+服务</div>
+                <div class="form-content">
+                    <input class="demo-input" ng-model="host" placeholder="http://ual.dcartoon.saasproj.fenxibao.com" />
+                </div>
+            </div>
+
+            <div class="form-item">
+                <div class="form-title">接口Token</div>
+                <div class="form-content">
+                    <textarea class="demo-textarea" ng-model="token" rows="8" placeholder="接口Token"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <button ng-click="open()" ng-disabled="isLoading">预览实例</button>
+
+    </main>
+</body>
+
+</html>
