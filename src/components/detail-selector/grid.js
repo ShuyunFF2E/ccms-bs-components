@@ -81,7 +81,7 @@ export default class BaseGridCtrl {
                     ng-model="$parent.$ctrl.conditionState.isAllSelected"
                     ng-change="$parent.$ctrl.switchAllSelect()"
                     ng-disabled="!$parent.$ctrl.data.length"
-                    cc-tooltip="'选中当前条件下所有的数据'"
+                    cc-tooltip="'选中所有的数据'"
                     tooltip-placement="bottom-left"
                 ></cc-checkbox>
 			</th>
