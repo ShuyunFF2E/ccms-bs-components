@@ -1,7 +1,12 @@
 <div ng-class="$ctrl.styles.conditionItem">
 	<div ng-class="$ctrl.styles.name">
 		<span ng-class="$ctrl.styles.nameText" ng-bind="$ctrl.condition.name||$ctrl.condition.code" title="{{$ctrl.condition.name||$ctrl.condition.code}}"></span>
-		<span class="iconfont icon-bangzhu" cc-tooltip="$ctrl.condition.tooltip" tooltip-placement="top-center" ng-if="$ctrl.condition.tooltip"></span>
+        <span
+            ng-if="$ctrl.condition.tooltip"
+            class="iconfont icon-bangzhu"
+            cc-tooltip="$ctrl.condition.tooltip"
+            tooltip-placement="bottom-center">
+        </span>
 	</div>
 	<div ng-class="$ctrl.styles.content">
 		<div ng-class="$ctrl.styles.conditionInput" ng-switch="$ctrl.condition.dataType">

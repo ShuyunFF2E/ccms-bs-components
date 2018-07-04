@@ -6,6 +6,9 @@
     .value-field {
         width: 100%;
     }
+    :global(.normal-tooltip) {
+        z-index: 1;
+    }
 }
 
 .name {

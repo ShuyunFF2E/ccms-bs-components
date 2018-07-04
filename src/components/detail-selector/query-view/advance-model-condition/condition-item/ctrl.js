@@ -29,8 +29,6 @@ export default class ConditionItem {
     $onInit() {
         this.genFields();
         this.genOperators(this.condition.dataType);
-        console.log(this.condition);
-
     }
 
     // 切换条件
