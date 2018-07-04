@@ -1,6 +1,6 @@
 import styles from './index.scss';
 import { Inject } from 'angular-es-utils';
-import uuidv4 from 'uuid/v4';
+
 
 function genDefaultConditionObj(conditions = []) {
     return {
@@ -38,6 +38,7 @@ export default class DetailSelectorQueryViewCtrl {
 
     $onInit() {
         this.fetch({ page: 1, size: 10 }, true);
+        this.registerFromCheckToQuery(this.resetDataSelectedState);
     }
 
     fetch = (params, isNewCondition) => {
@@ -52,8 +53,9 @@ export default class DetailSelectorQueryViewCtrl {
             Object.assign(this.params, params);
 
             if (isNewCondition) {
-                this.conditionKey = uuidv4();
-                const conditions = query.conditions.map(item => ({ ...item }));
+                const conditions = query.conditions.map(item => {
+                    return item.map(sub => ({ ...sub }));
+                });
                 const conditionObj = genDefaultConditionObj(conditions);
                 this.conditionObj = conditionObj;
                 GlobalConditionObj.conditions.push(conditionObj);
@@ -68,6 +70,18 @@ export default class DetailSelectorQueryViewCtrl {
             });
             throw err;
         });
+    }
+
+    resetDataSelectedState = () => {
+        const { conditions } = this.opts.GlobalConditionObj;
+        if (!conditions.length) return;
+
+        const lastCondition = conditions[conditions.length - 1];
+        if (!lastCondition.result.isAllSelected) {
+            this.data.forEach(item => {
+                item.selected = false;
+            });
+        }
     }
 
     refresh() {

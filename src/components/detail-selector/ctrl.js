@@ -14,6 +14,11 @@ const CONFIG_KEY_PREFIX = 'CCMS_BS_DETAIL_SELECTOR_CONFIG';
 export default class DetailSelectorCtrl {
     styles = styles;
 
+    MODELS = {
+        QUERY: 'QUERY',
+        CHECK: 'CHECK'
+    };
+
     constructor() {
 
         this.cacheKey = `${CONFIG_KEY_PREFIX} - ${this.uid}`;
@@ -21,7 +26,7 @@ export default class DetailSelectorCtrl {
         this.body = this._$element[0].querySelector('.modal-body');
 
         // 当前选择器的模式 [QUERY:查询模式, CHECK:查看模式]
-        this.model = 'QUERY';
+        this.model = this.MODELS.QUERY;
     }
 
     $onInit() {
@@ -94,15 +99,71 @@ export default class DetailSelectorCtrl {
         });
     }
 
-    // 切换至查看视图
-    switchToCheckView = () => {
-        this.model = 'CHECK';
+
+    // 从搜索模式切换到查看已选模式
+    // 将最后一次之前的条件做有效性排查
+    // 最后一次不处理是因为组件需要保留最后一次的条件状态
+    fromQueryToCheck() {
+        const { conditions } = this.opts.GlobalConditionObj;
+        this.opts.GlobalConditionObj.conditions = conditions.filter((item, index) => {
+            if (index === !conditions.length - 1) {
+                return true;
+            }
+            const { search, result } = item;
+            if (!search.isAllSelected &&
+                !search.includes.length &&
+                !result.isAllSelected &&
+                !result.includes.length
+            ) {
+                return false;
+            }
+
+            return true;
+        });
     }
 
-    // 切换至查询视图
-    switchToQueryView = () => {
-        this.model = 'QUERY';
+
+    // 从查看已选模式切换到搜索模式
+    // 如果最后一次查看已选中的全选为非选中值，则之前的条件全部删除
+    fromCheckToQuery() {
+        const { conditions } = this.opts.GlobalConditionObj;
+        if (!conditions.length) return;
+
+        const lastCondition = conditions[conditions.length - 1];
+
+        if (!lastCondition.result.isAllSelected) {
+            lastCondition.search.isAllSelected = false;
+            conditions.splice(0, conditions.length - 1);
+
+
+            if (!lastCondition.result.includes.length) {
+                lastCondition.search.includes = [];
+                lastCondition.search.excludes = [];
+            } else {
+                lastCondition.search.includes = [...lastCondition.result.includes];
+                lastCondition.search.excludes = [];
+
+                lastCondition.result.isAllSelected = true;
+                lastCondition.result.includes.length = 0;
+            }
+        }
     }
+
+    // 组件模式（搜索/查看已选）切换
+    onModelChange() {
+        if (this.model === this.MODELS.QUERY) {
+            this.fromCheckToQueryCallback();
+            this.fromCheckToQuery();
+        } else {
+            this.fromQueryToCheck();
+        }
+    }
+
+    // 注册组件从查看已选模式到搜索模式的回调
+    registerFromCheckToQuery = (callback) => {
+        this.fromCheckToQueryCallback = callback;
+    }
+
 
     submit() {
         this.isSubmiting = false;

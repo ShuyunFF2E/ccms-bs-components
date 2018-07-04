@@ -37,10 +37,8 @@ export default class DetailSelectorResultViewCtrl {
             v.search.push(next.search);
             v.result.push(next.result);
             return v;
-        }, {
-            search: [],
-            result: []
-        });
+        }, { search: [], result: [] });
+
         fetchResult({
             ...this.params,
             ...params,

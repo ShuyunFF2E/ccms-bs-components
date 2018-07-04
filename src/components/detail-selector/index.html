@@ -3,7 +3,9 @@
         <bs-query-view
             opts="$ctrl.opts"
             config="$ctrl.config"
-            fetch="$ctrl.fetch">
+            fetch="$ctrl.fetch"
+            register-from-check-to-query="$ctrl.registerFromCheckToQuery"
+        >
         </bs-query-view>
 
         <bs-result-view
@@ -16,7 +18,12 @@
     <footer ng-class="$ctrl.styles.footer"
         ng-if="$ctrl.config.type==='multiple'"
     >
-        <cc-checkbox ng-model="$ctrl.model" ng-true-value="'CHECK'" ng-false-value="'QUERY'">
+        <cc-checkbox
+            ng-model="$ctrl.model"
+            ng-true-value="'CHECK'"
+            ng-false-value="'QUERY'"
+            ng-change="$ctrl.onModelChange()"
+        >
             <span>查看已选（{{$ctrl.opts.GlobalConditionObj.statistic}}）</span>
         </cc-checkbox>
     </footer>
