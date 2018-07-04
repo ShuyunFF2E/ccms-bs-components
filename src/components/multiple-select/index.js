@@ -5,21 +5,22 @@ import controller from './ctrl';
 import template from './index.html';
 
 const DDO = {
-  controller,
-  template,
-  // transclude: true,
-  bindings: {
-    ngModel: '<?',
-    ngDisabled: '<?',
-    width: '<?',
-    height: '<?'
-  },
-  require: {
-    ngModelController: '?ngModel'
-  }
+    controller,
+    template,
+    // transclude: true,
+    bindings: {
+        ngModel: '<?',
+        ngDisabled: '<?',
+        width: '<?',
+        minHeight: '<?',
+        maxHeight: '<?',
+    },
+    require: {
+        ngModelController: '?ngModel'
+    }
 };
 
 export default angular
-  .module('bs.components.multipleSelect', [])
-  .component('bsMultipleSelect', DDO)
-  .name;
+    .module('bs.components.multipleSelect', [])
+    .component('bsMultipleSelect', DDO)
+    .name;
