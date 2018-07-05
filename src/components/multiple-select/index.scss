@@ -1,75 +1,77 @@
 .multiple-select {
-  background: #fff;
-  border: 1px solid #d9d9d9;
-  width: 200px;
-  outline: none;
-  padding: 3px 4px;
-  box-sizing: border-box;
-  overflow: hidden;
-  cursor: pointer;
-  &:focus {
-    border-color: #aacbe1;
-  }
-  .container {
-    width: 100%;
-    overflow-y: scroll;
-  }
-  .wrap {
-    min-width: 100%;
-  }
-  .input {
-    display: inline-block;
-    vertical-align: middle;
-    border-color: transparent;
-    height: 22px;
-    line-height: 22px;
-    max-width: 100%;
-    padding: 0;
-    &:focus {
-      border-color: transparent;
-    }
-  }
-  .mirror-input {
-    opacity: 0;
-    position: absolute;
-  }
-  * {
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    width: 200px;
+    outline: none;
+    padding: 3px;
+    padding-bottom: 0;
     box-sizing: border-box;
-  }
+    overflow: hidden;
+    cursor: pointer;
+    &:focus {
+        border-color: #aacbe1;
+    }
+    .container {
+        width: 100%;
+        overflow-y: scroll;
+    }
+    .wrap {
+        min-width: 100%;
+    }
+    .input {
+        display: inline-block;
+        vertical-align: middle;
+        border-color: transparent;
+        height: 22px;
+        line-height: 22px;
+        max-width: 100%;
+        padding: 0;
+        &:focus {
+            border-color: transparent;
+        }
+    }
+    .mirror-input {
+        opacity: 0;
+        position: absolute;
+    }
+    * {
+        box-sizing: border-box;
+    }
 }
 
 .keyword {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: PingFang-SC-Bold;
-  background: #f1f1f1;
-  border: 1px solid #ddd;
-  border-radius: 2px;
-  padding: 4px 5px 3px;
-  min-width: 22px;
-  max-width: calc(100% - 3px);
-  color: #333;
-  vertical-align: middle;
-  display: inline-block;
-  margin-right: 3px;
-  cursor: pointer;
-  position: relative;
-  .content {
-    padding-right: 12px;
-  }
-  .btn-remove {
-    position: absolute;
-    right: 1px;
-    top: 1px;
-    color: #c4c4c4;
-    background: inherit;
-  }
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: PingFang-SC-Bold;
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 4px 5px 3px;
+    min-width: 22px;
+    max-width: calc(100% - 3px);
+    color: #333;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    position: relative;
+    .content {
+        padding-right: 12px;
+    }
+    .btn-remove {
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        color: #c4c4c4;
+        background: inherit;
+    }
 }
 
 .vir-container {
-  position: fixed;
-  left: -1000000px;
-  top: -10000000px;
-  white-space: nowrap;
+    position: fixed;
+    left: -1000000px;
+    top: -10000000px;
+    white-space: nowrap;
 }
