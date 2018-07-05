@@ -55,6 +55,7 @@ export default class MultipleSelectCtrl {
             event.preventDefault();
             this.inputWidth = 10;
             this.pushKeyword();
+            //  this.$input.scrollIntoView(false);
         } else if (event.code === 'Backspace' && !event.target.value) {
             this.ngModel.pop();
             this.updateNgModel();
