@@ -116,7 +116,6 @@ export default class MultipleSelectCtrl {
 
         const keyword = this.keyword.trim();
         if (!keyword || this.ngModel.includes(keyword)) {
-            this.$input.value = '';
             return;
         }
 
