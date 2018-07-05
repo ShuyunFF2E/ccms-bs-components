@@ -26,7 +26,6 @@ export default class MultipleSelectCtrl {
 
     $onInit() {
         document.addEventListener('click', this.click, true);
-
         setTimeout(() => {
             this.containerWidth = this.$container.getBoundingClientRect().width;
             this.$input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
@@ -76,7 +75,10 @@ export default class MultipleSelectCtrl {
         if (this.lock) return;
 
         const keyword = this.keyword.trim();
-        if (!keyword || this.ngModel.includes(keyword)) return;
+        if (!keyword || this.ngModel.includes(keyword)) {
+            this.$input.value = '';
+            return;
+        }
 
         this.ngModel.push(keyword);
         this.updateNgModel();
