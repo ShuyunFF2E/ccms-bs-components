@@ -21,6 +21,7 @@ const DefaultConfig = {
     type: 'multiple', // 选择框类型
     fetch: noop, // 接口请求函数
     fetchResult: noop, // 查看已选数据
+    commit: noop, // 提交本次搜索，生成快照ID
     // 条件模式[BASE:简单查找,ADVANCE:高级查找]
     searchModel: 'BASE'
 };

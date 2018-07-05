@@ -99,6 +99,7 @@ const HOSTS = {
                             fetchResult(params) {
                                 return resultResource.post({
                                     id: $scope.ID,
+                                    snapshotId: 4,
                                     offset: (params.page - 1) * params.size,
                                     limit: params.size,
                                     searchCondition: params.searchCondition.map(parseSearchCondition),
@@ -117,6 +118,13 @@ const HOSTS = {
                                     id: $scope.ID,
                                     searchCondition: params.searchCondition.map(parseSearchCondition),
                                     additionCondition: params.additionCondition.map(parseAddtionCondition)
+                                }).$promise.then(res => {
+                                    return {
+                                        data: res.data,
+                                        total: res.total
+                                    }
+                                }).catch(err => {
+                                    throw new Error(err.data.message);
                                 });
                             }
                         }

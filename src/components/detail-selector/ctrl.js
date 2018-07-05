@@ -175,7 +175,7 @@ export default class DetailSelectorCtrl {
             search: [],
             result: []
         });
-        this.config.submit({
+        return this.config.submit({
             searchCondition: conditionObj.search,
             additionCondition: conditionObj.result
         }).then(res => {
