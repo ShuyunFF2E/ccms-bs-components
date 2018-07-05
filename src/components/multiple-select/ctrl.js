@@ -1,9 +1,10 @@
 import classes from './index.scss';
-import {
-    Inject
-} from 'angular-es-utils';
+import { Inject } from 'angular-es-utils';
 
-@Inject('$element')
+
+const MinInputWidth = 30;
+
+@Inject('$element', '$timeout')
 export default class MultipleSelectCtrl {
     classes = classes;
 
@@ -12,36 +13,64 @@ export default class MultipleSelectCtrl {
         this.keyword = '';
         this.containerWidth;
         this.inputWidth;
-        this.minHeight = 50;
-        this.maxHeight = 100;
-        this.width = 200;
-    }
-
-    get $input() {
-        return this._$element[0].querySelector('.' + classes.input);
-    }
-    get $container() {
-        return this._$element[0].querySelector('.' + classes.container);
+        this.minHeight = 100;
+        this.maxHeight = 400;
     }
 
     $onInit() {
         document.addEventListener('click', this.click, true);
-        setTimeout(() => {
-            this.containerWidth = this.$container.getBoundingClientRect().width;
-            this.$input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
-            this.$input.addEventListener('compositionend', this.onCompositionEnd.bind(this), true);
-        }, 50);
+
+        this.getComponentElement(classes.container).then($container => {
+            this.$container = $container;
+            this.containerWidth = $container.getBoundingClientRect().width;
+        });
+
+        this.getComponentElement(classes.input).then($input => {
+            this.$input = $input;
+            $input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
+            $input.addEventListener('compositionupdate', this.onCompositionUpdate.bind(this), true);
+            $input.addEventListener('compositionend', this.onCompositionEnd.bind(this), true);
+        });
+
+        this.getComponentElement(classes.mirrorInput).then($mirrorInput => {
+            this.$mirrorInput = $mirrorInput;
+        });
     }
 
     $onDestroy() {
-        document.removeEventListener('click', this.blur, true);
+        document.removeEventListener('click', this.click, true);
+        this.$input.removeEventListener('compositionstart');
+        this.$input.removeEventListener('compositionend');
+    }
+
+    getElement(className) {
+        return this._$element[0].querySelector('.' + className);
+    }
+
+    getComponentElement(className) {
+        return new Promise((resolve) => {
+            const task = () => {
+                const element = this.getElement(className);
+                if (element) {
+                    resolve(element);
+                } else {
+                    setTimeout(task, 50);
+                }
+            };
+            task();
+        });
+    }
+
+    setInputFocus() {
+        this.getComponentElement(classes.input).then($input => {
+            $input.focus();
+        });
     }
 
     click = evt => {
         const targetClassList = [...evt.target.classList];
         if (!this._$element[0].contains(evt.target)) {
             this.pushKeyword();
-            this.$container.scrollLeft = 0;
         } else if (!targetClassList.includes(classes.btnRemove) &&
             !targetClassList.includes(classes.input)) {
             this.$input.focus();
@@ -53,7 +82,7 @@ export default class MultipleSelectCtrl {
         this.calculateInputWidth();
         if (event.code === 'Enter' || event.keyCode === 13) {
             event.preventDefault();
-            this.inputWidth = 10;
+            this.inputWidth = MinInputWidth;
             this.pushKeyword();
             //  this.$input.scrollIntoView(false);
         } else if (event.code === 'Backspace' && !event.target.value) {
@@ -67,9 +96,19 @@ export default class MultipleSelectCtrl {
         this.lock = true;
     }
 
+    // 中文输入法开始
+    onCompositionUpdate() {
+        this._$timeout(() => {
+            this.calculateInputWidth();
+        }, 50);
+    }
+
     // 中文输入法结束
     onCompositionEnd() {
         this.lock = false;
+        this._$timeout(() => {
+            this.calculateInputWidth();
+        }, 50);
     }
 
     pushKeyword() {
@@ -99,9 +138,10 @@ export default class MultipleSelectCtrl {
 
     // 计算INPUT元素的宽度,动态的等于当前输入的input value 的宽度
     calculateInputWidth() {
-        const mirror = document.getElementById('mirrorInput');
+        const mirror = this.$mirrorInput;
         mirror.innerText = this.$input.value;
         const width = Math.ceil(mirror.getBoundingClientRect().width);
-        this.inputWidth = width + 10;
+        this.inputWidth = Math.max(MinInputWidth, width + 20);
     }
+
 }

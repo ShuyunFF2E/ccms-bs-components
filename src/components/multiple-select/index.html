@@ -1,11 +1,34 @@
-<div ng-class="$ctrl.classes.multipleSelect" ng-style="{width:$ctrl.width+'px'}">
-    <div ng-class="$ctrl.classes.container" ng-style="{minHeight:$ctrl.minHeight + 'px',maxHeight:$ctrl.maxHeight + 'px'}">
-        <div ng-class="$ctrl.classes.keyword" ng-repeat="keyword in $ctrl.ngModel">
-            <span ng-bind="keyword" ng-class="$ctrl.classes.content"></span>
-            <span ng-class="$ctrl.classes.btnRemove" class="iconfont icon-clear" ng-click="$ctrl.remove($event,keyword)"></span>
+<div cc-dropdown on-dropdown-open="$ctrl.setInputFocus()" ng-class="$ctrl.classes.vcontainer">
+    <div cc-dropdown-toggle ng-class="$ctrl.classes.keywords">
+        <div ng-class="$ctrl.classes.wrap">
+            <div ng-class="$ctrl.classes.item" ng-repeat="keyword in $ctrl.ngModel">{{keyword}}</div>
         </div>
-        <span id="mirrorInput" ng-class="$ctrl.classes.mirrorInput"></span>
-        <input ng-if="!$ctrl.ngDisabled" type="text" ng-class="$ctrl.classes.input" ng-style="{width:$ctrl.inputWidth+'px'}" ng-model="$ctrl.keyword"
-            ng-keydown="$ctrl.keydown($event)" />
+    </div>
+
+    <div ng-class="$ctrl.classes.dropdownPanel" cc-dropdown-panel>
+        <div ng-class="$ctrl.classes.multipleSelect">
+            <div
+                ng-class="$ctrl.classes.container"
+                ng-style="{
+                    minHeight:$ctrl.minHeight + 'px',
+                    maxHeight:$ctrl.maxHeight + 'px'
+                }"
+            >
+                <div ng-class="$ctrl.classes.keyword" ng-repeat="keyword in $ctrl.ngModel">
+                    <span ng-bind="keyword" ng-class="$ctrl.classes.content"></span>
+                    <span ng-class="$ctrl.classes.btnRemove" class="iconfont icon-clear" ng-click="$ctrl.remove($event,keyword)"></span>
+                </div>
+                <span ng-class="$ctrl.classes.mirrorInput"></span>
+                <input
+                    ng-if="!$ctrl.ngDisabled"
+                    type="text"
+                    autofocus
+                    ng-class="$ctrl.classes.input"
+                    ng-style="{width:$ctrl.inputWidth+'px'}"
+                    ng-model="$ctrl.keyword"
+                    ng-keydown="$ctrl.keydown($event)"
+                />
+            </div>
+        </div>
     </div>
 </div>

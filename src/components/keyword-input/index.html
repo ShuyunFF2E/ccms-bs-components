@@ -1,16 +1,9 @@
-<div ng-class="$ctrl.classes.keywordInput" ng-style="{width:$ctrl.width+'px'}">
-	<div ng-class="$ctrl.classes.container">
-		<div ng-class="$ctrl.classes.wrap" ng-style="{width: $ctrl.wrapWidth + 'px'}">
-			<div ng-class="$ctrl.classes.keyword" ng-repeat="keyword in $ctrl.ngModel">
-				<span ng-bind="keyword"></span>
-				<span ng-class="$ctrl.classes.btnRemove" class="iconfont icon-clear" ng-click="$ctrl.remove($event,keyword)"></span>
-			</div>
-			<input ng-if="!$ctrl.ngDisabled" type="text"
-				ng-class="$ctrl.classes.input"
-				ng-style="{width:$ctrl.inputWidth+'px'}"
-				ng-model="$ctrl.keyword"
-				ng-keydown="$ctrl.keydown($event)"
-			/>
-		</div>
-	</div>
+<div cc-dropdown ng-class="$ctrl.classes.container">
+    <div cc-dropdown-toggle ng-class="$ctrl.classes.keywords">
+        <div ng-class="$ctrl.classes.item" ng-repeat="keyword in $ctrl.ngModel"></div>
+    </div>
+
+    <div ng-class="$ctrl.classes.dropdownPanel" cc-dropdown-panel>
+        <bs-multiple-select ng-model="$ctrl.ngModel"></bs-multiple-select>
+    </div>
 </div>
