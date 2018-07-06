@@ -27,9 +27,9 @@ export default class MultipleSelectCtrl {
 
         this.getComponentElement(classes.input).then($input => {
             this.$input = $input;
-            $input.addEventListener('compositionstart', this.onCompositionStart.bind(this), true);
-            $input.addEventListener('compositionupdate', this.onCompositionUpdate.bind(this), true);
-            $input.addEventListener('compositionend', this.onCompositionEnd.bind(this), true);
+            $input.addEventListener('compositionstart', this.onCompositionStart, true);
+            $input.addEventListener('compositionupdate', this.onCompositionUpdate, true);
+            $input.addEventListener('compositionend', this.onCompositionEnd, true);
         });
 
         this.getComponentElement(classes.mirrorInput).then($mirrorInput => {
@@ -39,8 +39,9 @@ export default class MultipleSelectCtrl {
 
     $onDestroy() {
         document.removeEventListener('click', this.click, true);
-        this.$input.removeEventListener('compositionstart');
-        this.$input.removeEventListener('compositionend');
+        this.$input.removeEventListener('compositionstart', this.onCompositionStart);
+        this.$input.removeEventListener('compositionupdate', this.onCompositionUpdate);
+        this.$input.removeEventListener('compositionend', this.onCompositionEnd);
     }
 
     getElement(className) {
@@ -92,19 +93,19 @@ export default class MultipleSelectCtrl {
     }
 
     // 中文输入法开始
-    onCompositionStart() {
+    onCompositionStart = () => {
         this.lock = true;
     }
 
     // 中文输入法开始
-    onCompositionUpdate() {
+    onCompositionUpdate = () => {
         this._$timeout(() => {
             this.calculateInputWidth();
         }, 50);
     }
 
     // 中文输入法结束
-    onCompositionEnd() {
+    onCompositionEnd = () => {
         this.lock = false;
         this._$timeout(() => {
             this.calculateInputWidth();

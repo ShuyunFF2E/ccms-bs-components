@@ -9,7 +9,6 @@ import conditionSelector from './components/condition-selector';
 import searchInput from './components/search-input';
 import keywordInput from './components/keyword-input';
 import dropdownSearch from './components/dropdown-search';
-import numberInput from './components/number-input';
 import numberRange from './components/number-range';
 import dateRange from './components/date/date-range';
 import MonthDate from './components/date/month-date';
@@ -32,8 +31,7 @@ const bsComponents = angular.module('ccms.bs.components', [
     MonthDate,
     time,
     DTime,
-    multipleSelect,
-    numberInput
+    multipleSelect
 ]);
 
 bsComponents.version = version;
