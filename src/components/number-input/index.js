@@ -12,6 +12,7 @@ const DDO = {
         ngModel: '<?',
         ngDisabled: '<?',
         decimalPlaces: '<?', // 小数位
+        allowNegative: '<?', // 是否允许负数
         placeholder: '<?',
         classes: '<?'
     },
