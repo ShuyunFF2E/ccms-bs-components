@@ -1,5 +1,5 @@
 import { isBoolean } from '@/utils';
-import dateFormat from 'common-javascript-utils/src/date';
+// import dateFormat from 'common-javascript-utils/src/date';
 
 export default class BaseGridCtrl {
     gridWidth = 920;
