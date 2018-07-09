@@ -100,7 +100,6 @@ const HOSTS = {
                             fetchResult(params) {
                                 return resultResource.post({
                                     id: $scope.ID,
-                                    snapshotId: 4,
                                     offset: (params.page - 1) * params.size,
                                     limit: params.size,
                                     searchCondition: params.searchCondition.map(parseSearchCondition),
