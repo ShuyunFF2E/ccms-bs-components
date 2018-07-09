@@ -83,7 +83,13 @@ export default class ConditionItem {
     onInputKeydown(evt) {
         const keyCode = evt.keyCode || evt.which;
 
-        if ((!evt.ctrlKey && !evt.metaKey) && [8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 173, 190].indexOf(keyCode) === -1) {
+        if ((!evt.ctrlKey && !evt.metaKey) && [
+                8, // 退格键(Backspace)
+                48, 49, 50, 51, 52, 53, 54, 55, 56, 57, // 0-9
+                96, 97, 98, 99, 100, 101, 102, 103, 104, 105, // 笔记本数字键盘
+                189, 109, // 减号
+                190, 110 // 点号
+            ].indexOf(keyCode) === -1) {
             evt.preventDefault();
         }
     }
