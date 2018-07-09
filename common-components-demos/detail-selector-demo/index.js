@@ -1,7 +1,7 @@
 function genCondition(c) {
     return {
         ...c,
-        name: c.displayName,
+        name: c.displayName || c.columnName,
         code: c.columnName,
         tooltip: c.helpText,
         dataType: c.typeName,
@@ -14,7 +14,7 @@ function genColumns(c, fields = []) {
     return {
         ...field,
         ...c,
-        name: field.displayName,
+        name: field.displayName || c.columnName,
         code: c.columnName,
         tooltip: c.helpText,
         dataType: field.typeName
@@ -79,6 +79,7 @@ const HOSTS = {
                         uid: $scope.ID,
                         title: config.displayName,
                         config: {
+                            advanceSearchAble: config.isAdvancedConfig,
                             description: config.helpText,
                             conditions: config.commonConditionConfig.map(genCondition),
                             extendConditions: config.moreConditionConfig.map(genCondition),
