@@ -7,7 +7,11 @@
 
 	<div ng-class="$ctrl.styles.toolbar">
 
-		<button ng-class="$ctrl.styles.btnLinkText" ng-click="$ctrl.config.searchModel='ADVANCE'">高级搜索</button>
+        <button
+            ng-if="$ctrl.config.advanceSearchAble"
+            ng-class="$ctrl.styles.btnLinkText"
+            ng-click="$ctrl.config.searchModel='ADVANCE'"
+        >高级搜索</button>
 
 		<cc-dropdown ng-show="$ctrl.config.extendConditions.length>0" ng-class="$ctrl.styles.extendConditionSetter" class="dropdown-closed">
 			<button cc-dropdown-toggle>

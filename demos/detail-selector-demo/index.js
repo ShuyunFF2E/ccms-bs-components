@@ -79,6 +79,7 @@ const HOSTS = {
                         uid: $scope.ID,
                         title: config.displayName,
                         config: {
+                            advanceSearchAble: config.isAdvancedConfig,
                             description: config.helpText,
                             conditions: config.commonConditionConfig.map(genCondition),
                             extendConditions: config.moreConditionConfig.map(genCondition),
