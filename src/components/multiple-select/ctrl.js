@@ -4,7 +4,7 @@ import { Inject } from 'angular-es-utils';
 
 const MinInputWidth = 30;
 
-@Inject('$element', '$timeout')
+@Inject('$element', '$timeout', '$ccTips')
 export default class MultipleSelectCtrl {
     classes = classes;
 
@@ -15,6 +15,9 @@ export default class MultipleSelectCtrl {
         this.inputWidth;
         this.minHeight = 100;
         this.maxHeight = 400;
+
+        // 单关键字最大长度
+        this.maxKeywordLength = 20;
     }
 
     $onInit() {
@@ -115,12 +118,24 @@ export default class MultipleSelectCtrl {
     pushKeyword() {
         if (this.lock) return;
 
-        const keyword = this.keyword.trim();
-        if (!keyword || this.ngModel.includes(keyword)) {
-            return;
+        if (!this.keyword.trim().length) return;
+
+        const keywords = this.keyword.split(';');
+
+        if (this.maxKeywordLength && keywords.filter(item => item.trim().length > this.maxKeywordLength).length > 0) {
+            return this._$ccTips.error(`单个关键字长度不能超过${this.maxKeywordLength}个字符`, {
+                duration: 3000,
+                container: this._$element.parent('.modal-body')[0]
+            });
         }
 
-        this.ngModel.push(keyword);
+        keywords.forEach(keyword => {
+            keyword = keyword.trim();
+            if (keyword && !this.ngModel.includes(keyword)) {
+                this.ngModel.push(keyword);
+            }
+        });
+
         this.updateNgModel();
         this.keyword = '';
     }
