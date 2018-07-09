@@ -46,10 +46,10 @@ export default class NumberRangeCtrl {
     onInputKeydown(evt) {
         const keyCode = evt.keyCode || evt.which;
 
-        // e
-        if (keyCode === 69) {
+        if ((!evt.ctrlKey && !evt.metaKey) && [8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 173, 190].indexOf(keyCode) === -1) {
             evt.preventDefault();
         }
+
     }
 
 }
