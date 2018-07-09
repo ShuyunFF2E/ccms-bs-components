@@ -1,6 +1,6 @@
 <div ng-class="$ctrl.styles.container">
     <div ng-class="$ctrl.styles.and">AND</div>
-    <form ng-class="$ctrl.styles.condition"
+    <div ng-class="$ctrl.styles.condition"
         name="form"
         cc-validators="$ctrl.validators"
     >
@@ -37,8 +37,8 @@
                         required
                     />
                     <bs-keyword-input ng-if="$ctrl.condition.operator!=='等于'&&$ctrl.condition.operator!=='不等于'"
-                        width="440"
                         ng-model="$ctrl.condition.value"
+                        style="display: block;width: 440px;"
                     ></bs-keyword-input>
                 </div>
 
@@ -87,7 +87,7 @@
                 <div ng-switch-default ng-class="$ctrl.styles.error">未知的字段类型{{$ctrl.condition.dataType}}</div>
             </form>
         </div>
-    </form>
+    </div>
     <div ng-class="$ctrl.styles.controls">
         <button ng-class="$ctrl.styles.btnIcon" ng-click="$ctrl.remove($ctrl.condition)" title="删除该条件">
             <span class="iconfont icon-jian"></span>
