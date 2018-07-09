@@ -183,16 +183,18 @@ export default class DetailSelectorCtrl {
             return res;
         }).catch(err => {
             this.isSubmiting = false;
-            this._$ccTips.error(err.message, {
-                duration: 3000,
-                container: this._$element[0].querySelector('.' + styles.container)
-            });
+            throw err;
         });
     }
 
     ok() {
         this.submit().then(res => {
             this._modalInstance.ok(res);
+        }).catch(err => {
+            this._$ccTips.error(err.message, {
+                duration: 3000,
+                container: this._$element[0].querySelector('.' + styles.container)
+            });
         });
     }
 }
