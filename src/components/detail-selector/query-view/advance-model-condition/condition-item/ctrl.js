@@ -73,6 +73,21 @@ export default class ConditionItem {
     genOperators(dataType) {
         this.operators = Operators[dataType] || [];
     }
+
+    onValueChange() {
+        if (isNumber(this.condition.value)) {
+            this.condition.value = Number(this.condition.value.toFixed(2));
+        }
+    }
+
+    onInputKeydown(evt) {
+        const keyCode = evt.keyCode || evt.which;
+
+        // e
+        if (keyCode === 69) {
+            evt.preventDefault();
+        }
+    }
 }
 
 // 根据条件类型和操作符生成默认值
@@ -93,4 +108,8 @@ function genDefaultConditionValue(dataType, operator) {
         return [];
     }
     return undefined;
+}
+
+function isNumber(v) {
+    return Object.prototype.toString.call(v) === '[object Number]' && !Number.isNaN(v);
 }

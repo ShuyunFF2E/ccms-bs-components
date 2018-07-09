@@ -56,6 +56,8 @@
                         placeholder="值"
                         cc-validator
                         required
+                        ng-keydown="$ctrl.onInputKeydown($event)"
+                        ng-change="$ctrl.onValueChange($event)"
                     />
                     <bs-number-range
                         ng-if="$ctrl.condition.operator==='介于'"
