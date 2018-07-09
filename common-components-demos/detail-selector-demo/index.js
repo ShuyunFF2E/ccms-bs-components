@@ -29,7 +29,7 @@ const HOSTS = {
 (function(angular) {
     angular
         .module('app', ['ccms.bs.components'])
-        .controller('ctrl', function($scope, $bsDetailSelector, $ccTips, $resource) {
+        .controller('ctrl', function($scope, $bsDetailSelector, $resource) {
             const params = window.Qs.parse(window.location.search.replace('?', ''));
 
             $scope.ID = params.ID || '';
@@ -114,11 +114,12 @@ const HOSTS = {
                                 });
                             },
                             submit(params) {
-                                return submitResource.post({
-                                    id: $scope.ID,
-                                    searchCondition: params.searchCondition.map(parseSearchCondition),
-                                    additionCondition: params.additionCondition.map(parseAddtionCondition)
-                                });
+                                return Promise.reject({ message: '查看模式不能提交查询结果' });
+                                // return submitResource.post({
+                                //     id: $scope.ID,
+                                //     searchCondition: params.searchCondition.map(parseSearchCondition),
+                                //     additionCondition: params.additionCondition.map(parseAddtionCondition)
+                                // });
                             }
                         }
                     });
