@@ -193,7 +193,7 @@ export default class DetailSelectorCtrl {
         }).catch(err => {
             this._$ccTips.error(err.message, {
                 duration: 3000,
-                container: this._$element[0].querySelector('.' + styles.container)
+                container: this._$element[0].querySelector('.modal-body')
             });
         });
     }
