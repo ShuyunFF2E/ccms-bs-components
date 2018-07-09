@@ -39,6 +39,9 @@ export default class AdvanceModelConditionBox {
     removeGroup = (group) => {
         const index = this.conditionData.groups.indexOf(group);
         ~index && this.conditionData.groups.splice(index, 1);
+        if (this.conditionData.groups.length === 0) {
+            this.addGroup();
+        }
     }
 
     addGroup = () => {
