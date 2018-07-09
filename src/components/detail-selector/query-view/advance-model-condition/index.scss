@@ -1,106 +1,105 @@
 .container {
-	height: 100%;
+    height: 100%;
 }
 
 .condition-box {
-	margin: 10px 0;
-	transition: height 0.3s linear;
-	.head {
-		margin-bottom: 15px;
-		:global(cc-dropdown-select) {
-			width: 80px;
-		}
-	}
+    margin: 10px 0;
+    transition: height 0.3s linear;
+    .head {
+        margin-bottom: 15px;
+        :global(cc-dropdown-select) {
+            width: 80px;
+        }
+    }
 }
 
 .middle {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 .groups {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .btn-link-text {
-	border: none;
-	outline: none;
-	background: transparent;
-	color: #0083ba;
-	padding: 0;
-	min-width: unset;
-	&:hover {
-		color: #43c0f4;
-		background: transparent;
-	}
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #0083ba;
+    padding: 0;
+    min-width: unset;
+    &:hover {
+        color: #43c0f4;
+        background: transparent;
+    }
 }
 
 .btn-text {
-	border: none;
-	min-width: unset;
-	background-color: transparent;
-	padding: 0;
-	margin: 0 0.5em;
-	&:hover {
-		background-color: transparent;
-	}
+    border: none;
+    min-width: unset;
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0.5em;
+    &:hover {
+        background-color: transparent;
+    }
 }
 
 .or {
-	text-align: center;
-	margin: 8px 0;
-	color: #999;
+    text-align: center;
+    margin: 8px 0;
+    color: #999;
 }
 
 .toolbar {
-	position: relative;
-	margin: 0 -20px;
-	padding: 8px 20px;
-	text-align: right;
-	border-top: 1px solid #e8e8e8;
-	border-bottom: 1px solid #e8e8e8;
-	.btn-link-text {
-		position: absolute;
-		left: 20px;
-		top: 10px;
-	}
-	.extend-condition-setter {
-		text-align: left;
-		position: relative;
-		width: 75px;
-		overflow: visible;
-		display: inline-block;
-		:global([cc-dropdown-toggle]) {
-			padding-top: 7px;
-			padding-bottom: 6px;
-			height: unset;
-			width: 70px;
-		}
-		.icon-arrow {
-			font-size: 12px;
-		}
-		:global(.dropdown-panel) {
-			position: absolute;
-			z-index: 10;
-			top: 32px;
-			left: 1px;
-			width: 150px;
-			padding: 5px 0;
-			border-radius: 2px;
-			box-shadow: 0px 0px 2px #aaa;
-			background-color: #fff;
-		}
-		.cc-checkbox-label {
-			width: 100px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-		:global(.iconfont) {
-			font-size: 12px;
-		}
-	}
-	.btn-search {
-		min-width: 65px;
-		height: 28px;
-		margin: 0 0.5em;
-	}
+    position: relative;
+    padding: 8px 0;
+    text-align: right;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    .btn-link-text {
+        position: absolute;
+        left: 0;
+        top: 10px;
+    }
+    .extend-condition-setter {
+        text-align: left;
+        position: relative;
+        width: 75px;
+        overflow: visible;
+        display: inline-block;
+        :global([cc-dropdown-toggle]) {
+            padding-top: 7px;
+            padding-bottom: 6px;
+            height: unset;
+            width: 70px;
+        }
+        .icon-arrow {
+            font-size: 12px;
+        }
+        :global(.dropdown-panel) {
+            position: absolute;
+            z-index: 10;
+            top: 32px;
+            left: 1px;
+            width: 150px;
+            padding: 5px 0;
+            border-radius: 2px;
+            box-shadow: 0px 0px 2px #aaa;
+            background-color: #fff;
+        }
+        .cc-checkbox-label {
+            width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        :global(.iconfont) {
+            font-size: 12px;
+        }
+    }
+    .btn-search {
+        min-width: 65px;
+        height: 28px;
+        margin: 0 0.5em;
+    }
 }
