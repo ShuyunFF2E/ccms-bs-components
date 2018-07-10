@@ -111,9 +111,11 @@ export default class AdvanceModelConditionBox {
 
     reset() {
         this.conditionData.isMeet = true;
-        this.conditionData.groups = [
-            [{}]
-        ];
+        this.conditionData.groups.forEach(group => {
+            group.forEach(item => {
+                Object.keys(item).forEach(key => delete item[key]);
+            });
+        });
     }
 
     validate() {
