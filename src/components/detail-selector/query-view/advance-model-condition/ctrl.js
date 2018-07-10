@@ -83,9 +83,9 @@ export default class AdvanceModelConditionBox {
 
     addGroup = () => {
         this.conditionData.groups.push([{}]);
-        setTimeout(() => {
-            this._$element[0].querySelector('.' + styles.groups).children[this.conditionData.groups.length - 1].scrollIntoView();
-        }, 50);
+        // setTimeout(() => {
+        //     this._$element[0].querySelector('.' + styles.groups).children[this.conditionData.groups.length - 1].scrollIntoView();
+        // }, 50);
     }
 
     switchConditionBox() {
