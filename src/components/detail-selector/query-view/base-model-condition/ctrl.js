@@ -1,7 +1,7 @@
 import styles from './index.scss';
-import DateValidation from '@/utils/date';
 import dateFormat from 'common-javascript-utils/src/date';
 import { Inject } from 'angular-es-utils';
+import { getMDRange, getDhmsRange, getHmsRange } from '@/components/detail-selector/utils';
 
 
 const DateFormatMapping = {
@@ -173,41 +173,4 @@ function getFormDataType(dataType, format) {
     }
 
     return format;
-}
-
-
-function genNumberText(num) {
-    return num < 10 ? `0${num}` : `${num}`;
-}
-
-function getHmsText(time) {
-    return `${genNumberText(time.h)}:${genNumberText(time.m)}:${genNumberText(time.s)}`;
-}
-
-function getDhmsText(time) {
-    return `${genNumberText(time.D)} ${getHmsText(time)}`;
-}
-
-function getMDRange(value) {
-    const ostart = value.start;
-    const oend = value.end;
-    const start = ostart && DateValidation.MD(ostart) ? `${genNumberText(ostart.M)}-${genNumberText(ostart.D)}` : null;
-    const end = oend && DateValidation.MD(oend) ? `${genNumberText(oend.M)}-${genNumberText(oend.D)}` : null;
-    return { start, end };
-}
-
-function getDhmsRange(value) {
-    const ostart = value.start;
-    const oend = value.end;
-    const start = ostart && DateValidation.Dhms(ostart) ? getDhmsText(ostart) : null;
-    const end = oend && DateValidation.Dhms(oend) ? getDhmsText(oend) : null;
-    return { start, end };
-}
-
-function getHmsRange(value) {
-    const ostart = value.start;
-    const oend = value.end;
-    const start = ostart && DateValidation.hms(ostart) ? getHmsText(ostart) : null;
-    const end = oend && DateValidation.hms(oend) ? getHmsText(oend) : null;
-    return { start, end };
 }

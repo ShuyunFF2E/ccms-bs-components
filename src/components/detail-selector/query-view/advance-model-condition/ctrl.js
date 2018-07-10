@@ -2,6 +2,7 @@ import styles from './index.scss';
 import { Inject } from 'angular-es-utils';
 import { isNumber, isBoolean, isDate } from '@/utils/index';
 import dateFormat from 'common-javascript-utils/src/date';
+import { getMDRange, getDhmsRange, getHmsRange } from '@/components/detail-selector/utils';
 
 
 const DateFormatMapping = {
@@ -115,38 +116,19 @@ export default class AdvanceModelConditionBox {
 
     validate() {
         const groups = this.conditionData.groups;
+
+        // 如果为默认的空条件
+        if (groups.length === 1 && groups[0].length === 1 && !groups[0][0].code) {
+            return { result: true, isDefault: true };
+        }
+
         for (let i = 0, len1 = groups.length; i < len1; i++) {
             const group = groups[i];
             for (let j = 0, len2 = group.length; j < len2; j++) {
                 const condition = group[j];
-                if (!condition.code) {
-                    return { result: false, message: '请选择字段' };
-                }
-                if (condition.dataType === 'text') {
-                    if (!condition.value) {
-                        return { result: false, message: `请填写 ${condition.name} 的值` };
-                    }
-                }
-                if (condition.dataType === 'boolean' || condition.dataType === 'enum' || condition.dataType === 'dict') {
-                    if (!condition.value) {
-                        return { result: false, message: `请选择 ${condition.name} 的值` };
-                    }
-                }
-                if (condition.dataType === 'date') {
-                    if (!condition.value.start && !condition.value.end) {
-                        return { result: false, message: `请选择 ${condition.name} 的值` };
-                    }
-                }
-                if (condition.dataType === 'number') {
-                    if (condition.operator === '介于') {
-                        if (!isNumber(condition.value.min) || !isNumber(condition.value.max)) {
-                            return { result: false, message: `请填写 ${condition.name} 的值` };
-                        }
-                    } else {
-                        if (!isNumber(condition.value)) {
-                            return { result: false, message: `请填写 ${condition.name} 的值` };
-                        }
-                    }
+                const validation = validateConditionData(condition);
+                if (!validation.result) {
+                    return validation;
                 }
             }
         }
@@ -159,35 +141,7 @@ export default class AdvanceModelConditionBox {
         this.conditionData.groups.forEach(group => {
             const sub = [];
             group.forEach(item => {
-                const condition = { column: item.code, operator: item.operator };
-                if (item.dataType === 'text') {
-                    condition.type = 'INPUT';
-                    condition.value = item.value;
-                } else if (item.dataType === 'boolean') {
-                    condition.type = 'Boolean';
-                    condition.value = item.value === 'true';
-                } else if (item.dataType === 'enum') {
-                    condition.type = 'Enum';
-                    condition.value = item.value;
-                } else if (item.dataType === 'dict') {
-                    condition.type = 'Dict';
-                    condition.value = item.value;
-                } else if (item.dataType === 'number') {
-                    condition.type = 'Number';
-                    if (item.operator === '介于') {
-                        const min = isNumber(item.value.min) ? item.value.min : null;
-                        const max = isNumber(item.value.max) ? item.value.max : null;
-                        condition.value = [min, max];
-                    } else {
-                        condition.value = item.value;
-                    }
-                } else if (item.dataType === 'date') {
-                    condition.type = 'YMDhms';
-                    const start = item.value.start ? dateFormat(item.value.start, DateFormatMapping[condition.type]) : null;
-                    const end = item.value.end ? dateFormat(item.value.end, DateFormatMapping[condition.type]) : null;
-                    condition.value = [start, end];
-                }
-
+                const condition = genSearchCondition(item);
                 sub.push(condition);
             });
             conditions.push(sub);
@@ -202,7 +156,7 @@ export default class AdvanceModelConditionBox {
             return;
         }
 
-        const conditions = this.parseConditions();
+        const conditions = validation.isDefault ? [] : this.parseConditions();
 
         this.fetch({
             page: 1,
@@ -328,4 +282,126 @@ function addDateCondition(group, condition) {
             });
         }
     }
+}
+
+// 生成查询条件
+function genSearchCondition(item) {
+    const condition = { column: item.code, operator: item.operator };
+    if (item.dataType === 'text') {
+        condition.type = 'INPUT';
+        condition.value = item.value;
+    } else if (item.dataType === 'boolean') {
+        condition.type = 'Boolean';
+        condition.value = item.value === 'true';
+    } else if (item.dataType === 'enum') {
+        condition.type = 'Enum';
+        condition.value = item.value;
+    } else if (item.dataType === 'dict') {
+        condition.type = 'Dict';
+        condition.value = item.value;
+    } else if (item.dataType === 'number') {
+        condition.type = 'Number';
+        if (item.operator === '介于') {
+            const min = isNumber(item.value.min) ? item.value.min : null;
+            const max = isNumber(item.value.max) ? item.value.max : null;
+            condition.value = [min, max];
+        } else {
+            condition.value = item.value;
+        }
+    } else if (item.dataType === 'date') {
+        const format = item.format;
+        condition.type = format;
+        if (format === 'YMDhms' || format === 'YMD') {
+            const start = item.value.start ? dateFormat(item.value.start, DateFormatMapping[format]) : null;
+            const end = item.value.end ? dateFormat(item.value.end, DateFormatMapping[format]) : null;
+            condition.value = [start, end];
+        } else if (format === 'MD') {
+            const range = getMDRange(item.value);
+            if (range.start || range.end) {
+                condition.value = [range.start, range.end];
+            }
+        } else if (format === 'Dhms') {
+            const range = getDhmsRange(item.value);
+            if (range.start || range.end) {
+                condition.value = [range.start, range.end];
+            }
+        } else if (format === 'hms') {
+            const range = getHmsRange(item.value);
+            if (range.start || range.end) {
+                condition.value = [range.start, range.end];
+            }
+        }
+    }
+
+    return condition;
+}
+
+
+function validateConditionData(condition) {
+    const { code, dataType, format, value, name } = condition;
+    if (!code) {
+        return { result: false, message: '请选择字段' };
+    }
+
+    if (dataType === 'text') {
+        if (!value) {
+            return { result: false, message: `请填写 ${name} 的值` };
+        }
+    }
+
+    if (dataType === 'boolean') {
+        if (!value) {
+            return { result: false, message: `请选择 ${name} 的值` };
+        }
+    }
+
+    if (dataType === 'enum' || dataType === 'dict') {
+        if (!value || !value.length) {
+            return { result: false, message: `请选择 ${name} 的值` };
+        }
+    }
+
+    if (dataType === 'number') {
+        if (operator === '介于') {
+            if (!isNumber(value.min) || !isNumber(value.max)) {
+                return { result: false, message: `请填写 ${name} 的值` };
+            }
+        } else {
+            if (!isNumber(value)) {
+                return { result: false, message: `请填写 ${name} 的值` };
+            }
+        }
+    }
+
+
+    if (dataType === 'date') {
+        if (format === 'YMDhms' || format === 'YMD') {
+            if (!value.start && !value.end) {
+                return { result: false, message: `请选择 ${name} 的值` };
+            }
+        }
+
+        if (format === 'MD') {
+            const range = getMDRange(value);
+            if (!range.start && !range.end) {
+                return { result: false, message: `请选择 ${name} 的值` };
+            }
+        }
+
+        if (format === 'Dhms') {
+            const range = getDhmsRange(value);
+            if (!range.start && !range.end) {
+                return { result: false, message: `请选择 ${name} 的值` };
+            }
+        }
+
+        if (format === 'hms') {
+            const range = getHmsRange(value);
+            if (!range.start && !range.end) {
+                return { result: false, message: `请选择 ${name} 的值` };
+            }
+        }
+    }
+
+    return { result: true };
 }
