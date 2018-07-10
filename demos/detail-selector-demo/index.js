@@ -28,8 +28,8 @@ const HOSTS = {
 
 (function(angular) {
     angular
-        .module('app', ['ccms.bs.components'])
-        .controller('ctrl', function($scope, $bsDetailSelector, $resource) {
+        .module('app', ['ccms.components', 'ccms.bs.components'])
+        .controller('ctrl', function($scope, $ccTips, $bsDetailSelector, $resource) {
             const params = window.Qs.parse(window.location.search.replace('?', ''));
 
             $scope.ID = params.ID || '';

@@ -22,10 +22,10 @@
             ></cc-dropdown-select>
         </div>
         <div ng-class="$ctrl.styles.value">
-            <div ng-show="!$ctrl.condition.code" ng-class="$ctrl.styles.error">
+            <div ng-if="!$ctrl.condition.code" ng-class="$ctrl.styles.error">
                 <input type="text" ng-class="$ctrl.styles.input" placeholder="请选择字段" readonly disabled style="background:#fff;cursor:not-allowed;" />
             </div>
-            <div ng-show="$ctrl.condition.code" ng-switch="$ctrl.condition.dataType">
+            <div ng-if="$ctrl.condition.code" ng-switch="$ctrl.condition.dataType">
                 <!-- text -->
                 <div ng-switch-when="text" ng-class="[$ctrl.styles.vfield,$ctrl.styles.text]">
                     <input ng-if="$ctrl.condition.operator==='等于'||$ctrl.condition.operator==='不等于'"
@@ -44,7 +44,12 @@
 
                 <!-- boolean -->
                 <div ng-switch-when="boolean" ng-class="[$ctrl.styles.vfield,$ctrl.styles.boolean]">
-                    <cc-dropdown-select model="$ctrl.condition.value" datalist="$ctrl.condition.options" mapping="{valueField:'descVal',displayField:'destVal'}" placeholder="值"></cc-dropdown-select>
+                    <cc-dropdown-select
+                        model="$ctrl.condition.value"
+                        datalist="$ctrl.condition.options"
+                        mapping="{valueField:'descVal',displayField:'destVal'}"
+                        placeholder="值">
+                    </cc-dropdown-select>
                 </div>
 
                 <!-- number -->
@@ -70,17 +75,78 @@
 
                 <!-- enum -->
                 <div ng-switch-when="enum" ng-class="[$ctrl.styles.vfield,$ctrl.styles.enum]">
-                    <cc-dropdown-select model="$ctrl.condition.value" datalist="$ctrl.condition.options" mapping="{valueField:'descVal',displayField:'destVal'}" placeholder="值"></cc-dropdown-select>
+                    <cc-dropdown-multiselect
+                        native="false"
+                        model="$ctrl.condition.value"
+                        datalist="$ctrl.condition.options"
+                        mapping="{valueField:'descVal',displayField:'destVal'}"
+                        placeholder="值">
+                    </cc-dropdown-multiselect>
                 </div>
 
                 <!-- dict -->
                 <div ng-switch-when="dict" ng-class="[$ctrl.styles.vfield,$ctrl.styles.enum]">
-                    <cc-dropdown-select model="$ctrl.condition.value" datalist="$ctrl.condition.options" mapping="{valueField:'descVal',displayField:'destVal'}" placeholder="值"></cc-dropdown-select>
+                    <cc-dropdown-multiselect
+                        native="false"
+                        model="$ctrl.condition.value"
+                        datalist="$ctrl.condition.options"
+                        mapping="{valueField:'descVal',displayField:'destVal'}"
+                        placeholder="值">
+                    </cc-dropdown-multiselect>
                 </div>
 
                 <!-- date -->
                 <div ng-switch-when="date" ng-class="[$ctrl.styles.vfield,$ctrl.styles.date]">
-                    <cc-date-range opts="$ctrl.condition.value"></cc-date-range>
+
+                    <div ng-if="$ctrl.condition.format==='YMD'" ng-class="$ctrl.styles.dateRange">
+                        <cc-date-picker
+                            ng-model="$ctrl.condition.value.start"
+                            max-date="$ctrl.condition.value.end"
+                            date-only="true">
+                        </cc-date-picker>
+                        <span ng-class="$ctrl.styles.text">至</span>
+                        <cc-date-picker
+                            ng-model="$ctrl.condition.value.end"
+                            min-date="$ctrl.condition.value.start"
+                            date-only="true">
+                        </cc-date-picker>
+                    </div>
+
+                    <div ng-if="$ctrl.condition.format==='YMDhms'" ng-class="$ctrl.styles.dateRange">
+                        <cc-date-picker
+                            ng-model="$ctrl.condition.value.start"
+                            max-date="$ctrl.condition.value.end">
+                        </cc-date-picker>
+                        <span ng-class="$ctrl.styles.text">至</span>
+                        <cc-date-picker
+                            ng-model="$ctrl.condition.value.end"
+                            min-date="$ctrl.condition.value.start">
+                        </cc-date-picker>
+                    </div>
+
+                    <div ng-if="$ctrl.condition.format==='MD'" ng-class="$ctrl.styles.dateRange">
+                        <bs-month-date
+                            month="$ctrl.condition.value.start.M"
+                            date="$ctrl.condition.value.start.D">
+                        </bs-month-date>
+                        <span ng-class="$ctrl.styles.text">至</span>
+                        <bs-month-date
+                            month="$ctrl.condition.value.end.M"
+                            date="$ctrl.condition.value.end.D">
+                        </bs-month-date>
+                    </div>
+
+                    <div ng-if="$ctrl.condition.format==='Dhms'" ng-class="$ctrl.styles.dateRange">
+                        <bs-d-time value="$ctrl.condition.value.start"></bs-d-time>
+                        <span ng-class="$ctrl.styles.text">至</span>
+                        <bs-d-time value="$ctrl.condition.value.end"></bs-d-time>
+                    </div>
+
+                    <div ng-if="$ctrl.condition.format==='hms'" ng-class="$ctrl.styles.dateRange">
+                        <bs-time time="$ctrl.condition.value.start"></bs-time>
+                        <span ng-class="$ctrl.styles.text">至</span>
+                        <bs-time time="$ctrl.condition.value.end"></bs-time>
+                    </div>
                 </div>
 
                 <!-- unknown -->

@@ -1,43 +1,58 @@
 .time {
-	position: relative;
-	input {
-		width: 100%;
-	}
-	:global(.dropdown-select) {
-		min-width: 50px;
-	}
+    position: relative;
+    input {
+        width: 100%;
+    }
+    :global(.dropdown-select) {
+        min-width: 50px;
+    }
 }
 
 .head {
-	position: relative;
-	:global(.iconfont) {
-		position: absolute;
-		right: 5px;
-		top: 6px;
-		color: #999;
-	}
+    position: relative;
+    :global(.iconfont) {
+        position: absolute;
+        right: 5px;
+        top: 6px;
+        color: #999;
+    }
 }
 
 .content {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 30px;
-	min-width: 200px;
-	display: flex;
-	flex-direction: row;
-	padding: 10px;
-	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-	z-index: 1;
-	background: #fff;
-	.item {
-		flex: 1;
-		margin: 0 3px;
-		&:first-child {
-			margin-left: 0;
-		}
-		&:last-child {
-			margin-right: 0;
-		}
-	}
+    position: absolute;
+    min-width: 200px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    box-shadow: 2px 2px 10px 3px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    background: #fff;
+    &.bottomRight {
+        left: unset;
+        right: 0;
+        top: 30px;
+    }
+    &.bottomLeft {
+        top: 30px;
+        left: 0;
+        right: unset;
+    }
+    &.topRight {
+        bottom: 30px;
+        right: 0;
+    }
+    &.topLeft {
+        left: 0;
+        bottom: 30px;
+    }
+    .item {
+        flex: 1;
+        margin: 0 3px;
+        &:first-child {
+            margin-left: 0;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }

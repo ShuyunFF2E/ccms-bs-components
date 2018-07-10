@@ -1,6 +1,6 @@
 import styles from './index.scss';
 import { Inject } from 'angular-es-utils';
-import { isNumber } from '@/utils/index';
+import { isNumber, isBoolean, isDate } from '@/utils/index';
 import dateFormat from 'common-javascript-utils/src/date';
 
 
@@ -22,7 +22,44 @@ export default class AdvanceModelConditionBox {
         ]
     };
 
-    $onInit() {}
+    $onInit() {
+        console.log(this.config.conditions);
+
+        this.config.conditions.forEach(item => {
+            this.addToDefaultGroup(item);
+        });
+
+        this.config.extendConditions.forEach(item => {
+            if (item.selected) {
+                this.addToDefaultGroup(item);
+            }
+        });
+
+        // 如果初始化时由条件，则把默认的空条件删掉
+        const group = this.conditionData.groups[0];
+        if (group.length > 1 && Object.keys(group[0]).length === 0) {
+            group.splice(0, 1);
+        }
+    }
+
+    // 将简单搜索中的条件添加到高级搜索的初始化条件中
+    addToDefaultGroup(condition) {
+        const group = this.conditionData.groups[0];
+        if (condition.dataType === 'text') {
+            addTextCondition(group, condition);
+        } else if (condition.dataType === 'number') {
+            addNumberCondition(group, condition);
+        } else if (condition.dataType === 'boolean') {
+            addBooleanCondition(group, condition);
+        } else if (condition.dataType === 'dict') {
+            addDictCondition(group, condition);
+        } else if (condition.dataType === 'enum') {
+            addEnumCondition(group, condition);
+        } else if (condition.dataType === 'date') {
+            addDateCondition(group, condition);
+        }
+
+    }
 
     get $host() {
         return this._$element[0].querySelector('.' + styles.container);
@@ -175,5 +212,123 @@ export default class AdvanceModelConditionBox {
             isMeet: this.conditionData.isMeet,
             conditions
         }, true);
+    }
+}
+
+
+function filterBaseAttrs(item) {
+    return {
+        code: item.code,
+        name: item.name,
+        format: item.format,
+        dataType: item.dataType,
+        dynamicConfigs: item.dynamicConfigs || []
+    };
+}
+
+
+function addTextCondition(group, condition) {
+    if (condition.value && condition.value.length > 0) {
+        group.push({
+            operator: '包含',
+            value: [...condition.value],
+            ...filterBaseAttrs(condition)
+        });
+    }
+}
+
+function addNumberCondition(group, condition) {
+    if (condition.value &&
+        (isNumber(condition.value.min) || isNumber(condition.value.max))
+    ) {
+        group.push({
+            operator: '介于',
+            value: { ...condition.value },
+            ...filterBaseAttrs(condition)
+        });
+    }
+}
+
+
+function addBooleanCondition(group, condition) {
+    if (condition.value || isBoolean(condition.value)) {
+        group.push({
+            operator: '等于',
+            value: condition.value,
+            ...filterBaseAttrs(condition)
+        });
+    }
+}
+
+function addDictCondition(group, condition) {
+    if (condition.value && condition.value.length > 0) {
+        group.push({
+            operator: '等于任意值',
+            value: [...condition.value],
+            ...filterBaseAttrs(condition)
+        });
+    }
+}
+
+function addEnumCondition(group, condition) {
+    if (condition.value && condition.value.length > 0) {
+        group.push({
+            operator: '等于任意值',
+            value: [...condition.value],
+            ...filterBaseAttrs(condition)
+        });
+    }
+}
+
+function addDateCondition(group, condition) {
+    if (!condition.value) return;
+
+    if (condition.format === 'YMDhms' || condition.format === 'YMD') {
+        if (isDate(condition.value.start) || isDate(condition.value.end)) {
+            group.push({
+                operator: '介于',
+                value: { ...condition.value },
+                ...filterBaseAttrs(condition)
+            });
+        }
+    } else if (condition.format === 'MD') {
+        const { start = {}, end = {} } = condition.value;
+        if ((isNumber(start.M) && isNumber(start.D)) || isNumber(end.M) && isNumber(end.D)) {
+            group.push({
+                operator: '介于',
+                value: {
+                    start: { ...start },
+                    end: { ...end }
+                },
+                ...filterBaseAttrs(condition)
+            });
+        }
+
+    } else if (condition.format === 'Dhms') {
+        const { start = {}, end = {} } = condition.value;
+        if ((isNumber(start.D) && isNumber(start.h) && isNumber(start.m) && isNumber(start.s)) ||
+            (isNumber(end.D) && isNumber(end.h) && isNumber(end.m) && isNumber(end.s))) {
+            group.push({
+                operator: '介于',
+                value: {
+                    start: { ...start },
+                    end: { ...end }
+                },
+                ...filterBaseAttrs(condition)
+            });
+        }
+    } else if (condition.format === 'hms') {
+        const { start = {}, end = {} } = condition.value;
+        if ((isNumber(start.h) && isNumber(start.m) && isNumber(start.s)) ||
+            (isNumber(end.h) && isNumber(end.m) && isNumber(end.s))) {
+            group.push({
+                operator: '介于',
+                value: {
+                    start: { ...start },
+                    end: { ...end }
+                },
+                ...filterBaseAttrs(condition)
+            });
+        }
     }
 }

@@ -1,11 +1,14 @@
 .month-date {
-	width: 204px;
-	cc-dropdown-select {
-		display: block;
-		width: 100px;
-		float: left;
-		&:first-child {
-			margin-right: 4px;
-		}
-	}
+    display: flex;
+    flex-direction: row;
+    cc-dropdown-select {
+        display: block;
+        flex: 1;
+        &:first-child {
+            margin-right: 4px;
+        }
+    }
+    input {
+        width: 100% !important;
+    }
 }

@@ -1,6 +1,6 @@
-export const EnumOperators = ['等于'];
+export const EnumOperators = ['等于任意值'];
 
-export const DictOperators = ['等于'];
+export const DictOperators = ['等于任意值'];
 
 export const BooleanOperators = ['等于'];
 

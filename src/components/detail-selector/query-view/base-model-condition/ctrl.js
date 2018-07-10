@@ -78,6 +78,10 @@ export default class BaseModelConditionBox {
 
     }
 
+    switchToAdanceModel() {
+        this.config.searchModel = 'ADVANCE';
+    }
+
     searchData() {
         const conditions = this.getEnableConditions();
 

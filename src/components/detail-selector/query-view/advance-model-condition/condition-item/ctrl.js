@@ -12,35 +12,39 @@ export default class ConditionItem {
 
     validators = {
         textValue: {
-            msg: '长度不能大于10',
+            msg: '长度不能大于20',
             fn(modelValue, viewValue) {
                 const v = modelValue || viewValue || '';
-                return v.length < 10;
-            }
-        },
-        operator: {
-            msg: '哈哈',
-            fn() {
-                return false;
+                return v.length < 20;
             }
         }
     };
 
     $onInit() {
+        const { condition } = this;
+
         this.genFields();
-        this.genOperators(this.condition.dataType);
+        this.genOperators(condition.dataType);
+        const field = this.getField(condition.code);
+        Object.assign(condition, field);
     }
 
     // 切换条件
     onCodeChange() {
         const { condition } = this;
         const field = this.getField(condition.code);
-        this.condition = Object.assign(condition, field);
+        Object.assign(condition, field);
 
         this.genOperators(condition.dataType);
         condition.operator = this.operators[0];
-        if (condition.dataType === 'text') {
-            condition.value = [];
+
+        const { dataType } = condition;
+        if (dataType === 'text') {
+            condition.value = genDefaultConditionValue(dataType, '包含', condition.format);
+        } else if (dataType === 'enum' || dataType === 'dict') {
+            condition.value = genDefaultConditionValue(dataType, '等于任意值', condition.format);
+        } else if (dataType === 'date') {
+            condition.value = genDefaultConditionValue(dataType, '介于', condition.format);
         } else {
             condition.value = undefined;
         }
@@ -48,8 +52,8 @@ export default class ConditionItem {
 
     // 切换操作符
     onOperatorChange() {
-        const { dataType, operator } = this.condition;
-        this.condition.value = genDefaultConditionValue(dataType, operator);
+        const { dataType, operator, format } = this.condition;
+        this.condition.value = genDefaultConditionValue(dataType, operator, format);
     }
 
     getField(code) {
@@ -93,12 +97,21 @@ export default class ConditionItem {
             evt.preventDefault();
         }
     }
+
+    getDateRangeOpts() {
+        const { condition } = this;
+        condition.value.dateOnly = condition.format === 'YMD' ? true : false;
+        return condition.value;
+    }
 }
 
 // 根据条件类型和操作符生成默认值
-function genDefaultConditionValue(dataType, operator) {
+function genDefaultConditionValue(dataType, operator, format) {
     if (dataType === 'date') {
-        return [];
+        return {
+            start: format === 'YMDhms' || format === 'YMD' ? undefined : {},
+            end: format === 'YMDhms' || format === 'YMD' ? undefined : {}
+        };
     }
 
     if (dataType === 'number') {
@@ -109,7 +122,7 @@ function genDefaultConditionValue(dataType, operator) {
         }
     }
 
-    if (dataType === 'text') {
+    if (dataType === 'text' || dataType === 'enum' || dataType === 'dict') {
         return [];
     }
     return undefined;

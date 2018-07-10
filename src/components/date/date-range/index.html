@@ -35,14 +35,14 @@
 			<span ng-class="$ctrl.styles.text">介于</span>
 			<bs-time time="$ctrl.dateRange.start"></bs-time>
 			<span ng-class="$ctrl.styles.text">至</span>
-			<bs-time time="$ctrl.dateRange.end"></bs-time>
+			<bs-time time="$ctrl.dateRange.end" placement="top-left"></bs-time>
 		</div>
 
 		<div ng-switch-when="Dhms">
 			<span ng-class="$ctrl.styles.text">介于</span>
-			<bs-d-time value="$ctrl.dateRange.start"></bs-d-time>
+			<bs-d-time value="$ctrl.dateRange.start" placement="bottom-right"></bs-d-time>
 			<span ng-class="$ctrl.styles.text">至</span>
-			<bs-d-time value="$ctrl.dateRange.end"></bs-d-time>
+			<bs-d-time value="$ctrl.dateRange.end" placement="top-right"></bs-d-time>
 		</div>
 
 		<div ng-class="$ctrl.styles.footer">

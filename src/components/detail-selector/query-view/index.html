@@ -5,16 +5,16 @@
 
     <!-- 简单查找 -->
     <bs-base-condition-box
+        ng-if="$ctrl.config.searchModel==='BASE'"
         config="$ctrl.config"
-        fetch="$ctrl.fetch"
-        ng-if="$ctrl.config.searchModel==='BASE'">
+        fetch="$ctrl.fetch">
     </bs-base-condition-box>
 
     <!-- 高级查找 -->
     <bs-advance-condition-box
+        ng-if="$ctrl.config.searchModel==='ADVANCE'"
         config="$ctrl.config"
-        fetch="$ctrl.fetch"
-        ng-if="$ctrl.config.searchModel==='ADVANCE'">
+        fetch="$ctrl.fetch">
     </bs-advance-condition-box>
 
     <div ng-class="$ctrl.styles.resultHolder">

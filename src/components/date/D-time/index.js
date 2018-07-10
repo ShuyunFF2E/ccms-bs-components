@@ -5,16 +5,17 @@ import controller from './ctrl';
 import template from './index.html';
 
 const DDO = {
-	controller,
-	template,
-	// transclude: true,
-	bindings: {
-		value: '=?',
-		placeholders: '<?'
-	}
+    controller,
+    template,
+    // transclude: true,
+    bindings: {
+        value: '=?',
+        placeholders: '<?',
+        placement: '@?'
+    }
 };
 
 export default angular
-	.module('bs.components.dTime', [])
-	.component('bsDTime', DDO)
-	.name;
+    .module('bs.components.dTime', [])
+    .component('bsDTime', DDO)
+    .name;

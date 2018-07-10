@@ -1,93 +1,114 @@
 .container {
-	position: relative;
-	padding: 0 80px 0 60px;
-	margin-bottom: 10px;
-	.and {
-		position: absolute;
-		left: 0;
-		top: 10px;
-		width: 50px;
-		text-align: center;
-		color: #999;
-	}
-	.controls {
-		position: absolute;
-		top: 3px;
-		right: 0;
-		width: 70px;
-		.btn-icon {
-			color: #999;
-			&:hover {
-				color: #666;
-			}
-			&:first-child {
-				margin-right: 12px;
-				margin-left: 12px
-			}
-		}
-	}
-	.condition {
-		display: flex;
-		flex-direction: row;
-	}
-	.operator {
-		width: 100px;
-		margin: 0 10px;
-	}
-	.field {
-		width: 200px;
-	}
-	.value {
-		flex: 4;
-		.input {
-			width: 100%;
-		}
-	}
-	:global(cc-dropdown-select) {
-		width: 100%;
-	}
-	:global(.dropdown-select) {
-		max-width: unset;
-		min-width: unset;
-	}
-	.btn-icon {
-		border: none;
-		outline: none;
-		appearance: none;
-		cursor: pointer;
-		min-width: unset;
-		padding: 0;
-		background: transparent;
-	}
-	.btn-add {
-		display: none;
-	}
+    position: relative;
+    padding: 0 80px 0 60px;
+    margin-bottom: 10px;
+    .and {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 50px;
+        text-align: center;
+        color: #999;
+    }
+    .controls {
+        position: absolute;
+        top: 3px;
+        right: 0;
+        width: 70px;
+        .btn-icon {
+            color: #999;
+            &:hover {
+                color: #666;
+            }
+            &:first-child {
+                margin-right: 12px;
+                margin-left: 12px
+            }
+        }
+    }
+    .condition {
+        display: flex;
+        flex-direction: row;
+    }
+    .operator {
+        width: 100px;
+        margin: 0 10px;
+    }
+    .field {
+        width: 200px;
+    }
+    .value {
+        width: 440px;
+        .input {
+            width: 100%;
+        }
+    }
+    :global(cc-dropdown-select) {
+        width: 100%;
+    }
+    :global(.dropdown-select) {
+        max-width: unset;
+        min-width: unset;
+    }
+    :global(cc-dropdown-multiselect) {
+        width: 100%;
+    }
+    :global(.dropdown-multiselect) {
+        max-width: initial;
+    }
+    .btn-icon {
+        border: none;
+        outline: none;
+        appearance: none;
+        cursor: pointer;
+        min-width: unset;
+        padding: 0;
+        background: transparent;
+    }
+    .btn-add {
+        display: none;
+    }
 }
 
 :global(bs-advance-condition-item) {
-	&:first-child {
-		.container {
-			.and {
-				opacity: 0;
-			}
-		}
-	}
-	&:last-child {
-		.container {
-			margin-bottom: 0;
-			.btn-add {
-				display: initial;
-			}
-		}
-	}
+    &:first-child {
+        .container {
+            .and {
+                opacity: 0;
+            }
+        }
+    }
+    &:last-child {
+        .container {
+            margin-bottom: 0;
+            .btn-add {
+                display: initial;
+            }
+        }
+    }
 }
 
 .error {
-	text-align: center;
-	line-height: 30px;
-	color: #f97272;
+    text-align: center;
+    line-height: 30px;
+    color: #f97272;
 }
 
 .vfield {
-	position: relative;
+    position: relative;
+}
+
+.date-range {
+    display: flex;
+    flex-direction: row;
+    :global(bs-month-date),
+    :global(bs-d-time),
+    :global(bs-time) {
+        flex: 1;
+    }
+    .text {
+        color: #888;
+        line-height: 30px;
+        margin: 0 5px;
+    }
 }

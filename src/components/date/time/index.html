@@ -2,12 +2,18 @@
 	<cc-dropdown>
 		<div cc-dropdown-toggle>
 			<div ng-class="$ctrl.classes.head">
-				<input type="text" value="{{$ctrl.timeText}}" readonly placeholder="hh:mm:ss" />
+				<input type="text" value="{{$ctrl.timeText}}" readonly placeholder="{{$ctrl.placeholders.time}}" />
 				<span class="iconfont icon-shijian1"></span>
 			</div>
 		</div>
 		<div cc-dropdown-panel>
-			<div ng-class="$ctrl.classes.content">
+			<div ng-class="{
+                    [$ctrl.classes.content]:true,
+                    [$ctrl.classes.bottomRight]:$ctrl.placement==='bottom-right',
+                    [$ctrl.classes.bottomLeft]:$ctrl.placement==='bottom-left',
+                    [$ctrl.classes.topRight]:$ctrl.placement==='top-right',
+                    [$ctrl.classes.topLeft]:$ctrl.placement==='top-left'
+                }">
 				<div ng-class="$ctrl.classes.item">
 					<cc-dropdown-select model="$ctrl.time.h" datalist="$ctrl.hours" placeholder="{{$ctrl.placeholders.h}}"></cc-dropdown-select>
 				</div>
@@ -16,7 +22,7 @@
 				</div>
 				<div ng-class="$ctrl.classes.item">
 					<cc-dropdown-select model="$ctrl.time.s" datalist="$ctrl.seconds" placeholder="{{$ctrl.placeholders.s}}"></cc-dropdown-select>
-				</div>
+                </div>
 			</div>
 		</div>
 	</cc-dropdown>

@@ -10,7 +10,7 @@
         <button
             ng-if="$ctrl.config.advanceSearchAble"
             ng-class="$ctrl.styles.btnLinkText"
-            ng-click="$ctrl.config.searchModel='ADVANCE'"
+            ng-click="$ctrl.switchToAdanceModel()"
         >高级搜索</button>
 
 		<cc-dropdown ng-show="$ctrl.config.extendConditions.length>0" ng-class="$ctrl.styles.extendConditionSetter" class="dropdown-closed">

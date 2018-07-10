@@ -1,51 +1,57 @@
 import classes from './index.scss';
 
 export default class TimeCtrl {
-	classes = classes;
+    classes = classes;
 
-	constructor() {
-		this.time = {
-			h: undefined,
-			m: undefined,
-			s: undefined
-		};
-		this.placeholders = {
-			h: '时',
-			m: '分',
-			s: '秒'
-		};
+    hours = genNumberOptions(24);
+    minutes = genNumberOptions(60);
+    seconds = genNumberOptions(60);
 
-		this.hours = genNumberOptions(24);
-		this.minutes = genNumberOptions(60);
-		this.seconds = genNumberOptions(60);
-	}
+    placement = 'bottom-left';
 
-	get timeText() {
-		if (!validateTime(this.time)) return '';
+    placeholders = {
+        time: 'hh:mm:ss',
+        h: '时',
+        m: '分',
+        s: '秒'
+    };
 
-		return `${genNumberText(this.time.h)}:${genNumberText(this.time.m)}:${genNumberText(this.time.s)}`;
-	}
+    constructor() {
+        this.time = this.time || {
+            h: undefined,
+            m: undefined,
+            s: undefined
+        };
+    }
+
+    $onInit() {}
+
+    get timeText() {
+        if (!validateTime(this.time)) return '';
+
+        return `${genNumberText(this.time.h)}:${genNumberText(this.time.m)}:${genNumberText(this.time.s)}`;
+    }
 
 }
 
 
 function genNumberOptions(max) {
-	return Array(max).fill('').map((v, i) => {
-		return {
-			title: genNumberText(i),
-			value: i
-		};
-	});
+    return Array(max).fill('').map((v, i) => {
+        return {
+            title: genNumberText(i),
+            value: i
+        };
+    });
 }
 
 function genNumberText(num) {
-	return num < 10 ? `0${num}` : `${num}`;
+    return num < 10 ? `0${num}` : `${num}`;
 }
 
 function isUndefined(v) {
-	return v === undefined || v === null;
+    return v === undefined || v === null;
 }
 
 function validateTime(time) {
-	return !isUndefined(time.h) && !isUndefined(time.m) && !isUndefined(time.s);
+    return !isUndefined(time.h) && !isUndefined(time.m) && !isUndefined(time.s);
 }

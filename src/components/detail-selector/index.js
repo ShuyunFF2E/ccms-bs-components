@@ -5,11 +5,10 @@ import DetailSelectorService from './service';
 
 import QueryView from './query-view';
 import ResultView from './result-view';
-import conditionItem from './condition-item';
 
 export default angular
     .module('bs.components.detailSelector', [
-        QueryView, ResultView, conditionItem
+        QueryView, ResultView
     ])
     .service('$bsDetailSelector', DetailSelectorService)
     .name;
