@@ -86,7 +86,6 @@ export default class MultipleSelectCtrl {
         this.calculateInputWidth();
         if (event.code === 'Enter' || event.keyCode === 13) {
             event.preventDefault();
-            this.inputWidth = MinInputWidth;
             this.pushKeyword();
             //  this.$input.scrollIntoView(false);
         } else if (event.code === 'Backspace' && !event.target.value) {
@@ -123,10 +122,12 @@ export default class MultipleSelectCtrl {
         const keywords = this.keyword.split(';');
 
         if (this.maxKeywordLength && keywords.filter(item => item.trim().length > this.maxKeywordLength).length > 0) {
+
             return this._$ccTips.error(`单个关键字长度不能超过${this.maxKeywordLength}个字符`, {
                 duration: 3000,
-                container: this._$element.parent('.modal-body')[0]
+                container: getModalBody(this._$element) || document.body
             });
+
         }
 
         keywords.forEach(keyword => {
@@ -138,6 +139,7 @@ export default class MultipleSelectCtrl {
 
         this.updateNgModel();
         this.keyword = '';
+        this.inputWidth = MinInputWidth;
     }
 
     remove(evt, keyword) {
@@ -159,4 +161,15 @@ export default class MultipleSelectCtrl {
         this.inputWidth = Math.max(MinInputWidth, width + 20);
     }
 
+}
+
+
+function getModalBody($element) {
+    if ($element[0].tagName.toUpperCase() === 'BODY') {
+        return undefined;
+    }
+    if ($element.hasClass('modal-body')) {
+        return $element[0];
+    }
+    return getModalBody($element.parent());
 }

@@ -10,7 +10,7 @@ const DDO = {
         ngModel: '<?',
         ngDisabled: '<?',
         minHeight: '<?',
-        maxHeight: '<?',
+        maxHeight: '<?'
     },
     require: {
         ngModelController: '?ngModel'
