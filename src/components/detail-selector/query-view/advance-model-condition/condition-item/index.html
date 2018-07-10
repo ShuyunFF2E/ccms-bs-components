@@ -23,7 +23,7 @@
         </div>
         <div ng-class="$ctrl.styles.value">
             <div ng-if="!$ctrl.condition.code" ng-class="$ctrl.styles.error">
-                <input type="text" ng-class="$ctrl.styles.input" placeholder="请选择字段" readonly disabled style="background:#fff;cursor:not-allowed;" />
+                <input type="text" ng-class="$ctrl.styles.input" placeholder="值" readonly disabled style="background:#fff;cursor:not-allowed;" />
             </div>
             <div ng-if="$ctrl.condition.code" ng-switch="$ctrl.condition.dataType">
                 <!-- text -->
