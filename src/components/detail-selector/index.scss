@@ -27,6 +27,9 @@
     input[type=number] {
         appearance: textfield;
     }
+    :global(.calendar-days > li) {
+        box-sizing: content-box;
+    }
 }
 
 .footer {
