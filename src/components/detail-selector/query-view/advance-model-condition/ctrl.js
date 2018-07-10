@@ -23,7 +23,6 @@ export default class AdvanceModelConditionBox {
     };
 
     $onInit() {
-        console.log(this.config.conditions);
 
         this.config.conditions.forEach(item => {
             this.addToDefaultGroup(item);
@@ -61,13 +60,9 @@ export default class AdvanceModelConditionBox {
 
     }
 
-    get $host() {
-        return this._$element[0].querySelector('.' + styles.container);
-    }
-
     tipsError(message) {
         this._$ccTips.error(message, {
-            container: this.$host,
+            container: this._$element[0].querySelector('.' + styles.container),
             duration: 3000
         });
     }
