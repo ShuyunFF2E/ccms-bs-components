@@ -48,7 +48,6 @@ module.exports = {
             test: /\.(sc|c)ss$/,
             include: /node_modules|src\/assets/,
             use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
                 use: [
                     { loader: 'css-loader', options: { sourceMap: true } },
                     { loader: 'postcss-loader', options: { sourceMap: true } },
