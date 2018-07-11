@@ -26,55 +26,13 @@
             width: 500px;
             margin: 100px auto;
         }
-
-        .demo-input {
-            width: 100% !important;
-        }
-
-        .demo-textarea {
-            width: 100%;
-            outline: none;
-            border: 1px solid #d9d9d9;
-            resize: none;
-        }
-
-        .form-title {
-            margin-bottom: 5px;
-        }
-
-        .form-item {
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 
 <body>
     <main ng-app="app" ng-controller="ctrl">
 
-        <div class="form">
-            <div class="form-item">
-                <div class="form-title">实例ID</div>
-                <div class="form-content">
-                    <input class="demo-input" ng-model="ID" placeholder="选择器配置ID" />
-                </div>
-            </div>
-
-            <div class="form-item">
-                <div class="form-title">接口域名+服务</div>
-                <div class="form-content">
-                    <input class="demo-input" ng-model="host" placeholder="http://ual.dcartoon.saasproj.fenxibao.com" />
-                </div>
-            </div>
-
-            <div class="form-item">
-                <div class="form-title">接口Token</div>
-                <div class="form-content">
-                    <textarea class="demo-textarea" ng-model="token" rows="8" placeholder="接口Token"></textarea>
-                </div>
-            </div>
-
-        </div>
-        <button ng-click="open()" ng-disabled="isLoading">预览实例</button>
+        <button ng-click="open()">预览实例</button>
 
     </main>
 </body>
