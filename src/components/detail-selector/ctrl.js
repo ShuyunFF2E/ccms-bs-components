@@ -130,30 +130,46 @@ export default class DetailSelectorCtrl {
         if (!conditions.length) return;
 
         const lastCondition = conditions[conditions.length - 1];
+        const { result, search } = lastCondition;
 
-        if (!lastCondition.result.isAllSelected) {
-            lastCondition.search.isAllSelected = false;
+        if (!result.isAllSelected) {
+            search.isAllSelected = false;
             conditions.splice(0, conditions.length - 1);
 
-
-            if (!lastCondition.result.includes.length) {
-                lastCondition.search.includes = [];
-                lastCondition.search.excludes = [];
+            if (!result.includes.length) {
+                search.includes = [];
+                search.excludes = [];
             } else {
-                lastCondition.search.includes = [...lastCondition.result.includes];
-                lastCondition.search.excludes = [];
+                search.includes = [...result.includes];
+                search.excludes = [];
 
-                lastCondition.result.isAllSelected = true;
-                lastCondition.result.includes.length = 0;
+                result.isAllSelected = true;
+                result.includes.length = 0;
             }
+        } else {
+            if (result.excludes.length === 0) return;
+
+            if (search.isAllSelected) {
+                search.excludes = [
+                    ...search.excludes,
+                    ...result.excludes
+                ];
+                result.excludes.length = 0;
+            } else {
+                result.excludes.forEach(key => {
+                    const index = search.includes.indexOf(key);
+                    index > -1 && search.includes.splice(index, 1);
+                });
+            }
+
         }
     }
 
     // 组件模式（搜索/查看已选）切换
     onModelChange() {
         if (this.model === this.MODELS.QUERY) {
-            this.fromCheckToQueryCallback();
             this.fromCheckToQuery();
+            this.fromCheckToQueryCallback();
         } else {
             this.fromQueryToCheck();
         }

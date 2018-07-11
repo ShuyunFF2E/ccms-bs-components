@@ -61,7 +61,7 @@ export default class DetailSelectorQueryViewCtrl {
                 GlobalConditionObj.conditions.push(conditionObj);
                 this.lastStatisticValue = GlobalConditionObj.statistic;
             }
-            window.GlobalConditionObj = GlobalConditionObj.conditions;
+            // window.GlobalConditionObj = GlobalConditionObj.conditions;
         }).catch(err => {
             this.isLoading = false;
             this._$ccTips.error(err.message, {
@@ -77,11 +77,8 @@ export default class DetailSelectorQueryViewCtrl {
         if (!conditions.length) return;
 
         const lastCondition = conditions[conditions.length - 1];
-        if (!lastCondition.result.isAllSelected) {
-            this.data.forEach(item => {
-                item.selected = false;
-            });
-        }
+        const primaryKey = this.config.primaryKey;
+        calculateDataState(this.data, lastCondition, primaryKey);
     }
 
     refresh() {
@@ -97,5 +94,19 @@ export default class DetailSelectorQueryViewCtrl {
         const { GlobalConditionObj } = this.opts;
         GlobalConditionObj.statistic = this.lastStatisticValue + count;
     }
+}
 
+function calculateDataState(data, lastCondition, primaryKey) {
+    if (!lastCondition.search.isAllSelected) {
+        const includes = lastCondition.search.includes;
+        data.forEach(item => {
+            item.selected = !!includes.find(key => key === item[primaryKey]);
+        });
+    } else {
+        const excludes = lastCondition.search.excludes;
+
+        data.forEach(item => {
+            item.selected = !excludes.find(key => key === item[primaryKey]);
+        });
+    }
 }
