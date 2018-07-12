@@ -52,8 +52,6 @@ export default class DetailSelectorQueryViewCtrl {
             this.isLoading = false;
             Object.assign(this.params, params);
 
-            this.calculateDataState(true);
-
             if (isNewCondition) {
                 const conditions = query.conditions.map(item => {
                     return item.map(sub => ({ ...sub }));
@@ -63,6 +61,7 @@ export default class DetailSelectorQueryViewCtrl {
                 GlobalConditionObj.conditions.push(conditionObj);
                 this.lastStatisticValue = GlobalConditionObj.statistic;
             }
+            this.calculateDataState(true);
             window.GlobalConditionObj = GlobalConditionObj.conditions;
         }).catch(err => {
             this.isLoading = false;

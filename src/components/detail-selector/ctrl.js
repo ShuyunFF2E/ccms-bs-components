@@ -104,10 +104,11 @@ export default class DetailSelectorCtrl {
     // 将最后一次之前的条件做有效性排查
     // 最后一次不处理是因为组件需要保留最后一次的条件状态
     fromQueryToCheck() {
-        const { conditions } = this.opts.GlobalConditionObj;
-        this.opts.GlobalConditionObj.conditions = conditions.filter((item, index) => {
-            if (index === !conditions.length - 1) {
-                return true;
+        const { GlobalConditionObj } = this.opts;
+        const { conditions } = GlobalConditionObj;
+        const unavailables = conditions.filter((item, index) => {
+            if (index === conditions.length - 1) {
+                return false;
             }
             const { search, result } = item;
             if (!search.isAllSelected &&
@@ -115,10 +116,14 @@ export default class DetailSelectorCtrl {
                 !result.isAllSelected &&
                 !result.includes.length
             ) {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
+        });
+        unavailables.forEach(item => {
+            const index = conditions.indexOf(item);
+            index > -1 && conditions.splice(index, 1);
         });
     }
 
@@ -139,12 +144,24 @@ export default class DetailSelectorCtrl {
             if (!result.includes.length) {
                 search.includes = [];
                 search.excludes = [];
-            } else {
-                search.includes = [...result.includes];
-                search.excludes = [];
-
                 result.isAllSelected = true;
-                result.includes.length = 0;
+            } else {
+                conditions.push({
+                    search: {
+                        isAllSelected: false,
+                        excludes: [],
+                        includes: [...result.includes],
+                        isMeet: search.isMeet,
+                        statistic: search.statistic,
+                        conditions: search.conditions.map(item => ({ ...item }))
+                    },
+                    result: {
+                        isAllSelected: true,
+                        includes: [],
+                        excludes: []
+                    }
+                });
+
             }
         } else {
             // if (result.excludes.length === 0) return;
@@ -185,6 +202,9 @@ export default class DetailSelectorCtrl {
     submit() {
         this.isSubmiting = false;
         const conditionObj = this.opts.GlobalConditionObj.conditions.reduce((v, next) => {
+            if (!next.search.isAllSelected && !next.search.includes.length) {
+                return v;
+            }
             v.search.push(next.search);
             v.result.push(next.result);
             return v;
