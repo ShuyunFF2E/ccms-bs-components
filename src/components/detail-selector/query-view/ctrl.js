@@ -52,6 +52,8 @@ export default class DetailSelectorQueryViewCtrl {
             this.isLoading = false;
             Object.assign(this.params, params);
 
+            this.calculateDataState(true);
+
             if (isNewCondition) {
                 const conditions = query.conditions.map(item => {
                     return item.map(sub => ({ ...sub }));
@@ -73,12 +75,7 @@ export default class DetailSelectorQueryViewCtrl {
     }
 
     resetDataSelectedState = () => {
-        const { conditions } = this.opts.GlobalConditionObj;
-        if (!conditions.length) return;
-
-        const lastCondition = conditions[conditions.length - 1];
-        const primaryKey = this.config.primaryKey;
-        calculateDataState(this.data, lastCondition, primaryKey);
+        this.calculateDataState();
     }
 
     refresh() {
@@ -94,19 +91,32 @@ export default class DetailSelectorQueryViewCtrl {
         const { GlobalConditionObj } = this.opts;
         GlobalConditionObj.statistic = this.lastStatisticValue + count;
     }
+
+    calculateDataState(isNewData = false) {
+        const { conditions } = this.opts.GlobalConditionObj;
+        if (!conditions.length) return;
+
+        const lastCondition = conditions[conditions.length - 1];
+        const primaryKey = this.config.primaryKey;
+        calculateDataState(isNewData, this.data, lastCondition, primaryKey);
+    }
 }
 
-function calculateDataState(data, lastCondition, primaryKey) {
-    if (!lastCondition.search.isAllSelected) {
-        const includes = lastCondition.search.includes;
+function calculateDataState(isNewData, data, lastCondition, primaryKey) {
+    const { search, result } = lastCondition;
+    if (!result.isAllSelected) {
+        const includes = result.includes;
         data.forEach(item => {
             item.selected = !!includes.find(key => key === item[primaryKey]);
         });
     } else {
-        const excludes = lastCondition.search.excludes;
+        const excludes = result.excludes;
 
         data.forEach(item => {
-            item.selected = !excludes.find(key => key === item[primaryKey]);
+            item.selected = search.isAllSelected;
+            if (excludes.find(key => key === item[primaryKey])) {
+                item.selected = false;
+            }
         });
     }
 }

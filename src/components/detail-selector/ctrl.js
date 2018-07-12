@@ -147,20 +147,20 @@ export default class DetailSelectorCtrl {
                 result.includes.length = 0;
             }
         } else {
-            if (result.excludes.length === 0) return;
+            // if (result.excludes.length === 0) return;
 
-            if (search.isAllSelected) {
-                search.excludes = [
-                    ...search.excludes,
-                    ...result.excludes
-                ];
-                result.excludes.length = 0;
-            } else {
-                result.excludes.forEach(key => {
-                    const index = search.includes.indexOf(key);
-                    index > -1 && search.includes.splice(index, 1);
-                });
-            }
+            // if (search.isAllSelected) {
+            //     search.excludes = [
+            //         ...search.excludes,
+            //         ...result.excludes
+            //     ];
+            //     result.excludes.length = 0;
+            // } else {
+            //     result.excludes.forEach(key => {
+            //         const index = search.includes.indexOf(key);
+            //         index > -1 && search.includes.splice(index, 1);
+            //     });
+            // }
 
         }
     }
@@ -168,8 +168,8 @@ export default class DetailSelectorCtrl {
     // 组件模式（搜索/查看已选）切换
     onModelChange() {
         if (this.model === this.MODELS.QUERY) {
-            this.fromCheckToQuery();
             this.fromCheckToQueryCallback();
+            this.fromCheckToQuery();
         } else {
             this.fromQueryToCheck();
         }

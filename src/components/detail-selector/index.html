@@ -24,7 +24,8 @@
             ng-false-value="'QUERY'"
             ng-change="$ctrl.onModelChange()"
         >
-            <span>查看已选（{{$ctrl.opts.GlobalConditionObj.statistic}}）</span>
+            <span>查看已选</span>
+            <span ng-show="$ctrl.model==='CHECK'">（{{$ctrl.opts.GlobalConditionObj.statistic}}）</span>
         </cc-checkbox>
     </footer>
 </div>

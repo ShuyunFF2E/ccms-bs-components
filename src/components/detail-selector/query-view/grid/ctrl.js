@@ -82,13 +82,13 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
 
     // 计算数据的选中状态
     genDataItem = (item) => {
-        const searchObj = this.conditionState;
-        const key = item[this.primaryKey];
-        if (searchObj.isAllSelected) {
-            item.selected = searchObj.excludes.includes(key) ? false : true;
-        } else {
-            item.selected = searchObj.includes.includes(key) ? true : false;
-        }
+        // const searchObj = this.conditionState;
+        // const key = item[this.primaryKey];
+        // if (searchObj.isAllSelected) {
+        //     item.selected = searchObj.excludes.includes(key) ? false : true;
+        // } else {
+        //     item.selected = searchObj.includes.includes(key) ? true : false;
+        // }
         return item;
     }
 
