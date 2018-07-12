@@ -91,7 +91,7 @@ export default class SmartDetailSelectorService {
             });
 
         }).catch(err => {
-            $ccTips.error(err.data.message);
+            this._$ccTips.error(err.data.message);
         });
     }
 }
