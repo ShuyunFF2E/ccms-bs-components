@@ -19,7 +19,7 @@ const DDO = {
         condition: '<',
         onRefresh: '&',
         onPageChange: '&',
-        setStatisticState: '&'
+        statisticObj: '<'
     }
 };
 

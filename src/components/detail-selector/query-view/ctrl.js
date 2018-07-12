@@ -59,7 +59,6 @@ export default class DetailSelectorQueryViewCtrl {
                 const conditionObj = genDefaultConditionObj(conditions);
                 this.conditionObj = conditionObj;
                 GlobalConditionObj.conditions.push(conditionObj);
-                this.lastStatisticValue = GlobalConditionObj.statistic;
             }
             this.calculateDataState(true);
             window.GlobalConditionObj = GlobalConditionObj.conditions;
@@ -83,12 +82,6 @@ export default class DetailSelectorQueryViewCtrl {
 
     pageChange(page, size) {
         this.fetch({ page, size });
-    }
-
-    // 计算已选中数量
-    addStatisticCount(count) {
-        const { GlobalConditionObj } = this.opts;
-        GlobalConditionObj.statistic = this.lastStatisticValue + count;
     }
 
     calculateDataState(isNewData = false) {

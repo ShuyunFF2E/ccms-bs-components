@@ -45,7 +45,6 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
 
         this.data.forEach(v => v.selected = search.isAllSelected);
 
-        this.calculateSelectedCount();
     }
 
     // 切换选择
@@ -70,19 +69,8 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
             }
         }
 
-        this.calculateSelectedCount();
     }
 
-    // 计算已选中的数量
-    calculateSelectedCount() {
-        // 当前条件已选中数量
-        const searchObj = this.condition.search;
-        const count = searchObj.isAllSelected ?
-            (this.total - searchObj.excludes.length) :
-            searchObj.includes.length;
-
-        this.addStatisticCount({ value: count });
-    }
 
     // 计算数据的选中状态
     genDataItem = (item) => {

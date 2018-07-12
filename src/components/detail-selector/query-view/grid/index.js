@@ -17,8 +17,7 @@ const DDO = {
         primaryKey: '<',
         condition: '<',
         onRefresh: '&',
-        onPageChange: '&',
-        addStatisticCount: '&'
+        onPageChange: '&'
     }
 };
 

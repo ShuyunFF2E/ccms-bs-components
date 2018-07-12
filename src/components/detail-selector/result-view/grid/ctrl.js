@@ -56,7 +56,8 @@ export default class DetailSelectorResultGrid extends BaseGrid {
 
         this.data.forEach(v => v.selected = isAllSelected);
 
-        this.calculateSelectedCount();
+        const statistic = isAllSelected ? this.total : 0;
+        this.statisticObj.statistic = statistic;
     }
 
     // 切换选择
@@ -79,19 +80,14 @@ export default class DetailSelectorResultGrid extends BaseGrid {
             }
         }
 
-        this.calculateSelectedCount();
+        if (selected) {
+            this.statisticObj.statistic++;
+        } else {
+            this.statisticObj.statistic--;
+        }
+
     }
 
-    // 计算已选中的数量
-    calculateSelectedCount() {
-        const { isAllSelected, includes, excludes } = this.condition.result;
-
-        const statistic = isAllSelected ?
-            (this.total - excludes.length) :
-            includes.length;
-
-        this.setStatisticState({ statistic });
-    }
 }
 
 function addToArr(arr, item) {
