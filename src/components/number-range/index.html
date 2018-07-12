@@ -9,7 +9,6 @@
 			ng-model="$ctrl.minValue"
 			ng-disabled="$ctrl.disabled"
 			placeholder="{{$ctrl.minPlaceholder}}"
-			cc-validator="min"
             ng-keydown="$ctrl.onInputKeydown($event)"
             ng-change="$ctrl.onValueChange($event,'minValue')"
 		/>
@@ -21,7 +20,6 @@
 			ng-model="$ctrl.maxValue"
 			ng-disabled="$ctrl.disabled"
 			placeholder="{{$ctrl.maxPlaceholder}}"
-            cc-validator="max"
             ng-keydown="$ctrl.onInputKeydown($event)"
             ng-change="$ctrl.onValueChange($event,'maxValue')"
         />

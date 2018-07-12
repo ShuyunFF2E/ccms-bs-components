@@ -1,6 +1,7 @@
 import styles from './index.scss';
 import dateFormat from 'common-javascript-utils/src/date';
 import { Inject } from 'angular-es-utils';
+import { isNumber } from '@/utils';
 import { getMDRange, getDhmsRange, getHmsRange } from '@/components/detail-selector/utils';
 
 
@@ -103,11 +104,17 @@ export default class BaseModelConditionBox {
                     formDataList.push(formData);
                 }
             } else if (dataType === 'number') {
-                if (isValidation(item.value.min) || isValidation(item.value.max)) {
+                if (isNumber(item.value.min) || isNumber(item.value.max)) {
                     formData.operator = '介于';
-                    const min = isValidation(item.value.min) ? item.value.min : null;
-                    const max = isValidation(item.value.max) ? item.value.max : null;
-                    formData.value = [min, max];
+                    const min = isNumber(item.value.min) ? item.value.min : null;
+                    const max = isNumber(item.value.max) ? item.value.max : null;
+
+                    if (isNumber(min) && isNumber(max)) {
+                        formData.value = [Math.min(min, max), Math.max(min, max)];
+                    } else {
+                        formData.value = [min, max];
+                    }
+
                     formDataList.push(formData);
                 }
             } else if (dataType === 'boolean') {

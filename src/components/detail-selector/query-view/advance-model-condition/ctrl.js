@@ -304,7 +304,13 @@ function genSearchCondition(item) {
         if (item.operator === '介于') {
             const min = isNumber(item.value.min) ? item.value.min : null;
             const max = isNumber(item.value.max) ? item.value.max : null;
-            condition.value = [min, max];
+
+            if (isNumber(min) && isNumber(max)) {
+                condition.value = [Math.min(min, max), Math.max(min, max)];
+            } else {
+                formData.value = [min, max];
+            }
+
         } else {
             condition.value = item.value;
         }
@@ -338,13 +344,13 @@ function genSearchCondition(item) {
 
 
 function validateConditionData(condition) {
-    const { code, dataType, format, value, name } = condition;
+    const { code, dataType, format, value, name, operator } = condition;
     if (!code) {
         return { result: false, message: '请选择字段' };
     }
 
     if (dataType === 'text') {
-        if (!value) {
+        if (!value || !value.length) {
             return { result: false, message: `请填写 ${name} 的值` };
         }
     }
