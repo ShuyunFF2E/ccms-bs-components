@@ -63,7 +63,7 @@ export default class DetailSelectorQueryViewCtrl {
                 GlobalConditionObj.conditions.push(conditionObj);
                 this.lastStatisticValue = GlobalConditionObj.statistic;
             }
-            // window.GlobalConditionObj = GlobalConditionObj.conditions;
+            window.GlobalConditionObj = GlobalConditionObj.conditions;
         }).catch(err => {
             this.isLoading = false;
             this._$ccTips.error(err.message, {
@@ -113,7 +113,9 @@ function calculateDataState(isNewData, data, lastCondition, primaryKey) {
         const excludes = result.excludes;
 
         data.forEach(item => {
-            item.selected = search.isAllSelected;
+            if (isNewData) {
+                item.selected = search.isAllSelected;
+            }
             if (excludes.find(key => key === item[primaryKey])) {
                 item.selected = false;
             }

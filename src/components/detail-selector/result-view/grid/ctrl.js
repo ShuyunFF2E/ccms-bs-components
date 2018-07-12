@@ -16,7 +16,7 @@ export default class DetailSelectorResultGrid extends BaseGrid {
     }
 
     $onInit() {
-        this.initGridOpts(this.columns);
+        this.initGridOpts(this.columns, 'result');
         this.gridOpts.emptyTipTpl = `<div class="${classes.tips}">暂无数据</div>`;
         this.gridOpts.externalData = this.data.map(this.genDataItem);
     }
@@ -31,7 +31,7 @@ export default class DetailSelectorResultGrid extends BaseGrid {
     // 计算数据的选中状态
     genDataItem = (item) => {
         const key = item[this.primaryKey];
-        const { isAllSelected, includes, excludes } = this.conditionState;
+        const { isAllSelected, includes, excludes } = this.condition.result;
         if (isAllSelected) {
             item.selected = excludes.includes(key) ? false : true;
         } else {
@@ -50,7 +50,7 @@ export default class DetailSelectorResultGrid extends BaseGrid {
 
     // 全选
     switchAllSelect() {
-        const { isAllSelected, includes, excludes } = this.conditionState;
+        const { isAllSelected, includes, excludes } = this.condition.result;
         includes.length = 0;
         excludes.length = 0;
 
@@ -61,7 +61,7 @@ export default class DetailSelectorResultGrid extends BaseGrid {
 
     // 切换选择
     switchSelect(item) {
-        const { isAllSelected, includes, excludes } = this.conditionState;
+        const { isAllSelected, includes, excludes } = this.condition.result;
 
         const key = item[this.primaryKey];
         const selected = item.selected;
@@ -84,7 +84,7 @@ export default class DetailSelectorResultGrid extends BaseGrid {
 
     // 计算已选中的数量
     calculateSelectedCount() {
-        const { isAllSelected, includes, excludes } = this.conditionState;
+        const { isAllSelected, includes, excludes } = this.condition.result;
 
         const statistic = isAllSelected ?
             (this.total - excludes.length) :
