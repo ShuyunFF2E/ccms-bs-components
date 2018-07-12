@@ -168,6 +168,7 @@ export default class DetailSelectorCtrl {
     // 组件模式（搜索/查看已选）切换
     onModelChange() {
         if (this.model === this.MODELS.QUERY) {
+            // 下面两个执行顺序不能修改
             this.fromCheckToQueryCallback();
             this.fromCheckToQuery();
         } else {

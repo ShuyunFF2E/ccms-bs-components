@@ -104,21 +104,27 @@ export default class DetailSelectorQueryViewCtrl {
 
 function calculateDataState(isNewData, data, lastCondition, primaryKey) {
     const { search, result } = lastCondition;
+
     if (!result.isAllSelected) {
         const includes = result.includes;
         data.forEach(item => {
             item.selected = !!includes.find(key => key === item[primaryKey]);
         });
-    } else {
-        const excludes = result.excludes;
-
-        data.forEach(item => {
-            if (isNewData) {
-                item.selected = search.isAllSelected;
-            }
-            if (excludes.find(key => key === item[primaryKey])) {
-                item.selected = false;
-            }
-        });
+        return;
     }
+
+    data.forEach(item => {
+        if (isNewData) {
+            if (search.isAllSelected) {
+                item.selected = search.isAllSelected;
+            } else {
+                item.selected = search.includes.includes(item[primaryKey]);
+            }
+        }
+
+        if (result.excludes.find(key => key === item[primaryKey])) {
+            item.selected = false;
+        }
+    });
+
 }
