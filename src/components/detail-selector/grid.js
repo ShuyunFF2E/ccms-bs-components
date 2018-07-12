@@ -1,3 +1,4 @@
+import classes from './index.scss';
 import { isBoolean } from '@/utils';
 // import dateFormat from 'common-javascript-utils/src/date';
 
@@ -41,9 +42,19 @@ export default class BaseGridCtrl {
                 const itemWidth = item.width || 150;
                 const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? (itemWidth + 'px') : 'unset') : (itemWidth + 'px');
                 const fieldName = item.name || item.code;
-                return `<th style="width:${width}">
-                    <div class="bs-ellipsis" title="${fieldName}">${fieldName}</div>
-                </th>`;
+                const thClasses =classes.th + ' ' + (item.tooltip ? classes.tooltipTh : '');
+                return `
+                    <th style="width:${width}">
+                        <div class="${thClasses}">
+                            <div class="bs-ellipsis" title="${fieldName}">${fieldName}</div>
+                            <span
+                                class="iconfont icon-question-mark"
+                                ng-if="'${item.tooltip}'"
+                                cc-tooltip="'${item.tooltip}'"
+                                tooltip-placement="bottom-right">
+                            </span>
+                        </div>
+                    </th>`;
             }).join('')}
 		</tr>`;
 
