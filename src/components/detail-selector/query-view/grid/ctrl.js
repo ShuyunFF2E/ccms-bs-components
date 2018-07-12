@@ -38,11 +38,12 @@ export default class DetailSelectorGridCtrl extends BaseGrid {
 
     // 全选
     switchAllSelect() {
-        const searchObj = this.condition.search;
-        searchObj.includes = [];
-        searchObj.excludes = [];
+        const { search, result } = this.condition;
+        search.includes = [];
+        search.excludes = [];
+        result.excludes = [];
 
-        this.data.forEach(v => v.selected = searchObj.isAllSelected);
+        this.data.forEach(v => v.selected = search.isAllSelected);
 
         this.calculateSelectedCount();
     }
