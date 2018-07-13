@@ -18,11 +18,10 @@ module.exports = {
     },
 
     externals: {
-        'jquery': 'jquery',
         'angular': 'angular',
         'ccms-ep-components': '\'ccms.components\'',
-        // 'angular-resource': '\'angular-resource\'',
-        // 'angular-ui-router': '\'angular-ui-router\'',
+        'angular-resource': '\'angular-resource\'',
+        'angular-ui-router': '\'angular-ui-router\'',
         // 'angular-es-utils': '\'angular-es-utils\''
     },
 

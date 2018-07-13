@@ -1,1 +1,1 @@
-# ccms-bs-components
+# ccms-selector-components
