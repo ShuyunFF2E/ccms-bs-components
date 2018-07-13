@@ -1,13 +1,20 @@
 {
     "name": "ccms-selector-components",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "scripts": {
         "start": "node server.js",
         "build": "rm -rf dist && webpack --config ./webpack/prod.js",
-        "publish": ""
+        "release": "./scripts/publish.sh"
     },
-    "main": "./dist/components.js",
-    "private": true,
+    "main": "./components.js",
+    "private": false,
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "ShuyunFF2E/ccms-bs-components"
+    },
     "dependencies": {
         "angular": "=1.5.8",
         "angular-es-utils": "^2.1.5",
