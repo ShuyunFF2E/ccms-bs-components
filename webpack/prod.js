@@ -14,12 +14,13 @@ module.exports = {
 
     output: {
         path: path.join(__dirname, '../dist'),
-        filename: '[name].js'
+        filename: '[name].js',
+        libraryTarget: 'commonjs2'
     },
 
     externals: {
         'angular': 'angular',
-        'ccms-ep-components': '\'ccms.components\'',
+        'ccms-ep-components': 'ccms-ep-components',
         'angular-resource': '\'angular-resource\'',
         'angular-ui-router': '\'angular-ui-router\'',
         // 'angular-es-utils': '\'angular-es-utils\''
