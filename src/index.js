@@ -18,7 +18,7 @@ import multipleSelect from './components/multiple-select';
 
 const version = process.env.version;
 
-const bsComponents = angular.module('ccms.bs.components', [
+const bsComponents = angular.module('ccms.selector.components', [
     angularDragula(angular),
     ccmsComponents,
     detailSelector,

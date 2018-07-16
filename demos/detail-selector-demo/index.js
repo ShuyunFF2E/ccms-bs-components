@@ -5,7 +5,7 @@ const HOSTS = {
 
 (function(angular) {
     angular
-        .module('app', ['ccms.components', 'ccms.bs.components'])
+        .module('app', ['ccms.components', 'ccms.selector.components'])
         .controller('ctrl', function($scope, $ccTips, $bsSmartDetailSelector) {
 
             const params = window.Qs.parse(window.location.search.replace('?', ''));

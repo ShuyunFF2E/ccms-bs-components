@@ -51,7 +51,10 @@ export default class BaseGridCtrl {
                                 class="iconfont icon-question-mark"
                                 ng-if="'${item.tooltip}'"
                                 cc-tooltip="'${item.tooltip}'"
-                                tooltip-placement="bottom-right">
+                                tooltip-append-to-body="true"
+                                tooltip-style="{zIndex:1600}"
+                                tooltip-placement="bottom-left"
+                            >
                             </span>
                         </div>
                     </th>`;
