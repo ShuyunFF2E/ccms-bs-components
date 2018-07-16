@@ -60,7 +60,13 @@ export default class DetailSelectorService {
         scope.uid = uid;
         scope.config = config;
 
-        title = `<span>${title}</span>${config.description?`<icon class="iconfont icon-bangzhu" cc-tooltip="'${config.description}'"></icon>`:''}`;
+        title = `<span>${title}</span>${config.description?`
+            <icon class="iconfont icon-bangzhu"
+                cc-tooltip="'${config.description}'"
+                tooltip-append-to-body="true"
+                tooltip-style="{zIndex:1600}"
+                tooltip-placement="bottom"
+            ></icon>`:''}`;
 
         return this._$ccModal.modal({
             bindings: scope,

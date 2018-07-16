@@ -48,12 +48,12 @@ export default class BaseGridCtrl {
                         <div class="${thClasses}">
                             <div class="bs-ellipsis" title="${fieldName}">${fieldName}</div>
                             <span
-                                class="iconfont icon-question-mark"
+                                class="iconfont icon-bangzhu"
                                 ng-if="'${item.tooltip}'"
                                 cc-tooltip="'${item.tooltip}'"
                                 tooltip-append-to-body="true"
                                 tooltip-style="{zIndex:1600}"
-                                tooltip-placement="bottom-left"
+                                tooltip-placement="bottom"
                             >
                             </span>
                         </div>
