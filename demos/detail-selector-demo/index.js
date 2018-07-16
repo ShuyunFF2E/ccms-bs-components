@@ -10,12 +10,12 @@ const HOSTS = {
 
             const params = window.Qs.parse(window.location.search.replace('?', ''));
 
-            $scope.ID = params.ID || '';
+            $scope.id = params.id || '';
             $scope.host = params.host || HOSTS.qfish;
             $scope.token = params.token ? decodeURIComponent(params.token) : '';
 
             $scope.quickOpen = function() {
-                if (!$scope.ID) {
+                if (!$scope.id) {
                     return $ccTips.error('请填写实例ID');
                 }
                 if (!$scope.host) {
@@ -26,13 +26,13 @@ const HOSTS = {
                 }
 
                 $bsSmartDetailSelector.open({
-                    configId: $scope.ID,
+                    configId: $scope.id,
                     prefix: $scope.host,
                     token: $scope.token
                 });
             }
 
-            if ($scope.ID && $scope.host && $scope.token) {
+            if ($scope.id && $scope.host && $scope.token) {
                 setTimeout(() => {
                     $scope.quickOpen();
                 }, 200);
