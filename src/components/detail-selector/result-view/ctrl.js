@@ -31,9 +31,16 @@ export default class DetailSelectorResultViewCtrl {
         this.isLoading = true;
         const fetchResult = this.config.fetchResult;
         const conditionObj = this.opts.GlobalConditionObj.conditions.reduce((v, next) => {
-            if (!next.search.isAllSelected && !next.search.includes.length) {
+            // 四大皆空
+            if (!next.search.isAllSelected && !next.search.includes.length && !next.result.excludes.length && !next.result.includes.length) {
                 return v;
             }
+            // if (!next.search.isAllSelected && !next.search.includes.length && next.result.excludes.length) {
+            //     v.search.push({ ...next.search, isExclude: false });
+            //     v.result.push(next.result);
+            //     return v;
+            // }
+
             v.search.push(next.search);
             v.result.push(next.result);
             return v;
