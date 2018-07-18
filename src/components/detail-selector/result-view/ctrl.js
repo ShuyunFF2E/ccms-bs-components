@@ -24,10 +24,10 @@ export default class DetailSelectorResultViewCtrl {
     $onInit() {
         const conditions = this.opts.GlobalConditionObj.conditions;
         this.conditionObj = conditions[conditions.length - 1] || this.conditionObj;
-        this.fetch({ page: 1, size: 10 });
+        this.fetch({ page: 1, size: 10 }, true);
     }
 
-    fetch(params = {}) {
+    fetch(params = {}, isFirst = false) {
         this.isLoading = true;
         const fetchResult = this.config.fetchResult;
         const conditionObj = this.opts.GlobalConditionObj.conditions.reduce((v, next) => {
@@ -56,7 +56,11 @@ export default class DetailSelectorResultViewCtrl {
             this.total = res.total;
             this.isLoading = false;
             Object.assign(this.params, params);
-            this.opts.GlobalConditionObj.statistic = res.total;
+
+            // 首次请求重置统计数据
+            if (isFirst) {
+                this.opts.GlobalConditionObj.statistic = res.total;
+            }
         }).catch(err => {
             this.isLoading = false;
             this._$ccTips.error(err.message, {
