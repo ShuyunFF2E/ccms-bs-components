@@ -1,30 +1,30 @@
 .ccms-modal[data-uid*=CCMS_BS_DETAIL_SELECTOR] .container.modal {
-	min-width: 960px;
+    min-width: 960px;
 }
 
 .ccms-modal[data-uid*=CCMS_BS_DETAIL_SELECTOR] .container.modal .modal-body {
-	overflow: unset;
-	padding-top: 0;
+    overflow: unset;
+    padding-top: 0;
 }
 
 .bs-clearfix {
-	zoom: 1;
+    zoom: 1;
 }
 
 .bs-clearfix:after {
-	display: block;
-	clear: both;
-	content: "";
-	visibility: hidden;
-	height: 0;
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
 }
 
 .bs-ellipsis {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
 }
 
 .ccms-modal[data-uid*=CCMS_BS_DETAIL_SETTING] .container.modal {
-	min-width: 500px;
+    min-width: 500px;
 }
