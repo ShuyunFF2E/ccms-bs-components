@@ -43,7 +43,10 @@ function genColumns(c, fields = []) {
         name: field.displayName || c.columnName,
         code: c.columnName,
         tooltip: c.helpText,
-        dataType: field.typeName
+        dataType: field.typeName,
+        align: c.align || 'left',
+        width: c.width || 150,
+        isFullDisplay: c.isFull || false
     };
 }
 

@@ -1,5 +1,6 @@
 import classes from './index.scss';
 import { isBoolean } from '@/utils';
+import { classesMaster } from '@/utils/classes';
 // import dateFormat from 'common-javascript-utils/src/date';
 
 export default class BaseGridCtrl {
@@ -28,25 +29,21 @@ export default class BaseGridCtrl {
 
     // 多选框
     generateCheckboxGridColumns(columns, conditionType) {
-        const headerTpl = `<tr>
-			<th style="width:30px;">
-                <cc-checkbox
-                    ng-model="$parent.$ctrl.condition.${conditionType}.isAllSelected"
-                    ng-change="$parent.$ctrl.switchAllSelect()"
-                    ng-disabled="!$parent.$ctrl.data.length"
-                    cc-tooltip="'选中所有的数据'"
-                    tooltip-placement="bottom-left"
-                ></cc-checkbox>
-			</th>
-			${columns.map((item,index) => {
-                const itemWidth = item.width || 150;
-                const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? (itemWidth + 'px') : 'unset') : (itemWidth + 'px');
-                const fieldName = item.name || item.code;
-                const thClasses =classes.th + ' ' + (item.tooltip ? classes.tooltipTh : '');
-                return `
+
+        const columnsTpl = columns.map((item, index) => {
+            const itemWidth = item.width || 150;
+            const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? (itemWidth + 'px') : 'unset') : (itemWidth + 'px');
+
+            const thClasses = classesMaster({
+                [classes.th]: true,
+                [classes.tooltipTh]: !!item.tooltip,
+                [classes.alignLeft]: item.align === 'left',
+                [classes.alignRight]: item.align === 'right'
+            });
+            return `
                     <th style="width:${width}">
                         <div class="${thClasses}">
-                            <div class="bs-ellipsis" title="${fieldName}">${fieldName}</div>
+                            <div class="bs-ellipsis" title="${item.name}">${item.name}</div>
                             <span
                                 class="iconfont icon-bangzhu"
                                 ng-if="'${item.tooltip}'"
@@ -58,8 +55,22 @@ export default class BaseGridCtrl {
                             </span>
                         </div>
                     </th>`;
-            }).join('')}
-		</tr>`;
+        }).join('');
+
+
+        const headerTpl = `
+            <tr>
+                <th style="width:30px;">
+                    <cc-checkbox
+                        ng-model="$parent.$ctrl.condition.${conditionType}.isAllSelected"
+                        ng-change="$parent.$ctrl.switchAllSelect()"
+                        ng-disabled="!$parent.$ctrl.data.length"
+                        cc-tooltip="'选中所有的数据'"
+                        tooltip-placement="bottom-left"
+                    ></cc-checkbox>
+                </th>
+                ${columnsTpl}
+            </tr>`;
 
         const columnsDef = [{
             cellTemplate: `
@@ -71,15 +82,21 @@ export default class BaseGridCtrl {
         }].concat(columns.map((item, index) => {
             const itemWidth = item.width || 150;
             const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? (itemWidth + 'px') : 'unset') : (itemWidth + 'px');
+            const tdClasses = classesMaster({
+                [classes.td]: true,
+                [classes.alignLeft]: item.align === 'left',
+                [classes.alignRight]: item.align === 'right',
+                'bs-ellipsis': !item.isFullDisplay
+            });
             return {
-                cellTemplate: `<div class="bs-ellipsis">
+                cellTemplate: `<div class="${tdClasses}">
                     <span
                         ng-bind="$ctrl.fieldParser.${item.code}(entity.${item.code})"
                         title="{{$ctrl.fieldParser.${item.code}(entity.${item.code})}}"
                     ></span>
                   </div>`,
                 field: item.code,
-                displayName: item.name || item.code,
+                displayName: item.name,
                 tooltip: item.tooltip,
                 width
             };
