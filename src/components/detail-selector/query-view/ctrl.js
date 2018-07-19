@@ -34,7 +34,17 @@ export default class DetailSelectorQueryViewCtrl {
     total = 0;
     data = [];
 
-    conditionObj = genDefaultConditionObj();
+
+    constructor() {
+        // 初始化时默认添加一个条件
+        const conditionObj = genDefaultConditionObj();
+        this.opts.GlobalConditionObj.conditions.push(conditionObj);
+    }
+
+    get conditionObj() {
+        const { conditions } = this.opts.GlobalConditionObj;
+        return conditions[conditions.length - 1];
+    }
 
     $onInit() {
         this.fetch({ page: 1, size: 10 }, true);
@@ -57,7 +67,6 @@ export default class DetailSelectorQueryViewCtrl {
                     return item.map(sub => ({ ...sub }));
                 });
                 const conditionObj = genDefaultConditionObj(conditions);
-                this.conditionObj = conditionObj;
                 GlobalConditionObj.conditions.push(conditionObj);
             }
             this.calculateDataState(true);
