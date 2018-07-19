@@ -35,14 +35,17 @@ export default class BaseGridCtrl {
             const width = (index === columns.length - 1) ? (this.gridWidth > 920 ? (itemWidth + 'px') : 'unset') : (itemWidth + 'px');
 
             const thClasses = classesMaster({
-                [classes.th]: true,
-                [classes.tooltipTh]: !!item.tooltip,
                 [classes.alignLeft]: item.align === 'left',
                 [classes.alignRight]: item.align === 'right'
             });
+            const thDivClasses = classesMaster({
+                [classes.th]: true,
+                [classes.tooltipTh]: !!item.tooltip,
+            });
+
             return `
-                    <th style="width:${width}">
-                        <div class="${thClasses}">
+                    <th style="width:${width}" class="${thClasses}">
+                        <div class="${thDivClasses}">
                             <div class="bs-ellipsis" title="${item.name}">${item.name}</div>
                             <span
                                 class="iconfont icon-bangzhu"
