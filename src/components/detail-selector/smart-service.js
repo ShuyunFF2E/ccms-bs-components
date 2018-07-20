@@ -137,8 +137,14 @@ function genSearchFetch({ fetch, prefix, token, configId }) {
 
 function genResultFetch({ fetch, prefix, token, configId, snapshotId }) {
     const url = prefix + '/detailSelector/select/data';
+
     return (params) => {
-        return fetch(url, token).post({
+        const lastAdditionCondition = params.additionCondition[params.additionCondition.length - 1];
+        const isLastSelect = lastAdditionCondition ? lastAdditionCondition.isAllSelected : true;
+
+        const dataURL = `${url}?isLastSelect=${isLastSelect}`;
+
+        return fetch(dataURL, token).post({
             id: configId,
             snapshotId,
             offset: (params.page - 1) * params.size,
