@@ -71,3 +71,12 @@
 .align-right {
     text-align: right !important;
 }
+
+.gridOverScroll {
+    :global(.cc-grid > .cc-grid-header) {
+        overflow-y: scroll !important;
+    }
+    :global(.cc-grid > .cc-grid-body > .datalist) {
+        overflow-y: scroll;
+    }
+}

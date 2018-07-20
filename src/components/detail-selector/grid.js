@@ -2,10 +2,12 @@ import classes from './index.scss';
 import { isBoolean } from '@/utils';
 import { classesMaster } from '@/utils/classes';
 // import dateFormat from 'common-javascript-utils/src/date';
+import Browser from '@/utils/browser';
 
 export default class BaseGridCtrl {
     gridWidth = 920;
     fieldParser = {};
+    gridClasses = {};
 
     gridOpts = {
         showPagination: false,
@@ -19,6 +21,9 @@ export default class BaseGridCtrl {
             gridWidth += item.width || 150;
         });
         this.gridWidth = gridWidth;
+        if (gridWidth > 920 && Browser.os === 'Windows') {
+            this.gridClasses[classes.gridOverScroll] = true;
+        }
         this.generateGridColumns(columns, conditionType);
     }
 
