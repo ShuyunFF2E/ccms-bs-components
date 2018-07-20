@@ -47,6 +47,11 @@ export default class MultipleSelectCtrl {
         this.$input.removeEventListener('compositionend', this.onCompositionEnd);
     }
 
+    open() {
+        this.setInputFocus();
+        this.isOpen = true;
+    }
+
     getElement(className) {
         return this._$element[0].querySelector('.' + className);
     }
@@ -74,7 +79,10 @@ export default class MultipleSelectCtrl {
     click = evt => {
         const targetClassList = [...evt.target.classList];
         if (!this._$element[0].contains(evt.target)) {
-            this.pushKeyword();
+            if (this.isOpen) {
+                this.isOpen = false;
+                this.pushKeyword();
+            }
         } else if (!targetClassList.includes(classes.btnRemove) &&
             !targetClassList.includes(classes.input)) {
             this.$input.focus();

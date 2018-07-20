@@ -1,4 +1,6 @@
-<div cc-dropdown on-dropdown-open="$ctrl.setInputFocus()" ng-class="$ctrl.classes.vcontainer">
+<div cc-dropdown
+    on-dropdown-open="$ctrl.open()"
+    ng-class="$ctrl.classes.vcontainer">
     <div cc-dropdown-toggle ng-class="$ctrl.classes.keywords">
         <div ng-class="$ctrl.classes.wrap">
             <div ng-class="$ctrl.classes.item" ng-repeat="keyword in $ctrl.ngModel">{{keyword}}</div>
