@@ -1,6 +1,6 @@
 {
     "name": "ccms-selector-components",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "scripts": {
         "start": "node server.js",
         "build": "rm -rf dist && webpack --config ./webpack/prod.js",
